@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { MdInfo } from "react-icons/md";
 import axios from "axios";
 
 const SearchBar = () => {
@@ -28,25 +29,39 @@ const SearchBar = () => {
   }, [inputUser]);
 
   return (
-    <>
+    <div className="flex flex-col w-full">
       <input
         type="text"
         value={inputUser}
         onChange={(e) => setInputUser(e.target.value)}
         placeholder="Rechercher un film"
-        className="w-3/4 mx-44 mt-6 mb-8 pl-6 h-12 border border-green-500 text-green-600 text-center font-medium rounded-full placeholder-green-400"
+        className="w-1/4 mx-auto mt-6 mb-8 pl-6 h-12 border border-green-500 text-green-600 font-medium rounded-full placeholder-green-400"
       />
-      <ul className="ml-4">
-        {movies.map((m) => (
-          <li key={m._id} className="flex flex-row mb-2">
-            <p className="w-16 mr-4 bg-green-800 text-white text-center font-semibold rounded-xl">
-              {m.ref}
-            </p>
-            <p className="text-green-700 font-light">{m.title}</p>
-          </li>
-        ))}
-      </ul>
-    </>
+      {movies ? (
+        <ul className="w-max mx-auto">
+          {movies.map((m) => (
+            <li key={m._id}>
+              <a
+                href={`/movie/${m.title.toLowerCase()}`}
+                className="flex flex-row mb-2"
+              >
+                <p className="flex items-center justify-center w-16 h-6 mr-4 bg-green-800 text-white text-center text-sm font-semibold rounded-xl">
+                  {m.ref}
+                </p>
+                <p className="text-green-700 font-light">{m.title}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className="flex items-center w-max mx-auto mt-60">
+          <MdInfo className="w-6 mr-2 h-6 text-green-800" />
+          <p className="text-green-600 text-sm font-semibold">
+            {`Nous n'avons pas trouvé de films !`}
+          </p>
+        </div>
+      )}
+    </div>
   );
 };
 
