@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import TitlePage from "./components/TitlePage";
+import ListPage from "./screens/ListPage";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-const App = () => {
-  const [movies, setMovies] = useState([]);
-  useEffect(() => {
-    const fetchMovies = async () => {
-      setMovies(
-        await axios.get("http://localhost:8080").then((res) => res.data)
-      );
-    };
-    fetchMovies();
-  }, []);
-
-  return (
-    <div className="App">
-      <TitlePage />
-    </div>
-  );
-};
+const App = () => (
+  <Router>
+    <Switch>
+      <Route path="/">
+        <ListPage />
+      </Route>
+    </Switch>
+  </Router>
+);
 
 export default App;
