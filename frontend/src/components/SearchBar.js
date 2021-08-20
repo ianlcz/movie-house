@@ -42,7 +42,7 @@ const SearchBar = () => {
           {movies.map((m) => (
             <li key={m._id}>
               <a
-                href={`/movie/${m.title.toLowerCase()}`}
+                href={`/movie/${m.title.toLowerCase()}?year=${m.year}`}
                 className="flex flex-row mb-2"
               >
                 <p className="flex items-center justify-center w-16 h-6 mr-4 bg-green-800 text-white text-center text-sm font-semibold rounded-xl">
