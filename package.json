@@ -24,7 +24,7 @@
     "eject": "react-scripts eject",
     "now-build": "craco build && mv build dist"
   },
-  "proxy": "https://localhost:5000/",
+  "proxy": "http://localhost:5000/",
   "eslintConfig": {
     "extends": [
       "react-app",

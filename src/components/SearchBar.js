@@ -9,19 +9,17 @@ const SearchBar = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       const result = await axios
-        .get("/api/")
+        .get("api/")
         .then((res) => res.data)
         .catch((err) => console.error(err.message));
 
       if (inputUser !== "") {
-        console.log("1");
         setMovies(
           result.filter((m) =>
             m.title.toLowerCase().includes(inputUser.toLowerCase())
           )
         );
       } else {
-        console.log("2");
         setMovies(result);
       }
     };

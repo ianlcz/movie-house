@@ -119,7 +119,7 @@ const HeadBand = ({
                         className={`flex flex-row ml-2 items-center ${
                           Math.round((revenue / budget - 1) * 100) < 50
                             ? "text-red-600"
-                            : "text-blue-600"
+                            : "text-green-600"
                         }`}
                       >
                         {Math.round((revenue / budget - 1) * 100) < 50 ? (

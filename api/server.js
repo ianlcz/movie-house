@@ -1,25 +1,16 @@
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
-const http = require("http");
-const https = require("https");
-const app = express();
+const server = express();
 const bodyParser = require("body-parser");
 const Collection = require("./models/Collection");
-
-const privateKey = fs.readFileSync("certificates/localhost.key", "utf8");
-const certificate = fs.readFileSync("certificates/localhost.crt", "utf8");
-const credentials = { key: privateKey, cert: certificate };
 require("./dbConnect");
 
-const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
+server.use(cors());
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
-
-app.get(`/api/`, (req, res) => {
+server.get(`/api/`, (req, res) => {
   Collection.findOne({}, (err, data) => {
     if (err) {
       console.error(err.message);
@@ -31,5 +22,7 @@ app.get(`/api/`, (req, res) => {
   });
 });
 
-httpServer.listen(8080);
-httpsServer.listen(5000, () => console.log(`listening on port 5000`));
+server.listen(5000, (err) => {
+  if (err) throw err;
+  console.log("Server started on http://localhost:5000");
+});
