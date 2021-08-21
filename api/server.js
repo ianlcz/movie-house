@@ -1,17 +1,19 @@
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
+const http = require("http");
 const https = require("https");
 const app = express();
 const bodyParser = require("body-parser");
 const Collection = require("./models/Collection");
-const PORT = process.env.PORT || 5000;
 
-const privateKey = fs.readFileSync("./certificates/localhost.key", "utf8");
-const certificate = fs.readFileSync("./certificates/localhost.crt", "utf8");
+const privateKey = fs.readFileSync("certificates/localhost.key", "utf8");
+const certificate = fs.readFileSync("certificates/localhost.crt", "utf8");
 const credentials = { key: privateKey, cert: certificate };
-const httpsServer = https.createServer(credentials, app);
 require("./dbConnect");
+
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -29,4 +31,5 @@ app.get(`/api/`, (req, res) => {
   });
 });
 
-httpsServer.listen(PORT, () => console.log(`listening on port ${PORT}`));
+httpServer.listen(8080);
+httpsServer.listen(5000, () => console.log(`listening on port 5000`));
