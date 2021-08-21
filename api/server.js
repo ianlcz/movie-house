@@ -7,8 +7,8 @@ const bodyParser = require("body-parser");
 const Collection = require("./models/Collection");
 const PORT = process.env.PORT || 5000;
 
-const privateKey = fs.readFileSync("../certificates/localhost.key", "utf8");
-const certificate = fs.readFileSync("../certificates/localhost.crt", "utf8");
+const privateKey = fs.readFileSync("./certificates/localhost.key", "utf8");
+const certificate = fs.readFileSync("./certificates/localhost.crt", "utf8");
 const credentials = { key: privateKey, cert: certificate };
 const httpsServer = https.createServer(credentials, app);
 require("./dbConnect");
