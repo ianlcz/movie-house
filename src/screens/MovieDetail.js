@@ -18,7 +18,9 @@ const MovieDetail = () => {
       .then((res) => res.data)
       .catch((err) => console.error(err.message));
 
-    return moviesInCollection.filter((m) => m.title === decodeURI(title))[0];
+    return moviesInCollection.filter(
+      (m) => m.title.toLowerCase() === decodeURI(title.toLowerCase())
+    )[0];
   };
 
   useEffect(() => {

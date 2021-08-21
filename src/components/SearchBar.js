@@ -46,7 +46,10 @@ const SearchBar = () => {
                 <p className="flex items-center justify-center w-16 h-6 mr-4 shadow-inner bg-gradient-to-br from-blue-800 to-blue-500 text-white text-center text-sm font-semibold rounded-xl">
                   {m.ref}
                 </p>
-                <p className="text-blue-700 font-light">{m.title}</p>
+                <p className="text-blue-700 font-light">
+                  {m.title}
+                  {m.year ? <span className="ml-1 font-medium text-sm">{`(${m.year})`}</span> : undefined}
+                </p>
               </a>
             </li>
           ))}
