@@ -9,7 +9,7 @@ const SearchBar = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       const result = await axios
-        .get("http://localhost:8080")
+        .get("https://localhost:5000")
         .then((res) => res.data)
         .catch((err) => console.error(err.message));
 

@@ -14,7 +14,7 @@ const MovieDetail = () => {
 
   const findMovie = async () => {
     const moviesInCollection = await axios
-      .get("http://localhost:8080")
+      .get("https://localhost:5000")
       .then((res) => res.data)
       .catch((err) => console.error(err.message));
 

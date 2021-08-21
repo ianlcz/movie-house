@@ -9,6 +9,7 @@ const HeadBand = ({
       ref,
       backdrop_path,
       title,
+      tagline,
       genres,
       runtime,
       poster_path,
@@ -72,7 +73,7 @@ const HeadBand = ({
             )}
           </div>
 
-          <div className="mt-4 mb-8">
+          <div className="my-4">
             <p className="font-medium text-blue-100 text-center mb-2">
               Un film de
             </p>
@@ -91,6 +92,10 @@ const HeadBand = ({
               ))}
             </ul>
           </div>
+
+          {tagline ? (
+            <p className="mb-4 text-sm italic text-center">{tagline}</p>
+          ) : undefined}
 
           <table className="w-1/2 mx-auto bg-blue-100 bg-opacity-95 rounded-full">
             <thead>
@@ -114,7 +119,7 @@ const HeadBand = ({
                         className={`flex flex-row ml-2 items-center ${
                           Math.round((revenue / budget - 1) * 100) < 50
                             ? "text-red-600"
-                            : "text-green-600"
+                            : "text-blue-600"
                         }`}
                       >
                         {Math.round((revenue / budget - 1) * 100) < 50 ? (
