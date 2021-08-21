@@ -117,12 +117,10 @@ const HeadBand = ({
                     {budget > 0 ? (
                       <div
                         className={`flex flex-row ml-2 items-center ${
-                          Math.round((revenue / budget - 1) * 100) < 50
-                            ? "text-red-600"
-                            : "text-green-600"
+                          revenue < budget ? "text-red-600" : "text-green-600"
                         }`}
                       >
-                        {Math.round((revenue / budget - 1) * 100) < 50 ? (
+                        {revenue < budget ? (
                           <IoArrowDownCircle />
                         ) : (
                           <IoArrowUpCircle />
