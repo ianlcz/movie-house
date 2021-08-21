@@ -1,13 +1,16 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
+const fs = require("fs");
+const server = express();
 const bodyParser = require("body-parser");
 const Collection = require("./models/Collection");
 require("./dbConnect");
 
-app.use(cors());
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
+server.use(cors());
 
-app.get(`/`, (req, res) => {
+server.get(`/api/`, (req, res) => {
   Collection.findOne({}, (err, data) => {
     if (err) {
       console.error(err.message);
@@ -19,6 +22,7 @@ app.get(`/`, (req, res) => {
   });
 });
 
-app.listen(8080, () => {
-  console.log("Server running on http://localhost:8080");
+server.listen(5000, (err) => {
+  if (err) throw err;
+  console.log("Server started on http://localhost:5000");
 });
