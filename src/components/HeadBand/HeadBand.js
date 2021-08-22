@@ -9,7 +9,9 @@ const HeadBand = ({
       ref,
       backdrop_path,
       title,
+      overview,
       tagline,
+      production_companies,
       genres,
       runtime,
       poster_path,
@@ -32,14 +34,14 @@ const HeadBand = ({
         <img
           src={`https://image.tmdb.org/t/p/original/${poster_path}`}
           alt={`Affiche du film : ${title}`}
-          className="w-40 rounded-lg shadow-lg"
+          className="w-52 rounded-xl shadow-lg"
         />
 
         <div className="flex flex-col w-1/2">
           <p className="w-16 mx-auto mb-2 px-2 py-0.5 text-xs text-center font-semibold rounded-full bg-gradient-to-tr from-blue-800 to-blue-500">
             {ref}
           </p>
-          <div className="flex flex-row w-max mx-auto mb-2 items-center">
+          <div className="flex flex-row w-max mx-auto mb-2 items-center truncate">
             <h1 className="text-4xl font-semibold">{title}</h1>
             <span className="ml-2 text-2xl font-light">
               ({new Date(release_date).getFullYear()})
@@ -94,10 +96,21 @@ const HeadBand = ({
           </div>
 
           {tagline ? (
-            <p className="mb-4 text-sm italic text-center">{tagline}</p>
+            <p className="mb-2 text-blue-100 font-medium text-sm italic">
+              {tagline}
+            </p>
           ) : undefined}
 
-          <table className="w-1/2 mx-auto bg-blue-100 bg-opacity-95 rounded-full">
+          {overview ? (
+            <div className="mb-8">
+              <h2 className="text-xl undefined mb-2 font-medium">Synopsis</h2>
+              <p className="leading-snug font-light text-base text-justify">
+                {overview}
+              </p>
+            </div>
+          ) : undefined}
+
+          <table className="w-1/2 mx-auto shadow-inner bg-blue-100 bg-opacity-95 rounded-full">
             <thead>
               <tr className="text-base text-blue-800">
                 <th>Score</th>
