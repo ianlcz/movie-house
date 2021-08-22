@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { useLocation, useParams } from "react-router-dom";
 import HeadBand from "../components/HeadBand/HeadBand";
 import Pane from "../components/Pane/Pane";
 
@@ -9,6 +10,7 @@ const MovieDetail = () => {
   const [detail, setDetail] = useState({});
   const [directors, setDirectors] = useState([]);
   const [cast, setCast] = useState([]);
+  const year = new URLSearchParams(useLocation().search).get("year");
 
   const API_KEY = "aeeca3eb934c595a32cbd53a16f76f64";
 
@@ -18,9 +20,12 @@ const MovieDetail = () => {
       .then((res) => res.data)
       .catch((err) => console.error(err.message));
 
-    return moviesInCollection.filter(
-      (m) => m.title.toLowerCase() === decodeURI(title.toLowerCase())
-    )[0];
+    return moviesInCollection.filter((m) => {
+      return (
+        m.title.toLowerCase() === decodeURI(title.toLowerCase()) &&
+        m.year == year
+      );
+    })[0];
   };
 
   useEffect(() => {
@@ -33,6 +38,8 @@ const MovieDetail = () => {
         )
         .then((res) => res.data.results)
         .catch((err) => console.error(err.message));
+
+      console.log(movieFinded, moviesTMDB);
 
       const movieID = moviesTMDB.filter(
         (m) =>
@@ -72,12 +79,17 @@ const MovieDetail = () => {
     fetchData();
   }, [title]);
 
-  console.log(detail, cast);
+  console.log(detail);
 
   return (
     <>
+      {detail.title ? (
+        <Helmet>
+          <title>{`${detail.title} | Movie House`}</title>
+        </Helmet>
+      ) : undefined}
       <HeadBand>{{ detail, directors }}</HeadBand>
-      <Pane />
+      <Pane>{{ detail, cast }}</Pane>
     </>
   );
 };
