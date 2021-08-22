@@ -7,10 +7,31 @@ const Pane = ({
     cast,
   },
 }) => (
-  <div className="flex flex-row bg-blue-50 -mt-10 px-6 py-6 shadow-md rounded-2xl max-h-screen z-10 relative">
-    <div className="w-4/5">
+  <div className="flex flex-row bg-blue-50 -mt-10 px-6 py-6 shadow-md rounded-t-2xl max-h-screen z-10 relative">
+    <div className={belongs_to_collection ? "w-4/5" : "w-full"}>
       {production_companies ? (
         <div className="text-blue-800">
+          <h2 className="text-xl text-blue-800 mb-4 text-center font-semibold">
+            {production_companies.length > 1 ? "Sociétés" : "Société"} de
+            production
+          </h2>
+          <ul className="flex flex-row justify-evenly">
+            {production_companies.slice(0, 2).map((p) => (
+              <li key={p.id}>
+                {p.logo_path ? (
+                  <img
+                    src={`https://image.tmdb.org/t/p/original/${p.logo_path}`}
+                    alt={`Logo de ${p.name}`}
+                    className="h-8 mx-auto"
+                  />
+                ) : undefined}
+                <p className="w-max mx-auto mt-2 text-blue-800 text-center text-xs font-medium">
+                  {p.name}
+                </p>
+              </li>
+            ))}
+          </ul>
+
           <h2 className="text-xl mb-4 text-center font-semibold">
             Distribution
           </h2>
@@ -38,47 +59,25 @@ const Pane = ({
       ) : undefined}
     </div>
 
-    {production_companies ? (
+    {belongs_to_collection ? (
       <div className="my-auto w-1/5">
-        <h2 className="text-xl text-blue-800 mb-4 text-center font-semibold">
-          Produit par
-        </h2>
-        <ul className="flex flex-row justify-evenly">
-          {production_companies.slice(0, 2).map((p) => (
-            <li key={p.id} className="mb-6">
-              {p.logo_path ? (
-                <img
-                  src={`https://image.tmdb.org/t/p/original/${p.logo_path}`}
-                  alt={`Logo de ${p.name}`}
-                  className="h-8 mx-auto"
-                />
-              ) : undefined}
-              <p className="w-max mx-auto mt-2 px-2 py-0.5 text-white text-center text-xs font-medium bg-gradient-to-br from-blue-800 to-blue-400 rounded-full">
-                {p.name}
+        <div className="w-full">
+          <Background
+            data={{
+              cover: `https://image.tmdb.org/t/p/original/${belongs_to_collection.backdrop_path}`,
+              title: belongs_to_collection.name,
+            }}
+          >
+            <div className="flex flex-col">
+              <h3 className="font-bold text-lg text-center text-blue-200">
+                Collection
+              </h3>
+              <p className="ml-2 font-medium text-center text-blue-200">
+                {belongs_to_collection.name.split(" - ")[0]}
               </p>
-            </li>
-          ))}
-        </ul>
-
-        {belongs_to_collection ? (
-          <div className="w-full">
-            <Background
-              data={{
-                cover: `https://image.tmdb.org/t/p/original/${belongs_to_collection.backdrop_path}`,
-                title: belongs_to_collection.name,
-              }}
-            >
-              <div className="flex flex-col">
-                <h3 className="font-bold text-lg text-center text-blue-200">
-                  Collection
-                </h3>
-                <p className="ml-2 font-medium text-center text-blue-200">
-                  {belongs_to_collection.name.split(" - ")[0]}
-                </p>
-              </div>
-            </Background>
-          </div>
-        ) : undefined}
+            </div>
+          </Background>
+        </div>
       </div>
     ) : undefined}
   </div>

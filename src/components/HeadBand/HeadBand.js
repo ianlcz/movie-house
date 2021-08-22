@@ -130,7 +130,11 @@ const HeadBand = ({
                     {budget > 0 ? (
                       <div
                         className={`flex flex-row ml-2 items-center ${
-                          revenue < budget ? "text-red-600" : "text-green-600"
+                          revenue < budget
+                            ? "text-red-600"
+                            : revenue < 1.5 * budget
+                            ? "text-yellow-600"
+                            : "text-green-600"
                         }`}
                       >
                         {revenue < budget ? (
