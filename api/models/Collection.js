@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 
 const CollectionSchema = new mongoose.Schema(
   {
-    owner: mongoose.SchemaTypes.ObjectId,
-    movies: mongoose.SchemaTypes.Array,
+    movies: { type: mongoose.SchemaTypes.Array, default: [] },
   },
   {
     collection: "Collection",

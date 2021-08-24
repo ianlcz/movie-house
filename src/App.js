@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ListPage from "./screens/ListPage";
 import MovieDetail from "./screens/MovieDetail";
+import Register from "./screens/Register";
 
 const App = () => (
   <Router>
@@ -10,6 +11,9 @@ const App = () => (
       </Route>
       <Route path="/movie/:title">
         <MovieDetail />
+      </Route>
+      <Route path="/register">
+        <Register />
       </Route>
     </Switch>
   </Router>
