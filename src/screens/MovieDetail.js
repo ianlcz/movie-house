@@ -20,32 +20,40 @@ const MovieDetail = () => {
       .then((res) => res.data)
       .catch((err) => console.error(err.message));
 
-    return moviesInCollection.filter((m) => {
-      return (
-        m.title.toLowerCase() === decodeURI(title.toLowerCase()) &&
-        m.year == year
-      );
-    })[0];
+    return moviesInCollection.filter(
+      (m) =>
+        m.title.trim().toLowerCase() ===
+          decodeURI(title).trim().toLowerCase() && m.year == year
+    )[0];
   };
 
   useEffect(() => {
     const fetchData = async () => {
       const movieFinded = await findMovie();
 
-      const moviesTMDB = await axios
+      const results = await axios
         .get(
-          `https://api.themoviedb.org/3/search/movie?query=${movieFinded.title}&api_key=${API_KEY}&language=fr-FR&primary_release_year=${movieFinded.year}`
+          `https://api.themoviedb.org/3/search/movie?query=${encodeURI(
+            movieFinded.title.trim()
+          )}&api_key=${API_KEY}&language=fr-FR&primary_release_year=${
+            movieFinded.year
+          }`
         )
         .then((res) => res.data.results)
         .catch((err) => console.error(err.message));
 
-      console.log(movieFinded, moviesTMDB);
+      console.log(movieFinded, results, results[0]);
 
-      const movieID = moviesTMDB.filter(
-        (m) =>
-          m.original_title.toLowerCase() === movieFinded.title.toLowerCase() ||
-          m.title.toLowerCase() === movieFinded.title.toLowerCase()
-      )[0].id;
+      const moviesTMDB =
+        movieFinded.year && results.length > 1
+          ? results.filter(
+              (m) =>
+                m.title.trim().toLowerCase() ===
+                movieFinded.title.trim().toLowerCase()
+            )
+          : results;
+
+      const movieID = moviesTMDB[0].id;
 
       const movie = await axios
         .get(
@@ -78,8 +86,6 @@ const MovieDetail = () => {
     };
     fetchData();
   }, [title]);
-
-  console.log(detail);
 
   return (
     <>
