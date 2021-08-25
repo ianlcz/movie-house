@@ -7,6 +7,7 @@ const Collection = require("./models/Collection");
 const Owner = require("./models/Owner");
 const { collection } = require("./models/Collection");
 const bcrypt = require("bcryptjs");
+const { sign } = require("jsonwebtoken");
 require("./dbConnect");
 
 server.use(express.json());
@@ -50,11 +51,60 @@ server.post("/api/register", async (req, res) => {
 
       res
         .status(200)
-        .json({ success: true, message: `A new user has been registered` });
+        .json({ success: true, message: "A new user has been registered" });
     } else {
       res.json({
         success: false,
         message: "We didn't registered this new user !",
+      });
+    }
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+server.get("/api/account/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const owner = await Owner.findById(id);
+
+    if (owner) {
+      res.status(200).json({ success: true, owner });
+    } else {
+      res.json({ success: false, message: "Owner not found !" });
+    }
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+server.post("/api/login", async (req, res) => {
+  const { emailAddress, password } = req.body;
+  try {
+    const owner = await Owner.findOne({ emailAddress });
+
+    if (owner) {
+      bcrypt.compare(password, owner.password, async (err, result) => {
+        if (!err && result) {
+          const claims = { sub: owner._id, emailAddress };
+          const token = sign(claims, process.env.JWT_SECRET, {
+            expiresIn: "7d",
+          });
+
+          console.log(token);
+
+          res.status(200).json({ success: true, token });
+        } else {
+          res.json({
+            success: false,
+            message: err.message,
+          });
+        }
+      });
+    } else {
+      res.json({
+        success: false,
+        message: "Owner not found !",
       });
     }
   } catch (err) {
