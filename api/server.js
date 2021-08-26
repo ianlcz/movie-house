@@ -14,14 +14,13 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(cors());
 
-server.get(`/api/`, (req, res) => {
-  const { collectionId } = req.body;
+server.get(`/api/collection/:id`, (req, res) => {
+  const { id } = req.params;
 
-  Collection.findOne({ _id: collectionId }, (err, data) => {
+  Collection.findOne({ _id: id }, (err, data) => {
     if (!err) {
-      const { movies } = data;
-      console.log(JSON.stringify(movies, null, 2));
-      res.status(200).send(movies);
+      console.log(JSON.stringify(data, null, 2));
+      res.status(200).send(data);
     }
   });
 });
@@ -89,7 +88,7 @@ server.post("/api/login", async (req, res) => {
     if (owner) {
       bcrypt.compare(password, owner.password, async (err, result) => {
         if (!err && result) {
-          const claims = { sub: owner._id, emailAddress };
+          const claims = { sub: owner._id, emailAddress, movies: owner.movies };
           const token = sign(claims, process.env.JWT_SECRET, {
             expiresIn: "7d",
           });

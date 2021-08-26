@@ -5,9 +5,12 @@ import axios from "axios";
 import AuthContext from "../auth/AuthContext";
 import HeadBand from "../components/HeadBand/HeadBand";
 import Pane from "../components/Pane/Pane";
+import { getCookieFromBrowser } from "../auth/cookies";
+import jwtDecode from "jwt-decode";
 
 const MovieDetail = () => {
-  const { user } = useContext(AuthContext);
+  const token = getCookieFromBrowser("authToken");
+  const user = jwtDecode(token);
   const { title } = useParams();
   const [detail, setDetail] = useState({});
   const [directors, setDirectors] = useState([]);
@@ -16,12 +19,10 @@ const MovieDetail = () => {
 
   const API_KEY = "aeeca3eb934c595a32cbd53a16f76f64";
 
-  console.log(user);
-
   const findMovie = async () => {
     const moviesInCollection = await axios
-      .get("http://localhost:5000/api/", { collectionId: user.movies._id })
-      .then((res) => res.data)
+      .get(`/api/collection/${user.movies}`)
+      .then((res) => res.data.movies)
       .catch((err) => console.error(err.message));
 
     return moviesInCollection.filter(
@@ -46,7 +47,7 @@ const MovieDetail = () => {
         .then((res) => res.data.results)
         .catch((err) => console.error(err.message));
 
-      console.log(movieFinded, results, results[0]);
+      console.log(movieFinded, results[0]);
 
       const moviesTMDB =
         movieFinded.year && results.length > 1
