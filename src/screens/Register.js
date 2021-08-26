@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const Register = () => {
+  const history = useHistory();
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -17,6 +19,8 @@ const Register = () => {
       })
       .then((res) => console.log(res.data))
       .catch((err) => console.error(err.message));
+
+    history.push("/");
   };
 
   return (

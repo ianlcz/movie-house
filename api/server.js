@@ -15,10 +15,10 @@ server.use(express.urlencoded({ extended: true }));
 server.use(cors());
 
 server.get(`/api/`, (req, res) => {
-  Collection.findOne({}, (err, data) => {
-    if (err) {
-      console.error(err.message);
-    } else {
+  const { collectionId } = req.body;
+
+  Collection.findOne({ _id: collectionId }, (err, data) => {
+    if (!err) {
       const { movies } = data;
       console.log(JSON.stringify(movies, null, 2));
       res.status(200).send(movies);
@@ -66,7 +66,10 @@ server.post("/api/register", async (req, res) => {
 server.get("/api/account/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const owner = await Owner.findById(id);
+    const owner = await Owner.findOne({ _id: id }).populate({
+      path: "movies",
+      select: ["movies"],
+    });
 
     if (owner) {
       res.status(200).json({ success: true, owner });

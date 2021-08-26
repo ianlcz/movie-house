@@ -4,7 +4,7 @@ const OwnerSchema = new mongoose.Schema(
   {
     emailAddress: mongoose.SchemaTypes.String,
     password: mongoose.SchemaTypes.String,
-    movies: { type: mongoose.Schema.Types.ObjectId, ref: "Collection" },
+    movies: { type: mongoose.Schema.Types.ObjectId, ref: "collection" },
   },
   {
     collection: "Owner",

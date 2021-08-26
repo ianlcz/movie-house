@@ -1,15 +1,19 @@
 import { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import AuthContext from "../auth/AuthContext";
 
 const Login = () => {
   const { login, isAuthenticated } = useContext(AuthContext);
+  const history = useHistory();
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
+
     login(emailAddress, password);
+    history.push("/");
   };
 
   return (

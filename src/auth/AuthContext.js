@@ -24,9 +24,11 @@ export const AuthProvider = ({ children }) => {
           const authData = jwt(token);
           let {
             data: { owner },
-          } = await axios.get(`/api/account/${authData._id}`);
+          } = await axios.get(`/api/account/${authData.sub}`);
 
-          if (owner) setUser(owner);
+          if (owner) {
+            setUser(owner);
+          }
         } catch (error) {
           if (error.response.status === 401) {
             removeCookie("authToken");

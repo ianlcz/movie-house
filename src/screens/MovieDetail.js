@@ -1,11 +1,13 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation, useParams } from "react-router-dom";
+import axios from "axios";
+import AuthContext from "../auth/AuthContext";
 import HeadBand from "../components/HeadBand/HeadBand";
 import Pane from "../components/Pane/Pane";
 
 const MovieDetail = () => {
+  const { user } = useContext(AuthContext);
   const { title } = useParams();
   const [detail, setDetail] = useState({});
   const [directors, setDirectors] = useState([]);
@@ -14,9 +16,11 @@ const MovieDetail = () => {
 
   const API_KEY = "aeeca3eb934c595a32cbd53a16f76f64";
 
+  console.log(user);
+
   const findMovie = async () => {
     const moviesInCollection = await axios
-      .get("/api/")
+      .get("http://localhost:5000/api/", { collectionId: user.movies._id })
       .then((res) => res.data)
       .catch((err) => console.error(err.message));
 
