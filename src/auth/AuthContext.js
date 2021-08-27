@@ -49,6 +49,8 @@ export const AuthProvider = ({ children }) => {
       password,
     });
 
+    console.log(token);
+
     if (token) {
       setCookie("authToken", token);
       axios.defaults.headers.Authorization = `Bearer ${token}`;
