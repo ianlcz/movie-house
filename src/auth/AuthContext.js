@@ -29,11 +29,8 @@ export const AuthProvider = ({ children }) => {
           if (owner) {
             setUser(owner);
           }
-        } catch (error) {
-          if (error.response.status === 401) {
-            removeCookie("authToken");
-            setUser(null);
-          }
+        } catch (err) {
+          console.error(err.message);
         }
       }
       setIsLoading(false);
