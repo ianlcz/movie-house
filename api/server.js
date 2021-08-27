@@ -118,3 +118,11 @@ server.listen(5000, (err) => {
   if (err) throw err;
   console.log("Server started on http://localhost:5000");
 });
+
+module.exports = (req, res) => {
+  res.json({
+    body: req.body,
+    query: req.query,
+    cookies: req.cookies,
+  });
+};

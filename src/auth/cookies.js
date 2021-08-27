@@ -2,17 +2,21 @@ import cookie from "js-cookie";
 
 // Set the cookie
 export const setCookie = (key, value) => {
-  cookie.set(key, value, {
-    expires: 7,
-    path: "/",
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-  });
+  if (process.browser) {
+    cookie.set(key, value, {
+      expires: 7,
+      path: "/",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+  }
 };
 
 // Remove the cookie
 export const removeCookie = (key) => {
-  cookie.remove(key);
+  if (process.browser) {
+    cookie.remove(key);
+  }
 };
 
 // Check if the cookie exists on client side or server side and get it
