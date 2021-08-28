@@ -45,6 +45,19 @@ const Login = () => {
         <div>
           <button type="submit">Connexion</button>
         </div>
+
+        <div className="flex items-center text-xs">
+          <p className="mr-1.5 font-semibold">
+            Vous n'avez pas de compte ?
+          </p>
+
+          <a
+            className="hover:underline cursor-pointer"
+            href="/register"
+          >
+            {`Créer un compte`}
+          </a>
+        </div>
       </form>
     </div>
   );
