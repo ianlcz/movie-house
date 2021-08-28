@@ -8,6 +8,8 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
+    "js-cookie": "^3.0.0",
+    "jwt-decode": "^3.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
@@ -25,7 +27,7 @@
     "eject": "react-scripts eject",
     "now-build": "craco build && mv build dist"
   },
-  "proxy": "http://localhost:5000/",
+  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": [
       "react-app",

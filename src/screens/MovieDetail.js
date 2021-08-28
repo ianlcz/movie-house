@@ -1,11 +1,16 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation, useParams } from "react-router-dom";
+import axios from "axios";
+import AuthContext from "../auth/AuthContext";
 import HeadBand from "../components/HeadBand/HeadBand";
 import Pane from "../components/Pane/Pane";
+import { getCookieFromBrowser } from "../auth/cookies";
+import jwtDecode from "jwt-decode";
 
 const MovieDetail = () => {
+  const token = getCookieFromBrowser("authToken");
+  const user = jwtDecode(token);
   const { title } = useParams();
   const [detail, setDetail] = useState({});
   const [directors, setDirectors] = useState([]);
@@ -16,8 +21,8 @@ const MovieDetail = () => {
 
   const findMovie = async () => {
     const moviesInCollection = await axios
-      .get("/api/")
-      .then((res) => res.data)
+      .get(`/api/collection/${user.movies}`)
+      .then((res) => res.data.movies)
       .catch((err) => console.error(err.message));
 
     return moviesInCollection.filter(
@@ -42,7 +47,7 @@ const MovieDetail = () => {
         .then((res) => res.data.results)
         .catch((err) => console.error(err.message));
 
-      console.log(movieFinded, results, results[0]);
+      console.log(movieFinded, results[0]);
 
       const moviesTMDB =
         movieFinded.year && results.length > 1

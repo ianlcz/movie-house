@@ -1,17 +1,16 @@
-import { useEffect, useState } from "react";
-import { MdInfo } from "react-icons/md";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { MdInfo } from "react-icons/md";
+import AuthContext from "../auth/AuthContext";
 
 const SearchBar = () => {
+  const { user } = useContext(AuthContext);
   const [movies, setMovies] = useState([]);
   const [inputUser, setInputUser] = useState("");
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const result = await axios
-        .get("api/")
-        .then((res) => res.data)
-        .catch((err) => console.error(err.message));
+      const result = user.movies.movies;
 
       if (inputUser !== "") {
         setMovies(
@@ -35,12 +34,12 @@ const SearchBar = () => {
         placeholder="Rechercher un film"
         className="w-1/4 mx-auto mt-6 mb-8 pl-6 h-12 border border-blue-500 text-blue-600 font-medium rounded-full placeholder-blue-400"
       />
-      {movies ? (
+      {movies.length > 0 ? (
         <ul className="w-1/3 mx-auto">
           {movies.map((m) => (
             <li key={m._id}>
               <a
-                href={`/movie/${m.title.toLowerCase()}?year=${m.year}`}
+                href={`/movie/${m.title.trim().toLowerCase()}?year=${m.year}`}
                 className="flex flex-row mb-2"
               >
                 <p className="flex items-center justify-center w-16 h-6 mr-4 shadow-inner bg-gradient-to-br from-blue-800 to-blue-500 text-white text-center text-sm font-semibold rounded-xl">

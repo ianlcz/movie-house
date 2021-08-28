@@ -11,11 +11,11 @@ const Pane = ({
     <div className={belongs_to_collection ? "w-4/5" : "w-full"}>
       {production_companies ? (
         <div className="text-blue-800">
-          <h2 className="text-xl text-blue-800 mb-4 text-center font-semibold">
+          <h2 className="text-xl text-blue-800 text-center font-semibold">
             {production_companies.length > 1 ? "Sociétés" : "Société"} de
             production
           </h2>
-          <ul className="flex flex-row justify-evenly">
+          <ul className="flex flex-row justify-evenly my-6">
             {production_companies.slice(0, 2).map((p) => (
               <li key={p.id}>
                 {p.logo_path ? (
