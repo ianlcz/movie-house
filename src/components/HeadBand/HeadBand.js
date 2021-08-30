@@ -21,6 +21,7 @@ const HeadBand = ({
       release_date,
     },
     directors,
+    compositors,
   },
 }) =>
   directors.length !== 0 ? (
@@ -37,13 +38,13 @@ const HeadBand = ({
           className="w-52 rounded-xl shadow-lg"
         />
 
-        <div className="flex flex-col w-1/2">
+        <div className="flex flex-col w-3/5">
           <p className="w-16 mx-auto mb-2 px-2 py-0.5 text-xs text-center font-semibold rounded-full bg-gradient-to-tr from-blue-800 to-blue-500">
             {ref}
           </p>
-          <div className="flex flex-row w-max mx-auto mb-2 items-center truncate">
-            <h1 className="text-4xl font-semibold">{title}</h1>
-            <span className="ml-2 text-2xl font-light">
+          <div className="flex flex-row w-max mx-auto mb-2 items-center">
+            <h1 className="text-4xl font-semibold truncate">{title}</h1>
+            <span className="ml-2 text-2xl font-light truncate">
               ({new Date(release_date).getFullYear()})
             </span>
           </div>
@@ -75,11 +76,11 @@ const HeadBand = ({
             )}
           </div>
 
-          <div className="my-4">
+          <div className="mt-4 mb-6">
             <p className="font-medium text-blue-100 text-center mb-2">
               Un film de
             </p>
-            <ul className="flex flex-row justify-evenly">
+            <ul className="flex flex-row justify-evenly w-3/5 mx-auto">
               {directors.map((d) => (
                 <li key={d.id} className="flex flex-row items-center">
                   {d.profile_path ? (
@@ -102,15 +103,37 @@ const HeadBand = ({
           ) : undefined}
 
           {overview ? (
-            <div className="mb-8">
+            <>
               <h2 className="text-xl undefined mb-2 font-medium">Synopsis</h2>
               <p className="leading-snug font-light text-base text-justify">
                 {overview}
               </p>
+            </>
+          ) : undefined}
+
+          {compositors.length > 0 ? (
+            <div className="mt-6">
+              <p className="font-medium text-blue-100 text-center mb-2">
+                Bande originale de
+              </p>
+              <ul className="flex flex-row justify-evenly w-3/5 mx-auto">
+                {compositors.map((c) => (
+                  <li key={c.id} className="flex flex-row items-center">
+                    {c.profile_path ? (
+                      <img
+                        src={`https://image.tmdb.org/t/p/original/${c.profile_path}`}
+                        alt={`Profil de : ${c.name}`}
+                        className="mr-2 rounded-full w-8 h-8 object-cover shadow"
+                      />
+                    ) : undefined}
+                    <p className="text-sm">{c.name}</p>
+                  </li>
+                ))}
+              </ul>
             </div>
           ) : undefined}
 
-          <table className="w-1/2 mx-auto shadow-inner bg-blue-100 bg-opacity-95 rounded-full">
+          <table className="w-1/2 mx-auto mt-6 shadow-inner bg-blue-100 bg-opacity-95 rounded-full">
             <thead>
               <tr className="text-base text-blue-800">
                 <th>Score</th>

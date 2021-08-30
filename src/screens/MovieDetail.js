@@ -14,6 +14,7 @@ const MovieDetail = () => {
   const { title } = useParams();
   const [detail, setDetail] = useState({});
   const [directors, setDirectors] = useState([]);
+  const [compositors, setCompositors] = useState([]);
   const [cast, setCast] = useState([]);
   const year = new URLSearchParams(useLocation().search).get("year");
 
@@ -67,10 +68,6 @@ const MovieDetail = () => {
         .then((res) => res.data)
         .catch((err) => console.error(err.message));
 
-      movie.ref = movieFinded.ref;
-
-      setDetail(movie);
-
       const crew = await axios
         .get(
           `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${API_KEY}&language=fr-FR`
@@ -78,8 +75,16 @@ const MovieDetail = () => {
         .then((res) => res.data.crew)
         .catch((err) => console.error(err.message));
 
-      setDirectors(crew.filter((c) => c.job === "Director"));
+      console.log(crew.filter((c) => c.job === "Music"));
 
+      movie.ref = movieFinded.ref;
+      setDetail(movie);
+      setDirectors(crew.filter((c) => c.job === "Director"));
+      setCompositors(
+        crew.filter(
+          (c) => c.job === "Original Music Composer" || c.job === "Music"
+        )
+      );
       setCast(
         await axios
           .get(
@@ -99,7 +104,7 @@ const MovieDetail = () => {
           <title>{`${detail.title} | Movie House`}</title>
         </Helmet>
       ) : undefined}
-      <HeadBand>{{ detail, directors }}</HeadBand>
+      <HeadBand>{{ detail, directors, compositors }}</HeadBand>
       <Pane>{{ detail, cast }}</Pane>
     </>
   );

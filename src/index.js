@@ -5,10 +5,8 @@ import App from "./App";
 import { AuthProvider } from "./auth/AuthContext";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
-  </React.StrictMode>,
+  <AuthProvider>
+    <App />
+  </AuthProvider>,
   document.getElementById("root")
 );

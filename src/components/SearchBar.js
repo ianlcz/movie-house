@@ -4,26 +4,24 @@ import { MdInfo } from "react-icons/md";
 import AuthContext from "../auth/AuthContext";
 
 const SearchBar = () => {
-  const { user } = useContext(AuthContext);
-  const [movies, setMovies] = useState([]);
+  const { user, movies } = useContext(AuthContext);
+  const [result, setResult] = useState([]);
   const [inputUser, setInputUser] = useState("");
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const result = user.movies.movies;
-
       if (inputUser !== "") {
-        setMovies(
-          result.filter((m) =>
+        setResult(
+          movies.filter((m) =>
             m.title.toLowerCase().includes(inputUser.toLowerCase())
           )
         );
       } else {
-        setMovies(result);
+        setResult(movies);
       }
     };
     fetchMovies();
-  }, [inputUser]);
+  }, [inputUser, movies]);
 
   return (
     <div className="flex flex-col w-full">
@@ -34,9 +32,9 @@ const SearchBar = () => {
         placeholder="Rechercher un film"
         className="w-1/4 mx-auto mt-6 mb-8 pl-6 h-12 border border-blue-500 text-blue-600 font-medium rounded-full placeholder-blue-400"
       />
-      {movies.length > 0 ? (
+      {result.length > 0 ? (
         <ul className="w-1/3 mx-auto">
-          {movies.map((m) => (
+          {result.map((m) => (
             <li key={m._id}>
               <a
                 href={`/movie/${m.title.trim().toLowerCase()}?year=${m.year}`}

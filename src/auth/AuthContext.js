@@ -6,6 +6,7 @@ import { getCookieFromBrowser, removeCookie, setCookie } from "./cookies";
 
 const AuthContext = createContext({
   user: null,
+  movies: [],
   login: () => {},
   logout: () => {},
 });
@@ -13,6 +14,7 @@ const AuthContext = createContext({
 export const AuthProvider = ({ children }) => {
   const { Provider } = AuthContext;
   let [user, setUser] = useState(null);
+  const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -28,6 +30,7 @@ export const AuthProvider = ({ children }) => {
 
           if (owner) {
             setUser(owner);
+            setMovies(owner.movies.movies);
           }
         } catch (err) {
           console.error(err.message);
@@ -56,6 +59,7 @@ export const AuthProvider = ({ children }) => {
       } = await axios.get(`/api/account/${authData.sub}`);
 
       setUser(owner);
+      setMovies(owner.movies.movies);
     }
   };
 
@@ -63,11 +67,19 @@ export const AuthProvider = ({ children }) => {
     removeCookie("authToken");
 
     setUser(null);
+    setMovies([]);
   };
 
   return (
     <Provider
-      value={{ isAuthenticated: !!user, user, login, logout, isLoading }}
+      value={{
+        isAuthenticated: !!user,
+        user,
+        movies,
+        login,
+        logout,
+        isLoading,
+      }}
     >
       {children}
     </Provider>
