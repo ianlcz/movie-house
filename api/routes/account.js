@@ -8,7 +8,7 @@ const Owner = require("../models/Owner");
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const owner = await Owner.findOne({ _id: id }).populate({
+    const owner = await Owner.findById(id).populate({
       path: "movies",
       select: ["movies"],
     });
