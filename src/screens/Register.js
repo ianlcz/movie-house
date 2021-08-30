@@ -12,7 +12,7 @@ const Register = () => {
     e.preventDefault();
 
     await axios
-      .post("/api/register", {
+      .post("/api/account/register", {
         emailAddress,
         password,
         confirmPassword,
