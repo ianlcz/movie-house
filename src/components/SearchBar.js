@@ -55,7 +55,7 @@ const SearchBar = () => {
 
               <a
                 onClick={async () => {
-                  const { movies } = await axios
+                  await axios
                     .delete(`/api/collection/${user.movies._id}/${m.ref}`)
                     .then((res) => res.data)
                     .catch((err) => console.error(err.message));

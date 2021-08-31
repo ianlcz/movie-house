@@ -55,13 +55,6 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id/:ref", async (req, res) => {
   try {
     const { id, ref } = req.params;
-    /* let { movies } = await Collection.findById(id); */
-    /* const indexToDelete = movies.findIndex((m) => m.ref === ref); */
-
-    /* movies = [
-      ...movies.slice(0, indexToDelete),
-      ...movies.slice(indexToDelete + 1, movies.length),
-    ]; */
 
     const movies = await Collection.updateOne(
       { _id: id },
