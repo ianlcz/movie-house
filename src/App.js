@@ -5,6 +5,7 @@ import { getCookieFromBrowser } from "./auth/cookies";
 import ListPage from "./screens/ListPage";
 import Login from "./screens/Login";
 import MovieDetail from "./screens/MovieDetail";
+import NewMovie from "./screens/NewMovie";
 import Register from "./screens/Register";
 
 const App = () => {
@@ -19,6 +20,9 @@ const App = () => {
         <Route path="/movie/:title">
           <MovieDetail />
         </Route>
+        <Router path="/new">
+          <NewMovie />
+        </Router>
         <Route path="/register">
           <Register />
         </Route>

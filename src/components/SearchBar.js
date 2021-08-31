@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { MdInfo } from "react-icons/md";
 import AuthContext from "../auth/AuthContext";
 
 const SearchBar = () => {
   const { user, movies } = useContext(AuthContext);
+  const history = useHistory();
   const [result, setResult] = useState([]);
   const [inputUser, setInputUser] = useState("");
 
@@ -49,6 +51,19 @@ const SearchBar = () => {
                     <span className="ml-1 font-medium text-sm">{`(${m.year})`}</span>
                   ) : undefined}
                 </p>
+              </a>
+
+              <a
+                onClick={async () => {
+                  const { movies } = await axios
+                    .delete(`/api/collection/${user.movies._id}/${m.ref}`)
+                    .then((res) => res.data)
+                    .catch((err) => console.error(err.message));
+
+                  window.location.reload(false);
+                }}
+              >
+                Enlever
               </a>
             </li>
           ))}

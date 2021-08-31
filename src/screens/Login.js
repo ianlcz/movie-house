@@ -20,7 +20,7 @@ const Login = () => {
     <div className="flex flex-col">
       <h1>Connexion</h1>
 
-      <form className="mt-8 space-y-6 -space-y-px" onSubmit={handleLogin}>
+      <form onSubmit={handleLogin}>
         <input
           type="email"
           name="email"

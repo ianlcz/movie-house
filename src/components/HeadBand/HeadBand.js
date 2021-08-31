@@ -39,7 +39,7 @@ const HeadBand = ({
         />
 
         <div className="flex flex-col w-3/5">
-          <p className="w-16 mx-auto mb-2 px-2 py-0.5 text-xs text-center font-semibold rounded-full bg-gradient-to-tr from-blue-800 to-blue-500">
+          <p className="w-16 mx-auto mb-2 px-2 py-0.5 text-xs text-center font-semibold rounded-full shadow-inner bg-gradient-to-br from-blue-800 to-blue-500">
             {ref}
           </p>
           <div className="flex flex-row w-max mx-auto mb-2 items-center">

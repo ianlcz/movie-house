@@ -27,7 +27,7 @@ const Register = () => {
     <div className="flex flex-col">
       <h1>Inscription</h1>
 
-      <form className="mt-8 space-y-6 -space-y-px" onSubmit={handleRegister}>
+      <form onSubmit={handleRegister}>
         <input
           type="email"
           name="email"

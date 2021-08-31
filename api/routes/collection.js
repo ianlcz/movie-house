@@ -41,9 +41,38 @@ router.put("/:id", async (req, res) => {
       { $set: { movies: movies.sort((a, b) => Number(a.ref) - Number(b.ref)) } }
     );
 
+    console.log(`INFO : Add movie (${title} - ${year}) in collection !`);
+
     res.status(200).json({
       success: true,
-      message: `INFO : Add movie (${title}) in collection !`,
+      message: `Le film (${title} - ${year}) a été ajouté à votre collection`,
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+router.delete("/:id/:ref", async (req, res) => {
+  try {
+    const { id, ref } = req.params;
+    /* let { movies } = await Collection.findById(id); */
+    /* const indexToDelete = movies.findIndex((m) => m.ref === ref); */
+
+    /* movies = [
+      ...movies.slice(0, indexToDelete),
+      ...movies.slice(indexToDelete + 1, movies.length),
+    ]; */
+
+    const movies = await Collection.updateOne(
+      { _id: id },
+      { $pull: { movies: { ref: { $in: [ref] } } } }
+    );
+
+    console.log(`INFO : Delete movie in collection !`);
+
+    res.status(200).json({
+      success: true,
+      movies,
     });
   } catch (err) {
     console.error(err.message);

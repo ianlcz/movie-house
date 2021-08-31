@@ -9,6 +9,7 @@ const ListPage = () => {
   return (
     <div className="bg-blue-50 min-h-screen">
       <button onClick={() => logout()}>Se déconnecter</button>
+      <a href="/new">Ajouter un nouveau film</a>
       <TitlePage />
       <SearchBar />
     </div>
