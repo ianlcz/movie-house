@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import AuthContext from "../auth/AuthContext";
-import TitlePage from "../components/TitlePage";
 
 const Login = () => {
   const { login, isAuthenticated } = useContext(AuthContext);
@@ -20,9 +19,9 @@ const Login = () => {
   return (
     <div className="flex flex-col bg-gradient-to-br from-blue-900 to-blue-400 min-h-screen">
       <div className="w-1/3 mx-auto my-auto py-8 bg-blue-50 rounded-xl shadow-lg">
-        <h2 className="font-semibold text-2xl text-center text-blue-900">
+        <h1 className="font-semibold text-2xl text-center text-blue-900">
           Connexion
-        </h2>
+        </h1>
 
         <form onSubmit={handleLogin}>
           <div className="flex flex-col w-max mx-auto mt-6">
