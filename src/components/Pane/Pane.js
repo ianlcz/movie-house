@@ -8,13 +8,17 @@ const Pane = ({
   },
 }) => {
   return (
-    <div className="flex flex-row bg-blue-50 -mt-10 px-6 py-6 shadow-md rounded-t-2xl max-h-screen z-10 relative">
-      <div className={belongs_to_collection ? "w-4/5" : "w-full"}>
-        {production_companies ? (
-          <div className="text-blue-800">
+    <div className="flex flex-row bg-blue-50 -mt-8 px-6 py-6 shadow-md rounded-t-2xl max-h-screen z-10 relative">
+      {production_companies ? (
+        <div className="flex justify-between items-start w-full text-blue-800">
+          <GoToHome />
+
+          <div className="w-full">
             <h2 className="text-xl text-blue-800 text-center font-semibold">
-              {production_companies.filter((p) => p.logo_path).length > 1 ? "Sociétés" : "Société"} de
-              production
+              {production_companies.filter((p) => p.logo_path).length > 1
+                ? "Sociétés"
+                : "Société"}{" "}
+              de production
             </h2>
             <ul className="flex flex-row justify-evenly my-6">
               {production_companies.filter((p) => p.logo_path).length === 0
@@ -47,7 +51,7 @@ const Pane = ({
             <h2 className="text-xl mb-4 text-center font-semibold">
               Distribution
             </h2>
-            <ul className="w-max mx-auto grid grid-flow-col grid-rows-2 gap-x-14 gap-y-8">
+            <ul className="grid grid-flow-col grid-rows-2 gap-x-14 gap-y-8">
               {cast
                 .filter((p) => p.profile_path)
                 .slice(0, 6)
@@ -69,29 +73,26 @@ const Pane = ({
                   </li>
                 ))}
             </ul>
-            <GoToHome />
-          </div>
-        ) : undefined}
-      </div>
 
-      {belongs_to_collection ? (
-        <div className="my-auto w-1/5">
-          <div className="w-full">
-            <Background
-              data={{
-                cover: `https://image.tmdb.org/t/p/original/${belongs_to_collection.backdrop_path}`,
-                title: belongs_to_collection.name,
-              }}
-            >
-              <div className="flex flex-col">
-                <h3 className="font-bold text-lg text-center text-blue-200">
-                  Collection
-                </h3>
-                <p className="ml-2 font-medium text-center text-blue-200">
-                  {belongs_to_collection.name.split(" - ")[0]}
-                </p>
+            {belongs_to_collection ? (
+              <div className="w-1/3 mx-auto mt-10">
+                <Background
+                  data={{
+                    cover: `https://image.tmdb.org/t/p/original/${belongs_to_collection.backdrop_path}`,
+                    title: belongs_to_collection.name,
+                  }}
+                >
+                  <div className="flex flex-col">
+                    <h3 className="font-bold text-lg text-center text-blue-200">
+                      Collection
+                    </h3>
+                    <p className="ml-2 font-medium text-center text-blue-200">
+                      {belongs_to_collection.name.split(" - ")[0]}
+                    </p>
+                  </div>
+                </Background>
               </div>
-            </Background>
+            ) : undefined}
           </div>
         </div>
       ) : undefined}

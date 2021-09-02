@@ -35,7 +35,7 @@ const HeadBand = ({
         <img
           src={`https://image.tmdb.org/t/p/original/${poster_path}`}
           alt={`Affiche du film : ${title}`}
-          className="w-52 rounded-xl shadow-lg"
+          className="w-72 rounded-xl shadow-xl"
         />
 
         <div className="flex flex-col w-3/5">
