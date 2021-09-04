@@ -8,6 +8,7 @@ const HeadBand = ({
     detail: {
       ref,
       backdrop_path,
+      original_title,
       title,
       overview,
       tagline,
@@ -35,21 +36,25 @@ const HeadBand = ({
         <img
           src={`https://image.tmdb.org/t/p/original/${poster_path}`}
           alt={`Affiche du film : ${title}`}
-          className="w-52 rounded-xl shadow-lg"
+          className="w-72 rounded-xl shadow-xl"
         />
 
         <div className="flex flex-col w-3/5">
-          <p className="w-16 mx-auto mb-2 px-2 py-0.5 text-xs text-center font-semibold rounded-full bg-gradient-to-tr from-blue-800 to-blue-500">
+          <p className="w-16 mx-auto mb-2 px-2 py-0.5 text-xs text-center font-semibold rounded-full shadow-inner bg-gradient-to-br from-blue-800 to-blue-500">
             {ref}
           </p>
-          <div className="flex flex-row w-max mx-auto mb-2 items-center">
+          <div className="flex flex-row w-max mx-auto items-center">
             <h1 className="text-4xl font-semibold truncate">{title}</h1>
             <span className="ml-2 text-2xl font-light truncate">
               ({new Date(release_date).getFullYear()})
             </span>
           </div>
 
-          <div className="flex flex-row w-max mx-auto">
+          {original_title.toLowerCase() !== title.toLowerCase() ? (
+            <p className="mt-1 text-sm italic text-center">{original_title}</p>
+          ) : undefined}
+
+          <div className="flex flex-row w-max mx-auto mt-2">
             {genres && (
               <>
                 <ul className="flex flex-row">

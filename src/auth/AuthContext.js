@@ -1,5 +1,4 @@
 import React, { createContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
 import jwt from "jwt-decode";
 import { getCookieFromBrowser, removeCookie, setCookie } from "./cookies";
@@ -44,7 +43,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (emailAddress, password) => {
     const {
       data: { token },
-    } = await axios.post("/api/login", {
+    } = await axios.post("/api/account/login", {
       emailAddress,
       password,
     });

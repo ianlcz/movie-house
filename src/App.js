@@ -1,30 +1,31 @@
-import { useContext } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import AuthContext from "./auth/AuthContext";
-import { getCookieFromBrowser } from "./auth/cookies";
+import DeleteMovie from "./screens/DeleteMovie";
 import ListPage from "./screens/ListPage";
 import Login from "./screens/Login";
 import MovieDetail from "./screens/MovieDetail";
+import NewMovie from "./screens/NewMovie";
 import Register from "./screens/Register";
 
-const App = () => {
-  const { isAuthenticated, user } = useContext(AuthContext);
-
-  return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          {isAuthenticated ? <ListPage /> : <Login />}
-        </Route>
-        <Route path="/movie/:title">
-          <MovieDetail />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-      </Switch>
-    </Router>
-  );
-};
+const App = () => (
+  <Router>
+    <Switch>
+      <Route exact path="/">
+        {localStorage.getItem("authToken") ? <ListPage /> : <Login />}
+      </Route>
+      <Route path="/movie/:title">
+        <MovieDetail />
+      </Route>
+      <Router exact path="/new">
+        <NewMovie />
+      </Router>
+      <Router exact path="/delete">
+        <DeleteMovie />
+      </Router>
+      <Route exact path="/register">
+        <Register />
+      </Route>
+    </Switch>
+  </Router>
+);
 
 export default App;
