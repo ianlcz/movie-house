@@ -7,15 +7,18 @@ import HeadBand from "../components/HeadBand/HeadBand";
 import Pane from "../components/Pane/Pane";
 import { getCookieFromBrowser } from "../auth/cookies";
 import jwtDecode from "jwt-decode";
+import LoadingPage from "./LoadingPage";
 
 const MovieDetail = () => {
-  const token = getCookieFromBrowser("authToken");
-  const user = jwtDecode(token);
+  const { isLoading } = useContext(AuthContext);
   const { title } = useParams();
   const [detail, setDetail] = useState({});
   const [directors, setDirectors] = useState([]);
   const [compositors, setCompositors] = useState([]);
   const [cast, setCast] = useState([]);
+
+  const token = getCookieFromBrowser("authToken");
+  const user = jwtDecode(token);
   const year = new URLSearchParams(useLocation().search).get("year");
 
   const API_KEY = "aeeca3eb934c595a32cbd53a16f76f64";
@@ -48,8 +51,6 @@ const MovieDetail = () => {
         .then((res) => res.data.results)
         .catch((err) => console.error(err.message));
 
-      console.log(movieFinded, results[0]);
-
       const moviesTMDB =
         movieFinded.year && results.length > 1
           ? results.filter(
@@ -75,8 +76,6 @@ const MovieDetail = () => {
         .then((res) => res.data.crew)
         .catch((err) => console.error(err.message));
 
-      console.log(crew.filter((c) => c.job === "Music"));
-
       movie.ref = movieFinded.ref;
       setDetail(movie);
       setDirectors(crew.filter((c) => c.job === "Director"));
@@ -97,7 +96,9 @@ const MovieDetail = () => {
     fetchData();
   }, [title]);
 
-  return (
+  return isLoading ? (
+    <LoadingPage />
+  ) : (
     <>
       {detail.title ? (
         <Helmet>
