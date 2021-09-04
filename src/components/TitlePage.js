@@ -2,23 +2,12 @@ import { useContext } from "react";
 import AuthContext from "../auth/AuthContext";
 
 const TitlePage = () => {
-  const { isAuthenticated } = useContext(AuthContext);
   return (
     <div className="w-full pt-4">
-      <h1
-        className={`w-max mx-auto mb-1 ${
-          isAuthenticated ? "text-blue-800 text-2xl" : "text-white text-3xl"
-        } font-bold`}
-      >
+      <h1 className={`w-max mx-auto mb-1 text-blue-800 text-2xl font-bold`}>
         Movie House
       </h1>
-      <p
-        className={`w-max mx-auto ${
-          isAuthenticated ? "text-blue-600" : "text-white"
-        }`}
-      >
-        by ianlcz
-      </p>
+      <p className={`w-max mx-auto  text-blue-600`}>by ianlcz</p>
     </div>
   );
 };

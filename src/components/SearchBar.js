@@ -32,7 +32,7 @@ const SearchBar = () => {
         value={inputUser}
         onChange={(e) => setInputUser(e.target.value)}
         placeholder="Rechercher un film"
-        className="w-1/4 mx-auto mt-6 mb-8 pl-6 h-12 border border-blue-500 text-blue-600 font-medium rounded-full placeholder-blue-400"
+        className="w-1/4 mx-auto my-8 pl-6 h-12 border border-blue-500 text-blue-600 font-medium rounded-full placeholder-blue-400"
       />
       {result.length > 0 ? (
         <ul className="w-1/3 mx-auto">
@@ -51,19 +51,6 @@ const SearchBar = () => {
                     <span className="ml-1 font-medium text-sm">{`(${m.year})`}</span>
                   ) : undefined}
                 </p>
-              </a>
-
-              <a
-                onClick={async () => {
-                  await axios
-                    .delete(`/api/collection/${user.movies._id}/${m.ref}`)
-                    .then((res) => res.data)
-                    .catch((err) => console.error(err.message));
-
-                  window.location.reload(false);
-                }}
-              >
-                Enlever
               </a>
             </li>
           ))}

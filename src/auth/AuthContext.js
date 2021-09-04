@@ -1,5 +1,4 @@
 import React, { createContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
 import jwt from "jwt-decode";
 import { getCookieFromBrowser, removeCookie, setCookie } from "./cookies";
