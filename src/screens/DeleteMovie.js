@@ -66,10 +66,11 @@ const DeleteMovie = () => {
                 <li
                   onClick={() => {
                     setRef(m.ref);
-                    setTitle(`${m.title} (${m.year})`);
+                    setTitle(`${m.ref} - ${m.title} (${m.year})`);
                   }}
-                  className="flex flex-row w-max mx-auto px-2 rounded-full text-white bg-gradient-to-br from-red-800 to-red-400 truncate cursor-pointer"
+                  className="flex flex-row items-center w-max mx-auto px-2 rounded-full text-white bg-gradient-to-br from-red-800 to-red-400 truncate cursor-pointer"
                 >
+                  <p className="text-sm font-bold mr-1">{`${m.ref} -`}</p>
                   <p className="mr-2 text-sm font-semibold">{m.title}</p>
                   <p className="text-sm">{`(${m.year})`}</p>
                 </li>
@@ -77,13 +78,20 @@ const DeleteMovie = () => {
             </ul>
           ) : undefined}
 
-          <div className="w-max mx-auto">
+          <div className="flex mx-auto mt-4 justify-evenly">
             <button
               type="submit"
-              className="mt-4 px-4 text-sm py-1 bg-gradient-to-tr from-red-800 to-red-400 hover:from-red-400 hover:to-red-800 font-medium text-red-50 rounded-full"
+              className="px-4 text-sm py-1 bg-gradient-to-tr from-red-800 to-red-400 hover:from-red-400 hover:to-red-800 font-medium text-red-50 rounded-full"
             >
               Retirer ce film
             </button>
+
+            <a
+              href="/"
+              className="px-4 text-sm py-1 bg-gradient-to-tr from-blue-800 to-blue-400 hover:from-blue-400 hover:to-blue-800 font-medium text-blue-50 rounded-full"
+            >
+              Annuler
+            </a>
           </div>
         </form>
       </div>
