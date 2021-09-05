@@ -5,7 +5,13 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      ringColor: ["responsive", "dark", "focus-within", "focus"],
+      ringOffsetColor: ["responsive", "dark", "focus-within", "focus"],
+      ringOffsetWidth: ["responsive", "focus-within", "focus"],
+      ringOpacity: ["responsive", "dark", "focus-within", "focus"],
+      ringWidth: ["responsive", "focus-within", "focus"],
+    },
   },
   plugins: [],
 };
