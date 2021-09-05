@@ -27,7 +27,7 @@ const Actions = () => {
           logout();
           window.location.reload(false);
         }}
-        className="flex items-center w-max px-2 py-1 text-gray-600 hover:text-gray-50 border border-gray-500 hover:border-gray-400 bg-gray-50 hover:bg-gray-400 rounded-full shadow"
+        className="flex items-center w-max px-2 py-1 text-blue-50 bg-gradient-to-br from-blue-800 to-blue-400 hover:from-blue-400 hover:to-blue-800 rounded-full shadow"
       >
         <IoExit className="w-5 h-5" />
         <span className="ml-2 text-sm">Me déconnecter</span>
