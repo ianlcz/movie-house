@@ -84,24 +84,27 @@ const NewMovie = () => {
 
           {suggestion && suggestion.length > 0 ? (
             <ul
-              className={`my-8 ${
+              className={`my-8 w-max m-auto ${
                 suggestion.length === 1
                   ? ""
                   : "grid grid-flow-col grid-cols-2 grid-rows-2 gap-8"
               }`}
             >
-              {suggestion.slice(0, 4).map((m) => (
-                <Card
-                  key={m.id}
-                  onClick={() => {
-                    setTitle(m.title);
-                    setGenre(m.genre_ids);
-                    setYear(new Date(m.release_date).getFullYear());
-                  }}
-                >
-                  {m}
-                </Card>
-              ))}
+              {suggestion
+                .filter((m) => m.poster_path)
+                .slice(0, 4)
+                .map((m) => (
+                  <Card
+                    key={m.id}
+                    onClick={() => {
+                      setTitle(m.title);
+                      setGenre(m.genre_ids);
+                      setYear(new Date(m.release_date).getFullYear());
+                    }}
+                  >
+                    {m}
+                  </Card>
+                ))}
             </ul>
           ) : undefined}
 
