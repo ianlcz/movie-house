@@ -44,17 +44,20 @@ const SearchBar = () => {
               <li key={m._id}>
                 <a
                   href={`/movie/${m.title.trim().toLowerCase()}?year=${m.year}`}
-                  className="flex flex-row mb-2"
+                  className="flex flex-row items-center mb-2"
                 >
                   <p className="flex items-center justify-center w-16 h-6 mr-4 shadow-inner bg-gradient-to-br from-blue-800 to-blue-500 text-white text-center text-sm font-semibold rounded-xl">
                     {m.ref}
                   </p>
-                  <p className="text-blue-700 font-light">
-                    {m.title}
-                    {m.year ? (
-                      <span className="ml-1 font-medium text-sm">{`(${m.year})`}</span>
-                    ) : undefined}
-                  </p>
+                  <div>
+                    <p className="text-blue-700 font-light">
+                      {m.title}
+                      {m.year ? (
+                        <span className="ml-1 font-medium text-sm">{`(${m.year})`}</span>
+                      ) : undefined}
+                    </p>
+                    <p className="text-blue-700 text-xs">{`Code : ${m.code}`}</p>
+                  </div>
                 </a>
               </li>
             ))}
