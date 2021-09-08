@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import DeleteMovie from "./screens/DeleteMovie";
+import EditMovie from "./screens/EditMovie";
 import ListPage from "./screens/ListPage";
 import Login from "./screens/Login";
 import MovieDetail from "./screens/MovieDetail";
@@ -17,6 +18,9 @@ const App = () => (
       </Route>
       <Router exact path="/new">
         <NewMovie />
+      </Router>
+      <Router exact path="/edit">
+        <EditMovie />
       </Router>
       <Router exact path="/delete">
         <DeleteMovie />

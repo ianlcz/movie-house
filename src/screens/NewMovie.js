@@ -38,7 +38,7 @@ const NewMovie = () => {
 
     if (user) {
       await axios
-        .put(`/api/collection/${user.movies._id}`, {
+        .post(`/api/collection/${user.movies._id}`, {
           ref,
           title,
           genre,
@@ -51,8 +51,6 @@ const NewMovie = () => {
       window.location.reload(false);
     }
   };
-
-  console.log(title);
 
   return (
     <div className="flex flex-col bg-gradient-to-br from-blue-900 to-blue-400 min-h-screen">

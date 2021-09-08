@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { IoAddCircle, IoExit, IoRemoveCircle } from "react-icons/io5";
+import { IoAddCircle, IoExit, IoPencil, IoRemoveCircle } from "react-icons/io5";
 import AuthContext from "../auth/AuthContext";
 
 const Actions = () => {
@@ -12,6 +12,14 @@ const Actions = () => {
       >
         <IoAddCircle className="w-5 h-5" />
         <span className="ml-2 text-sm">Ajouter un nouveau film</span>
+      </a>
+
+      <a
+        href="/edit"
+        className="flex items-center w-max px-2 py-1 text-yellow-600 hover:text-yellow-50 border border-yellow-500 hover:border-yellow-400 bg-yellow-50 hover:bg-yellow-400 rounded-full shadow"
+      >
+        <IoPencil className="w-4 h-4" />
+        <span className="ml-2 text-sm">Modifier un film de ma collection</span>
       </a>
 
       <a

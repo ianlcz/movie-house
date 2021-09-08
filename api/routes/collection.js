@@ -2,19 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Collection = require("../models/Collection");
 
-/* Get a collection by owner.movies */
-router.get("/:id", (req, res) => {
-  const { id } = req.params;
-
-  Collection.findById(id, (err, data) => {
-    if (!err) {
-      console.log(JSON.stringify(data, null, 2));
-      res.status(200).send(data);
-    }
-  });
-});
-
-router.put("/:id", async (req, res) => {
+/* Post a new movie in collection */
+router.post("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { ref, title, genre, year } = req.body;
@@ -52,6 +41,54 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+/* Get a collection by owner.movies */
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+
+  Collection.findById(id, (err, data) => {
+    if (!err) {
+      console.log(JSON.stringify(data, null, 2));
+      res.status(200).send(data);
+    }
+  });
+});
+
+/* Edit a movie from a collection */
+router.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { movie, newMovie } = req.body;
+
+    // Delete movie from movies
+    await Collection.updateOne(
+      { _id: id },
+      { $pull: { movies: { ref: { $in: [movie.ref] } } } }
+    );
+
+    // Add movie in movies
+    const { movies } = await Collection.findById(id);
+    movies.push(newMovie);
+    await Collection.updateOne(
+      { _id: id },
+      {
+        $set: {
+          movies: movies.sort((a, b) => Number(a.ref) - Number(b.ref)),
+        },
+      }
+    );
+
+    console.log(`INFO : Edit movie in collection !`);
+
+    res.status(200).json({
+      success: true,
+      movies,
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+/* Delete a movie from a collection */
 router.delete("/:id/:ref", async (req, res) => {
   try {
     const { id, ref } = req.params;
