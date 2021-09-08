@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
 import DeleteMovie from "./screens/DeleteMovie";
 import EditMovie from "./screens/EditMovie";
 import ListPage from "./screens/ListPage";
@@ -13,21 +14,13 @@ const App = () => (
       <Route exact path="/">
         {localStorage.getItem("authToken") ? <ListPage /> : <Login />}
       </Route>
-      <Route path="/movie/:title">
-        <MovieDetail />
-      </Route>
-      <Router exact path="/new">
-        <NewMovie />
-      </Router>
-      <Router exact path="/edit">
-        <EditMovie />
-      </Router>
-      <Router exact path="/delete">
-        <DeleteMovie />
-      </Router>
       <Route exact path="/register">
         <Register />
       </Route>
+      <ProtectedRoute exact path="/movie/:title" component={MovieDetail} />
+      <ProtectedRoute exact path="/new" component={NewMovie} />
+      <ProtectedRoute exact path="/edit" component={EditMovie} />
+      <ProtectedRoute exact path="/delete" component={DeleteMovie} />
     </Switch>
   </Router>
 );

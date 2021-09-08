@@ -3,6 +3,7 @@ import axios from "axios";
 import AuthContext from "../auth/AuthContext";
 import { useHistory } from "react-router-dom";
 import Card from "../components/Movie/Card";
+import { Helmet } from "react-helmet";
 
 const NewMovie = () => {
   const { user } = useContext(AuthContext);
@@ -53,70 +54,75 @@ const NewMovie = () => {
   };
 
   return (
-    <div className="flex flex-col bg-gradient-to-br from-blue-900 to-blue-400 min-h-screen">
-      <div className="w-2/3 mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
-        <h1 className="mb-6 font-semibold text-2xl text-center text-blue-900">
-          Votre nouveau film
-        </h1>
-        <form onSubmit={handleMovie}>
-          <div className="flex flex-row justify-between">
-            <input
-              type="text"
-              name="ref"
-              placeholder="Entrez une référence"
-              value={ref}
-              onChange={(e) => setRef(e.target.value)}
-              required
-              className="w-max mx-auto px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
-            />
-            <input
-              type="text"
-              name="title"
-              placeholder="Recherchez votre film"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-              className="w-max mx-auto px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
-            />
-          </div>
+    <>
+      <Helmet>
+        <title>{`Ajout d'un nouveau film | Movie House`}</title>
+      </Helmet>
+      <div className="flex flex-col bg-gradient-to-br from-blue-900 to-blue-400 min-h-screen">
+        <div className="w-2/3 mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
+          <h1 className="mb-6 font-semibold text-2xl text-center text-blue-900">
+            Votre nouveau film
+          </h1>
+          <form onSubmit={handleMovie}>
+            <div className="flex flex-row justify-between">
+              <input
+                type="text"
+                name="ref"
+                placeholder="Entrez une référence"
+                value={ref}
+                onChange={(e) => setRef(e.target.value)}
+                required
+                className="w-max mx-auto px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
+              />
+              <input
+                type="text"
+                name="title"
+                placeholder="Recherchez votre film"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+                className="w-max mx-auto px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
+              />
+            </div>
 
-          {suggestion && suggestion.length > 0 ? (
-            <ul
-              className={`my-8 w-max m-auto ${
-                suggestion.length === 1
-                  ? ""
-                  : "grid grid-flow-col grid-cols-2 grid-rows-2 gap-8"
-              }`}
-            >
-              {suggestion
-                .filter((m) => m.poster_path)
-                .slice(0, 4)
-                .map((m) => (
-                  <Card
-                    key={m.id}
-                    onClick={() => {
-                      setTitle(m.title);
-                      setGenre(m.genre_ids);
-                      setYear(new Date(m.release_date).getFullYear());
-                    }}
-                  >
-                    {m}
-                  </Card>
-                ))}
-            </ul>
-          ) : undefined}
+            {suggestion && suggestion.length > 0 ? (
+              <ul
+                className={`my-8 w-max m-auto ${
+                  suggestion.length === 1
+                    ? ""
+                    : "grid grid-flow-col grid-cols-2 grid-rows-2 gap-8"
+                }`}
+              >
+                {suggestion
+                  .filter((m) => m.poster_path)
+                  .slice(0, 4)
+                  .map((m) => (
+                    <Card
+                      key={m.id}
+                      onClick={() => {
+                        setTitle(m.title);
+                        setGenre(m.genre_ids);
+                        setYear(new Date(m.release_date).getFullYear());
+                      }}
+                    >
+                      {m}
+                    </Card>
+                  ))}
+              </ul>
+            ) : undefined}
 
-          <div className="w-max mx-auto">
-            <button
-              type="submit"
-              className="mt-4 px-4 text-sm py-1 bg-gradient-to-tr from-blue-800 to-blue-400 hover:from-blue-400 hover:to-blue-800 font-medium text-blue-50 rounded-full"
-            >
-              Ajouter ce film
-            </button>
-          </div>
-        </form>
+            <div className="w-max mx-auto">
+              <button
+                type="submit"
+                className="mt-4 px-4 text-sm py-1 bg-gradient-to-tr from-blue-800 to-blue-400 hover:from-blue-400 hover:to-blue-800 font-medium text-blue-50 rounded-full"
+              >
+                Ajouter ce film
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
