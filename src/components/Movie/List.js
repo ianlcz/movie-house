@@ -7,10 +7,14 @@ const List = ({ movie }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (movie) {
+      if (movie.title) {
         const results = await axios
           .get(
-            `https://api.themoviedb.org/3/search/movie?query=${movie.title}&api_key=${API_KEY}&language=fr-FR&primary_release_year=${movie.year}`
+            `https://api.themoviedb.org/3/search/movie?query=${encodeURI(
+              movie.title
+            )}&api_key=${API_KEY}&language=fr-FR&primary_release_year=${
+              movie.year
+            }`
           )
           .then((res) => res.data.results)
           .catch((err) => console.error(err.message));
@@ -43,10 +47,12 @@ const List = ({ movie }) => {
     fetchData();
   }, [movie]);
 
-  return (
+  return movieInfo.title ? (
     <li key={movieInfo.id}>
       <a
-        href={`/movie/${movieInfo.title}?year=${movie.year}`}
+        href={`/movie/${encodeURIComponent(movieInfo.title.toLowerCase())}?year=${
+          movie.year
+        }`}
         className="flex flex-row items-center mb-2"
       >
         <p className="flex items-center justify-center w-16 h-6 mr-4 shadow-inner bg-gradient-to-br from-blue-800 to-blue-500 text-white text-center text-sm font-semibold rounded-xl">
@@ -63,7 +69,7 @@ const List = ({ movie }) => {
         </div>
       </a>
     </li>
-  );
+  ) : null;
 };
 
 export default List;

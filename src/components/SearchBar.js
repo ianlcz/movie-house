@@ -15,10 +15,11 @@ const SearchBar = () => {
   useEffect(() => {
     if (userInput !== "") {
       setResult(
-        movies.filter(
-          (m) =>
-            m.title.toLowerCase().includes(userInput.toLowerCase()) ||
-            m.ref.includes(userInput)
+        movies.filter((m) =>
+          m.ref && m.title
+            ? m.title.toLowerCase().includes(userInput.toLowerCase()) ||
+              m.ref.includes(userInput)
+            : undefined
         )
       );
     } else {

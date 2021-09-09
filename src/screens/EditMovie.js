@@ -24,10 +24,11 @@ const EditMovie = () => {
 
   useEffect(() => {
     const fetchMovie = async () => {
-      const movie = movies.filter(
-        (m) =>
-          m.title.toLowerCase().match(userInput.toLowerCase()) ||
-          m.ref.includes(userInput)
+      const movie = movies.filter((m) =>
+        m.ref && m.title
+          ? m.title.toLowerCase().match(userInput.toLowerCase()) ||
+            m.ref.includes(userInput)
+          : undefined
       );
 
       if (userInput !== "") {
