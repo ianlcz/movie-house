@@ -23,32 +23,24 @@ const MovieDetail = () => {
 
   const API_KEY = "aeeca3eb934c595a32cbd53a16f76f64";
 
+  const movieFinded = movies.filter(
+    (m) => m.title === title || m.year == year
+  )[0];
+
   useEffect(() => {
     const fetchData = async () => {
-      const movieFinded = movies.filter(
-        (m) =>
-          m.title.trim().toLowerCase() ===
-            decodeURI(title).trim().toLowerCase() && m.year == year
-      )[0];
-
       if (movieFinded) {
-        const { results } = await axios
+        const results = await axios
           .get(
-            `https://api.themoviedb.org/3/search/movie?query=${encodeURI(
-              movieFinded.title.trim()
-            )}&api_key=${API_KEY}&language=fr-FR&primary_release_year=${
-              movieFinded.year
-            }`
+            `https://api.themoviedb.org/3/search/movie?query=${movieFinded.title}&api_key=${API_KEY}&language=fr-FR&primary_release_year=${movieFinded.year}`
           )
-          .then((res) => res.data)
+          .then((res) => res.data.results)
           .catch((err) => console.error(err.message));
 
         const moviesTMDB =
           movieFinded.year && results.length > 1
             ? results.filter(
-                (m) =>
-                  m.title.trim().toLowerCase() ===
-                  movieFinded.title.trim().toLowerCase()
+                (m) => m.title.toLowerCase() === movieFinded.title.toLowerCase()
               )
             : results;
 
@@ -87,7 +79,7 @@ const MovieDetail = () => {
       }
     };
     fetchData();
-  }, [title, movies]);
+  }, [movieFinded]);
 
   return isLoading ? (
     <LoadingPage />
