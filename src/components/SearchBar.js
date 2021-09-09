@@ -12,11 +12,11 @@ const SearchBar = () => {
   const [inputUser, setInputUser] = useState("");
 
   useEffect(() => {
-    const fetchMovies = async () => {
-      if (inputUser !== "") {
+    const fetchMovies = () => {
+      if (inputUser) {
         setResult(
           movies.filter((m) =>
-            m.title.toLowerCase().includes(inputUser.toLowerCase())
+            m.title ? m.title.includes(inputUser) : undefined
           )
         );
       } else {
@@ -43,7 +43,7 @@ const SearchBar = () => {
             {result.map((m) => (
               <li key={m._id}>
                 <a
-                  href={`/movie/${m.title.trim().toLowerCase()}?year=${m.year}`}
+                  href={`/movie/${m.title}?year=${m.year}`}
                   className="flex flex-row items-center mb-2"
                 >
                   <p className="flex items-center justify-center w-16 h-6 mr-4 shadow-inner bg-gradient-to-br from-blue-800 to-blue-500 text-white text-center text-sm font-semibold rounded-xl">
