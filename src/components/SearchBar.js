@@ -16,7 +16,9 @@ const SearchBar = () => {
       if (inputUser) {
         setResult(
           movies.filter((m) =>
-            m.title ? m.title.includes(inputUser) : undefined
+            m.title
+              ? m.title.toLowerCase().includes(inputUser.toLowerCase())
+              : undefined
           )
         );
       } else {

@@ -24,7 +24,9 @@ const EditMovie = () => {
   useEffect(() => {
     const fetchMovie = async () => {
       const movie = movies.filter((m) =>
-        m.title.toLowerCase().match(title.toLowerCase())
+        m.title
+          ? m.title.toLowerCase().includes(title.toLowerCase())
+          : undefined
       );
 
       if (title !== "") {
