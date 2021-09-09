@@ -10,21 +10,18 @@ const List = ({ movie }) => {
       if (movie.title) {
         const results = await axios
           .get(
-            `https://api.themoviedb.org/3/search/movie?query=${encodeURI(
-              movie.title
-            )}&api_key=${API_KEY}&language=fr-FR&primary_release_year=${
-              movie.year
-            }`
+            `https://api.themoviedb.org/3/search/movie?query=${movie.title}&api_key=${API_KEY}&language=fr-FR&primary_release_year=${movie.year}`
           )
           .then((res) => res.data.results)
           .catch((err) => console.error(err.message));
 
         const moviesTMDB =
           movie.year && results.length > 1
-            ? results.filter(
-                (m) =>
-                  m.title.trim().toLowerCase() ===
-                  movie.title.trim().toLowerCase()
+            ? results.filter((m) =>
+                m.title
+                  ? m.title.trim().toLowerCase() ===
+                    movie.title.trim().toLowerCase()
+                  : undefined
               )
             : results;
 
@@ -47,12 +44,10 @@ const List = ({ movie }) => {
     fetchData();
   }, [movie]);
 
-  return movieInfo.title ? (
-    <li key={movieInfo.id}>
+  return movie.title ? (
+    <li>
       <a
-        href={`/movie/${encodeURIComponent(movieInfo.title.toLowerCase())}?year=${
-          movie.year
-        }`}
+        href={`/movie/${encodeURIComponent(movie.title)}?year=${movie.year}`}
         className="flex flex-row items-center mb-2"
       >
         <p className="flex items-center justify-center w-16 h-6 mr-4 shadow-inner bg-gradient-to-br from-blue-800 to-blue-500 text-white text-center text-sm font-semibold rounded-xl">
@@ -69,7 +64,7 @@ const List = ({ movie }) => {
         </div>
       </a>
     </li>
-  ) : null;
+  ) : undefined;
 };
 
 export default List;

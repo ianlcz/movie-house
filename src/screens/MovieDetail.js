@@ -23,74 +23,68 @@ const MovieDetail = () => {
 
   const API_KEY = "aeeca3eb934c595a32cbd53a16f76f64";
 
-  console.log(decodeURIComponent(title));
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const movieFinded = movies.filter((m) =>
-          m.title && m.year
-            ? m.title.toLowerCase() === decodeURIComponent(title) &&
-              m.year == year
-            : undefined
+        const movieFinded = movies.filter(
+          (m) =>
+            m.title.toLowerCase() === decodeURIComponent(title.toLowerCase()) &&
+            m.year == year
         )[0];
-
-        console.log(
-          movies.filter(
-            (m) =>
-              m.title.toLowerCase() === "qui veut la peau de roger rabbit ?"
-          )
-        );
 
         if (movieFinded) {
           const results = await axios
             .get(
-              `https://api.themoviedb.org/3/search/movie?query=${encodeURI(
-                movieFinded.title
-              )}&api_key=${API_KEY}&language=fr-FR&primary_release_year=${
-                movieFinded.year
-              }`
+              `https://api.themoviedb.org/3/search/movie?query=${movieFinded.title}&api_key=${API_KEY}&language=fr-FR&primary_release_year=${movieFinded.year}`
             )
             .then((res) => res.data.results)
             .catch((err) => console.error(err.message));
 
           const moviesTMDB =
             movieFinded.year && results.length > 1
-              ? results.filter((m) => m.title === movieFinded.title)
+              ? results.filter((m) =>
+                  m.title
+                    ? m.title.toLowerCase() === movieFinded.title.toLowerCase()
+                    : undefined
+                )
               : results;
 
-          const movieID = moviesTMDB[0].id;
+          if (moviesTMDB[0]) {
+            const movieID = moviesTMDB[0].id;
 
-          const movie = await axios
-            .get(
-              `https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}&language=fr-FR`
-            )
-            .then((res) => res.data)
-            .catch((err) => console.error(err.message));
+            const movie = await axios
+              .get(
+                `https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}&language=fr-FR`
+              )
+              .then((res) => res.data)
+              .catch((err) => console.error(err.message));
 
-          const crew = await axios
-            .get(
-              `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${API_KEY}&language=fr-FR`
-            )
-            .then((res) => res.data.crew)
-            .catch((err) => console.error(err.message));
-
-          movie.ref = movieFinded.ref;
-          setDetail(movie);
-          setDirectors(crew.filter((c) => c.job === "Director"));
-          setCompositors(
-            crew.filter(
-              (c) => c.job === "Original Music Composer" || c.job === "Music"
-            )
-          );
-          setCast(
-            await axios
+            const crew = await axios
               .get(
                 `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${API_KEY}&language=fr-FR`
               )
-              .then((res) => res.data.cast)
-              .catch((err) => console.error(err.message))
-          );
+              .then((res) => res.data.crew)
+              .catch((err) => console.error(err.message));
+
+            movie.ref = movieFinded.ref;
+            setDetail(movie);
+            setDirectors(crew.filter((c) => c.job === "Director"));
+            setCompositors(
+              crew.filter(
+                (c) => c.job === "Original Music Composer" || c.job === "Music"
+              )
+            );
+            setCast(
+              await axios
+                .get(
+                  `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${API_KEY}&language=fr-FR`
+                )
+                .then((res) => res.data.cast)
+                .catch((err) => console.error(err.message))
+            );
+          } else {
+            console.log(movie);
+          }
         }
       } catch (err) {
         console.error(err.message);

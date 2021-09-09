@@ -42,7 +42,7 @@ const SearchBar = () => {
           <Actions />
           <ul className="flex flex-col w-2/3 mx-auto">
             {result.map((m) => (
-              <List movie={m} />
+              <List key={m._id} movie={m} />
             ))}
           </ul>
         </>
