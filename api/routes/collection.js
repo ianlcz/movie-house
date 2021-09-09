@@ -10,7 +10,7 @@ router.post("/:id", async (req, res) => {
     const today = new Date();
     const newMovie = {
       ref,
-      title: title.toLowerCase(),
+      title,
       genre,
       code: 1,
       purchaseYear: `${today.getUTCFullYear()} ${

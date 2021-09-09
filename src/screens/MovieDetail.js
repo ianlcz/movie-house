@@ -10,7 +10,7 @@ import jwtDecode from "jwt-decode";
 import LoadingPage from "./LoadingPage";
 
 const MovieDetail = () => {
-  const { isLoading } = useContext(AuthContext);
+  const { isLoading, movies } = useContext(AuthContext);
   const { title } = useParams();
   const [detail, setDetail] = useState({});
   const [directors, setDirectors] = useState([]);
@@ -23,78 +23,71 @@ const MovieDetail = () => {
 
   const API_KEY = "aeeca3eb934c595a32cbd53a16f76f64";
 
-  const findMovie = async () => {
-    const moviesInCollection = await axios
-      .get(`/api/collection/${user.movies}`)
-      .then((res) => res.data.movies)
-      .catch((err) => console.error(err.message));
-
-    return moviesInCollection.filter(
-      (m) =>
-        m.title.trim().toLowerCase() ===
-          decodeURI(title).trim().toLowerCase() && m.year == year
-    )[0];
-  };
-
   useEffect(() => {
     const fetchData = async () => {
-      const movieFinded = await findMovie();
+      const movieFinded = movies.filter(
+        (m) =>
+          m.title.trim().toLowerCase() ===
+            decodeURI(title).trim().toLowerCase() && m.year == year
+      )[0];
 
-      const results = await axios
-        .get(
-          `https://api.themoviedb.org/3/search/movie?query=${encodeURI(
-            movieFinded.title.trim()
-          )}&api_key=${API_KEY}&language=fr-FR&primary_release_year=${
-            movieFinded.year
-          }`
-        )
-        .then((res) => res.data.results)
-        .catch((err) => console.error(err.message));
+      if (movieFinded) {
+        const { results } = await axios
+          .get(
+            `https://api.themoviedb.org/3/search/movie?query=${encodeURI(
+              movieFinded.title.trim()
+            )}&api_key=${API_KEY}&language=fr-FR&primary_release_year=${
+              movieFinded.year
+            }`
+          )
+          .then((res) => res.data)
+          .catch((err) => console.error(err.message));
 
-      const moviesTMDB =
-        movieFinded.year && results.length > 1
-          ? results.filter(
-              (m) =>
-                m.title.trim().toLowerCase() ===
-                movieFinded.title.trim().toLowerCase()
-            )
-          : results;
+        const moviesTMDB =
+          movieFinded.year && results.length > 1
+            ? results.filter(
+                (m) =>
+                  m.title.trim().toLowerCase() ===
+                  movieFinded.title.trim().toLowerCase()
+              )
+            : results;
 
-      const movieID = moviesTMDB[0].id;
+        const movieID = moviesTMDB[0].id;
 
-      const movie = await axios
-        .get(
-          `https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}&language=fr-FR`
-        )
-        .then((res) => res.data)
-        .catch((err) => console.error(err.message));
+        const movie = await axios
+          .get(
+            `https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}&language=fr-FR`
+          )
+          .then((res) => res.data)
+          .catch((err) => console.error(err.message));
 
-      const crew = await axios
-        .get(
-          `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${API_KEY}&language=fr-FR`
-        )
-        .then((res) => res.data.crew)
-        .catch((err) => console.error(err.message));
-
-      movie.ref = movieFinded.ref;
-      setDetail(movie);
-      setDirectors(crew.filter((c) => c.job === "Director"));
-      setCompositors(
-        crew.filter(
-          (c) => c.job === "Original Music Composer" || c.job === "Music"
-        )
-      );
-      setCast(
-        await axios
+        const crew = await axios
           .get(
             `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${API_KEY}&language=fr-FR`
           )
-          .then((res) => res.data.cast)
-          .catch((err) => console.error(err.message))
-      );
+          .then((res) => res.data.crew)
+          .catch((err) => console.error(err.message));
+
+        movie.ref = movieFinded.ref;
+        setDetail(movie);
+        setDirectors(crew.filter((c) => c.job === "Director"));
+        setCompositors(
+          crew.filter(
+            (c) => c.job === "Original Music Composer" || c.job === "Music"
+          )
+        );
+        setCast(
+          await axios
+            .get(
+              `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${API_KEY}&language=fr-FR`
+            )
+            .then((res) => res.data.cast)
+            .catch((err) => console.error(err.message))
+        );
+      }
     };
     fetchData();
-  }, [title]);
+  }, [title, movies]);
 
   return isLoading ? (
     <LoadingPage />

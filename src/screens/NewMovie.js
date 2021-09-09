@@ -3,6 +3,7 @@ import axios from "axios";
 import AuthContext from "../auth/AuthContext";
 import { useHistory } from "react-router-dom";
 import Card from "../components/Movie/Card";
+import Submit from "../components/Submit";
 import { Helmet } from "react-helmet";
 
 const NewMovie = () => {
@@ -61,7 +62,7 @@ const NewMovie = () => {
       <div className="flex flex-col bg-gradient-to-br from-blue-900 to-blue-400 min-h-screen">
         <div className="w-2/3 mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
           <h1 className="mb-6 font-semibold text-2xl text-center text-blue-900">
-            Votre nouveau film
+            Quel est votre nouveau film ?
           </h1>
           <form onSubmit={handleMovie}>
             <div className="flex flex-row justify-between">
@@ -77,7 +78,7 @@ const NewMovie = () => {
               <input
                 type="text"
                 name="title"
-                placeholder="Recherchez votre film"
+                placeholder="Entrez son titre"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
@@ -111,14 +112,7 @@ const NewMovie = () => {
               </ul>
             ) : undefined}
 
-            <div className="w-max mx-auto">
-              <button
-                type="submit"
-                className="mt-4 px-4 text-sm py-1 bg-gradient-to-tr from-blue-800 to-blue-400 hover:from-blue-400 hover:to-blue-800 font-medium text-blue-50 rounded-full"
-              >
-                Ajouter ce film
-              </button>
-            </div>
+            <Submit buttonTitle="Ajouter ce film" />
           </form>
         </div>
       </div>
