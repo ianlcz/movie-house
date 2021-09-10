@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const OwnerSchema = new mongoose.Schema(
   {
-    emailAddress: mongoose.SchemaTypes.String,
+    emailAddress: { type: mongoose.SchemaTypes.String, unique: true },
     password: mongoose.SchemaTypes.String,
     movies: { type: mongoose.Schema.Types.ObjectId, ref: "collection" },
   },

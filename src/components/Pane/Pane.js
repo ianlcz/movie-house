@@ -1,3 +1,4 @@
+import Actions from "../Actions";
 import Background from "../Background";
 import GoToHome from "../GoToHome";
 
@@ -92,6 +93,8 @@ const Pane = ({
               </Background>
             </div>
           ) : undefined}
+
+          <Actions />
         </div>
       </div>
     ) : undefined}

@@ -23,19 +23,32 @@ router.post("/:id", async (req, res) => {
 
     const { movies } = await Collection.findById(id);
 
-    movies.push(newMovie);
+    if (
+      movies.filter((m) =>
+        m.title
+          ? m.title.toLowerCase() === newMovie.title.toLowerCase() &&
+            m.ref === newMovie.ref
+          : undefined
+      ).length === 0
+    ) {
+      movies.push(newMovie);
 
-    await Collection.updateOne(
-      { _id: id },
-      { $set: { movies: movies.sort((a, b) => Number(a.ref) - Number(b.ref)) } }
-    );
+      await Collection.updateOne(
+        { _id: id },
+        {
+          $set: {
+            movies: movies.sort((a, b) => Number(a.ref) - Number(b.ref)),
+          },
+        }
+      );
 
-    console.log(`INFO : Add movie (${title} - ${year}) in collection !`);
+      console.log(`INFO : Add movie (${title} - ${year}) in collection !`);
 
-    res.status(200).json({
-      success: true,
-      message: `Le film (${title} - ${year}) a été ajouté à votre collection`,
-    });
+      res.status(200).json({
+        success: true,
+        message: `Le film (${title} - ${year}) a été ajouté à votre collection`,
+      });
+    }
   } catch (err) {
     console.error(err.message);
   }
