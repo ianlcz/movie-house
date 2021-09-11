@@ -38,7 +38,7 @@ const SearchBar = () => {
 
       {result.length > 0 ? (
         <>
-          <ul className="flex flex-col w-2/3 mx-auto">
+          <ul className=" w-11/12 mx-auto grid grid-flow-cols grid-cols-3 grid-rows-3 gap-x-12 gap-y-6">
             {result.map((m) => (
               <List key={m._id} movie={m} />
             ))}

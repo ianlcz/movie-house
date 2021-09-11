@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Actions from "../Actions";
 
 const List = ({ movie }) => {
   const [movieInfo, setMovieInfo] = useState({});
@@ -61,6 +62,7 @@ const List = ({ movie }) => {
             ) : undefined}
           </p>
           <p className="text-blue-700 text-xs">{`Code : ${movie.code}`}</p>
+          <Actions reference={movie.ref} />
         </div>
       </a>
     </li>

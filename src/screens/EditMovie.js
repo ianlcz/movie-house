@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import AuthContext from "../auth/AuthContext";
 import { getCookieFromBrowser } from "../auth/cookies";
 import Card from "../components/Movie/Card";
@@ -12,7 +12,7 @@ const EditMovie = () => {
   const user = jwtDecode(getCookieFromBrowser("authToken"));
   const { movies } = useContext(AuthContext);
   const history = useHistory();
-  const [userInput, setUserInput] = useState("");
+  const { reference } = useParams();
   const [newTitle, setNewTitle] = useState("");
   const [newRef, setNewRef] = useState("");
   const [movie, setMovie] = useState({});
@@ -24,18 +24,12 @@ const EditMovie = () => {
 
   useEffect(() => {
     const fetchMovie = async () => {
-      const movie = movies.filter((m) =>
-        m.ref && m.title
-          ? m.title.toLowerCase().match(userInput.toLowerCase()) ||
-            m.ref.includes(userInput)
-          : undefined
+      setMovie(
+        movies.filter((m) => (m.ref ? m.ref === reference : undefined))[0]
       );
-
-      if (userInput !== "") {
-        setSuggestion(movie);
-      } else {
-        setSuggestion([]);
-      }
+      setSuggestion(
+        movies.filter((m) => (m.ref ? m.ref === reference : undefined))
+      );
 
       if (newTitle !== "") {
         const data = await axios
@@ -51,7 +45,7 @@ const EditMovie = () => {
       }
     };
     fetchMovie();
-  }, [userInput, newTitle]);
+  }, [movies, reference, newTitle]);
 
   const HandleEdit = async (e) => {
     e.preventDefault();
@@ -98,16 +92,6 @@ const EditMovie = () => {
             Quel film souhaitez-vous modifier ?
           </h1>
           <form onSubmit={HandleEdit}>
-            <input
-              type="text"
-              name="userInput"
-              placeholder="Entrez son titre ou sa référence"
-              value={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
-              required
-              className="w-full px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
-            />
-
             {suggestion && suggestion.length > 0 ? (
               <ul
                 className={`my-8 ${
@@ -116,14 +100,8 @@ const EditMovie = () => {
                     : "grid grid-flow-col grid-cols-2 grid-rows-2 gap-8"
                 }`}
               >
-                {suggestion.slice(0, 4).map((m) => (
-                  <li
-                    onClick={() => {
-                      setMovie(m);
-                      setUserInput(`${m.ref} - ${m.title} (${m.year})`);
-                    }}
-                    className="flex flex-row items-center w-max mx-auto px-2 rounded-full text-white bg-gradient-to-br from-blue-800 to-blue-400 truncate cursor-pointer"
-                  >
+                {suggestion.map((m) => (
+                  <li className="flex flex-row items-center w-max mx-auto px-2 rounded-full text-white bg-gradient-to-br from-blue-800 to-blue-400 truncate">
                     <p className="text-sm font-bold mr-1">{`${m.ref} -`}</p>
                     <p className="mr-2 text-sm font-semibold">{m.title}</p>
                     <p className="text-sm">{`(${m.year})`}</p>
