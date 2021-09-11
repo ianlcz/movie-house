@@ -4,12 +4,12 @@ import { IoAddCircle, IoExit, IoPencil, IoRemoveCircle } from "react-icons/io5";
 
 import AuthContext from "../auth/AuthContext";
 
-const Actions = ({ reference }) => {
+const Actions = ({ children }) => {
   const { logout } = useContext(AuthContext);
   const location = useLocation();
   return (
     <>
-      {!reference ? (
+      {!children ? (
         <div className="flex justify-evenly w-2/3 mx-auto mt-6">
           <a
             href="/new"
@@ -33,19 +33,21 @@ const Actions = ({ reference }) => {
       ) : (
         <div className="flex flex-row mt-2">
           <a
-            href={`/edit/${reference}`}
+            href={`/edit/${children.ref}/${encodeURIComponent(children.title)}`}
             className="flex items-center w-max mr-5 px-2 py-1 text-yellow-600 hover:text-yellow-50 border border-yellow-500 hover:border-yellow-400 bg-yellow-50 hover:bg-yellow-400 rounded-full shadow"
           >
             <IoPencil className="w-4 h-4" />
-            <span className="ml-2 text-xs">Modifier ce film</span>
+            <span className="ml-2 text-xs">Modifier</span>
           </a>
 
           <a
-            href={`/delete/${reference}`}
+            href={`/delete/${children.ref}/${encodeURIComponent(
+              children.title
+            )}`}
             className="flex items-center w-max px-2 py-1 text-red-600 hover:text-red-50 border border-red-500 hover:border-red-400 bg-red-50 hover:bg-red-400 rounded-full shadow"
           >
             <IoRemoveCircle className="w-4 h-4" />
-            <span className="ml-2 text-xs">Retirer ce film</span>
+            <span className="ml-2 text-xs">Retirer</span>
           </a>
         </div>
       )}

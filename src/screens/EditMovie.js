@@ -12,53 +12,54 @@ const EditMovie = () => {
   const user = jwtDecode(getCookieFromBrowser("authToken"));
   const { movies } = useContext(AuthContext);
   const history = useHistory();
-  const { reference } = useParams();
+  const { reference, title } = useParams();
   const [newTitle, setNewTitle] = useState("");
   const [newRef, setNewRef] = useState("");
   const [movie, setMovie] = useState({});
   const [newMovie, setNewMovie] = useState(undefined);
   const [suggestion, setSuggestion] = useState([]);
-  const [newSuggestion, setNewSuggestion] = useState([]);
 
   const API_KEY = "aeeca3eb934c595a32cbd53a16f76f64";
 
   useEffect(() => {
     const fetchMovie = async () => {
       setMovie(
-        movies.filter((m) => (m.ref ? m.ref === reference : undefined))[0]
-      );
-      setSuggestion(
-        movies.filter((m) => (m.ref ? m.ref === reference : undefined))
+        movies.filter((m) =>
+          m.ref && m.title
+            ? m.ref === reference &&
+              m.title.toLowerCase() === decodeURIComponent(title.toLowerCase())
+            : undefined
+        )[0]
       );
 
       if (newTitle !== "") {
-        const data = await axios
-          .get(
-            `https://api.themoviedb.org/3/search/movie?query=${newTitle.trim()}&api_key=${API_KEY}&language=fr-FR`
-          )
-          .then((res) => res.data.results)
-          .catch((err) => console.error(err.message));
-
-        setNewSuggestion(data);
+        setSuggestion(
+          await axios
+            .get(
+              `https://api.themoviedb.org/3/search/movie?query=${newTitle.trim()}&api_key=${API_KEY}&language=fr-FR`
+            )
+            .then((res) => res.data.results)
+            .catch((err) => console.error(err.message))
+        );
       } else {
-        setNewSuggestion([]);
+        setSuggestion([]);
       }
     };
     fetchMovie();
-  }, [movies, reference, newTitle]);
+  }, [movies, reference, title, newTitle]);
 
   const HandleEdit = async (e) => {
     e.preventDefault();
     const today = new Date();
 
-    if (user) {
+    if (user && (newRef !== "" || newTitle !== "")) {
       await axios
         .put(`/api/collection/${user.movies}`, {
           movie,
           newMovie: !newMovie
             ? {
                 ref: newRef === "" ? movie.ref : newRef,
-                title: movie.title,
+                title: movie.title.toLowerCase(),
                 genre: movie.genre,
                 code: 1,
                 purchaseYear: movie.purchaseYear,
@@ -66,7 +67,7 @@ const EditMovie = () => {
               }
             : {
                 ref: newRef === "" ? movie.ref : newRef,
-                title: newMovie.title,
+                title: newMovie.title.toLowerCase(),
                 genre: newMovie.genre_ids,
                 code: 1,
                 purchaseYear: movie.purchaseYear,
@@ -84,29 +85,23 @@ const EditMovie = () => {
   return (
     <>
       <Helmet>
-        <title>{`Modification d'un film | Movie House`}</title>
+        <title>{`Modification ${
+          movie ? "de " + movie.title : "d'un film"
+        } | Movie House`}</title>
       </Helmet>
       <div className="flex flex-col bg-gradient-to-br from-blue-900 to-blue-400 min-h-screen">
         <div className="w-auto mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
           <h1 className="mb-6 font-semibold text-2xl text-center text-blue-900">
-            Quel film souhaitez-vous modifier ?
+            Voulez-vous modifier ce film ?
           </h1>
           <form onSubmit={HandleEdit}>
-            {suggestion && suggestion.length > 0 ? (
-              <ul
-                className={`my-8 ${
-                  suggestion.length === 1
-                    ? ""
-                    : "grid grid-flow-col grid-cols-2 grid-rows-2 gap-8"
-                }`}
-              >
-                {suggestion.map((m) => (
-                  <li className="flex flex-row items-center w-max mx-auto px-2 rounded-full text-white bg-gradient-to-br from-blue-800 to-blue-400 truncate">
-                    <p className="text-sm font-bold mr-1">{`${m.ref} -`}</p>
-                    <p className="mr-2 text-sm font-semibold">{m.title}</p>
-                    <p className="text-sm">{`(${m.year})`}</p>
-                  </li>
-                ))}
+            {movie ? (
+              <ul className="my-4">
+                <li className="flex flex-row items-center w-max mx-auto px-2 rounded-full text-white bg-gradient-to-br from-blue-800 to-blue-400 truncate">
+                  <p className="text-sm font-bold mr-1">{`${movie.ref} -`}</p>
+                  <p className="mr-2 text-sm font-semibold">{movie.title}</p>
+                  <p className="text-sm">{`(${movie.year})`}</p>
+                </li>
               </ul>
             ) : undefined}
 
@@ -136,15 +131,15 @@ const EditMovie = () => {
               />
             </div>
 
-            {newSuggestion && newSuggestion.length > 0 ? (
+            {suggestion && suggestion.length > 0 ? (
               <ul
                 className={`my-8 w-max m-auto ${
-                  newSuggestion.length === 1
+                  suggestion.length === 1
                     ? ""
                     : "grid grid-flow-col grid-cols-2 grid-rows-2 gap-8"
                 }`}
               >
-                {newSuggestion
+                {suggestion
                   .filter((m) => m.poster_path)
                   .slice(0, 4)
                   .map((m) => (
@@ -161,7 +156,7 @@ const EditMovie = () => {
               </ul>
             ) : undefined}
 
-            <Submit buttonTitle="Modifier ce film" />
+            <Submit buttonTitle="Oui" />
           </form>
         </div>
       </div>

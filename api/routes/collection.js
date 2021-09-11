@@ -10,7 +10,7 @@ router.post("/:id", async (req, res) => {
     const today = new Date();
     const newMovie = {
       ref,
-      title,
+      title: title.toLowerCase(),
       genre,
       code: 1,
       purchaseYear: `${today.getUTCFullYear()} ${
@@ -75,7 +75,14 @@ router.put("/:id", async (req, res) => {
     // Delete movie from movies
     await Collection.updateOne(
       { _id: id },
-      { $pull: { movies: { ref: { $in: [movie.ref] } } } }
+      {
+        $pull: {
+          movies: {
+            ref: { $in: [movie.ref] },
+            title: { $in: [movie.title.toLowerCase()] },
+          },
+        },
+      }
     );
 
     // Add movie in movies
@@ -102,13 +109,20 @@ router.put("/:id", async (req, res) => {
 });
 
 /* Delete a movie from a collection */
-router.delete("/:id/:ref", async (req, res) => {
+router.delete("/:id/:ref/:title", async (req, res) => {
   try {
-    const { id, ref } = req.params;
+    const { id, ref, title } = req.params;
 
     const movies = await Collection.updateOne(
       { _id: id },
-      { $pull: { movies: { ref: { $in: [ref] } } } }
+      {
+        $pull: {
+          movies: {
+            ref: { $in: [ref] },
+            title: { $in: [decodeURIComponent(title.toLowerCase())] },
+          },
+        },
+      }
     );
 
     console.log(`INFO : Delete movie in collection !`);
