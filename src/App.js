@@ -19,8 +19,16 @@ const App = () => (
       </Route>
       <ProtectedRoute exact path="/movie/:title" component={MovieDetail} />
       <ProtectedRoute exact path="/new" component={NewMovie} />
-      <ProtectedRoute exact path="/edit" component={EditMovie} />
-      <ProtectedRoute exact path="/delete" component={DeleteMovie} />
+      <ProtectedRoute
+        exact
+        path="/edit/:reference/:title"
+        component={EditMovie}
+      />
+      <ProtectedRoute
+        exact
+        path="/delete/:reference/:title"
+        component={DeleteMovie}
+      />
     </Switch>
   </Router>
 );

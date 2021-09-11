@@ -23,19 +23,32 @@ router.post("/:id", async (req, res) => {
 
     const { movies } = await Collection.findById(id);
 
-    movies.push(newMovie);
+    if (
+      movies.filter((m) =>
+        m.title
+          ? m.title.toLowerCase() === newMovie.title.toLowerCase() &&
+            m.ref === newMovie.ref
+          : undefined
+      ).length === 0
+    ) {
+      movies.push(newMovie);
 
-    await Collection.updateOne(
-      { _id: id },
-      { $set: { movies: movies.sort((a, b) => Number(a.ref) - Number(b.ref)) } }
-    );
+      await Collection.updateOne(
+        { _id: id },
+        {
+          $set: {
+            movies: movies.sort((a, b) => Number(a.ref) - Number(b.ref)),
+          },
+        }
+      );
 
-    console.log(`INFO : Add movie (${title} - ${year}) in collection !`);
+      console.log(`INFO : Add movie (${title} - ${year}) in collection !`);
 
-    res.status(200).json({
-      success: true,
-      message: `Le film (${title} - ${year}) a été ajouté à votre collection`,
-    });
+      res.status(200).json({
+        success: true,
+        message: `Le film (${title} - ${year}) a été ajouté à votre collection`,
+      });
+    }
   } catch (err) {
     console.error(err.message);
   }
@@ -62,7 +75,14 @@ router.put("/:id", async (req, res) => {
     // Delete movie from movies
     await Collection.updateOne(
       { _id: id },
-      { $pull: { movies: { ref: { $in: [movie.ref] } } } }
+      {
+        $pull: {
+          movies: {
+            ref: { $in: [movie.ref] },
+            title: { $in: [movie.title.toLowerCase()] },
+          },
+        },
+      }
     );
 
     // Add movie in movies
@@ -89,13 +109,20 @@ router.put("/:id", async (req, res) => {
 });
 
 /* Delete a movie from a collection */
-router.delete("/:id/:ref", async (req, res) => {
+router.delete("/:id/:ref/:title", async (req, res) => {
   try {
-    const { id, ref } = req.params;
+    const { id, ref, title } = req.params;
 
     const movies = await Collection.updateOne(
       { _id: id },
-      { $pull: { movies: { ref: { $in: [ref] } } } }
+      {
+        $pull: {
+          movies: {
+            ref: { $in: [ref] },
+            title: { $in: [decodeURIComponent(title.toLowerCase())] },
+          },
+        },
+      }
     );
 
     console.log(`INFO : Delete movie in collection !`);

@@ -1,9 +1,10 @@
+import Actions from "../Actions";
 import Background from "../Background";
 import GoToHome from "../GoToHome";
 
 const Pane = ({
   children: {
-    detail: { production_companies, belongs_to_collection },
+    detail: { ref, production_companies, belongs_to_collection },
     cast,
   },
 }) => (

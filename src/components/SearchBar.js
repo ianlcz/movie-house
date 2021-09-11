@@ -3,71 +3,50 @@ import { useHistory } from "react-router-dom";
 import { IoInformationCircle, IoSyncCircle } from "react-icons/io5";
 import axios from "axios";
 import AuthContext from "../auth/AuthContext";
-import Actions from "./Actions";
+import List from "./Movie/List";
 
 const SearchBar = () => {
   const { user, movies, isLoading } = useContext(AuthContext);
   const history = useHistory();
   const [result, setResult] = useState([]);
-  const [inputUser, setInputUser] = useState("");
+  const [userInput, setUserInput] = useState("");
 
   useEffect(() => {
-    const fetchMovies = () => {
-      if (inputUser) {
-        setResult(
-          movies.filter((m) =>
-            m.title
-              ? m.title.toLowerCase().includes(inputUser.toLowerCase())
-              : undefined
-          )
-        );
-      } else {
-        setResult(movies);
-      }
-    };
-    fetchMovies();
-  }, [inputUser, movies]);
+    if (userInput !== "") {
+      setResult(
+        movies.filter((m) =>
+          m.ref && m.title
+            ? m.title.toLowerCase().includes(userInput.toLowerCase()) ||
+              m.ref.includes(userInput)
+            : undefined
+        )
+      );
+    } else {
+      setResult(movies);
+    }
+  }, [userInput, movies]);
 
   return (
     <div className="flex flex-col w-full">
       <input
         type="text"
-        value={inputUser}
-        onChange={(e) => setInputUser(e.target.value)}
-        placeholder="Rechercher un film"
-        className="w-1/4 mx-auto mt-8 pl-6 h-12 border border-blue-500 text-blue-600 font-medium rounded-full placeholder-blue-400"
+        value={userInput}
+        onChange={(e) => setUserInput(e.target.value)}
+        placeholder="Rechercher un film ou une référence"
+        className="w-1/4 mx-auto my-8 pl-6 h-12 border border-blue-500 text-blue-600 font-medium rounded-full placeholder-blue-400"
       />
 
       {result.length > 0 ? (
         <>
-          <Actions />
-          <ul className="flex flex-col w-2/3 mx-auto">
+          <ul className=" w-11/12 mx-auto grid grid-flow-cols grid-cols-3 grid-rows-3 gap-x-12 gap-y-6">
             {result.map((m) => (
-              <li key={m._id}>
-                <a
-                  href={`/movie/${m.title}?year=${m.year}`}
-                  className="flex flex-row items-center mb-2"
-                >
-                  <p className="flex items-center justify-center w-16 h-6 mr-4 shadow-inner bg-gradient-to-br from-blue-800 to-blue-500 text-white text-center text-sm font-semibold rounded-xl">
-                    {m.ref}
-                  </p>
-                  <div>
-                    <p className="text-blue-700 font-light">
-                      {m.title}
-                      {m.year ? (
-                        <span className="ml-1 font-medium text-sm">{`(${m.year})`}</span>
-                      ) : undefined}
-                    </p>
-                    <p className="text-blue-700 text-xs">{`Code : ${m.code}`}</p>
-                  </div>
-                </a>
-              </li>
+              <List key={m._id} movie={m} />
             ))}
           </ul>
         </>
       ) : isLoading ? (
         <div className="flex items-center w-max mx-auto mt-60">
-          <IoSyncCircle className="w-6 mr-2 h-6 text-blue-800" />
+          <IoSyncCircle className="animate-spin w-6 mr-2 h-6 text-blue-800" />
           <p className="text-blue-800 text-sm font-semibold">
             Récupération de vos films...
           </p>
