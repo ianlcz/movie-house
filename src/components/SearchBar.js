@@ -33,12 +33,12 @@ const SearchBar = () => {
         value={userInput}
         onChange={(e) => setUserInput(e.target.value)}
         placeholder="Rechercher un film ou une référence"
-        className="w-1/4 mx-auto my-8 pl-6 h-12 border border-blue-500 text-blue-600 font-medium rounded-full placeholder-blue-400"
+        className="w-5/6 lg:w-1/4 mx-auto my-8 pl-6 h-12 border border-blue-500 text-blue-600 font-medium rounded-full placeholder-blue-400"
       />
 
       {result.length > 0 ? (
         <>
-          <ul className=" w-11/12 mx-auto grid grid-flow-cols grid-cols-3 grid-rows-3 gap-x-12 gap-y-6">
+          <ul className=" w-11/12 mx-auto grid grid-flow-cols grid-cols-1 lg:grid-cols-3 lg:gap-x-12 lg:gap-y-6">
             {result.map((m) => (
               <List key={m._id} movie={m} />
             ))}

@@ -32,20 +32,20 @@ const HeadBand = ({
         title: title,
       }}
     >
-      <div className="flex flex-row mt-4 mb-14 items-center justify-evenly">
+      <div className="flex flex-col lg:flex-row mt-4 mb-14 items-center justify-evenly">
         <img
           src={`https://image.tmdb.org/t/p/original/${poster_path}`}
           alt={`Affiche du film : ${title}`}
-          className="w-72 rounded-xl shadow-xl"
+          className="w-48 lg:w-72 rounded-xl shadow-xl"
         />
 
-        <div className="flex flex-col w-3/5">
+        <div className="flex flex-col lg:w-3/5 mt-6 lg:mt-0">
           <p className="w-16 mx-auto mb-2 px-2 py-0.5 text-xs text-center font-semibold rounded-full shadow-inner bg-gradient-to-br from-blue-800 to-blue-500">
             {ref}
           </p>
           <div className="flex flex-row w-max mx-auto items-center">
-            <h1 className="text-4xl font-semibold truncate">{title}</h1>
-            <span className="ml-2 text-2xl font-light truncate">
+            <h1 className="text-2xl md:text-4xl font-semibold truncate">{title}</h1>
+            <span className="ml-2 text-base md:text-2xl font-light truncate">
               ({new Date(release_date).getFullYear()})
             </span>
           </div>
@@ -54,7 +54,7 @@ const HeadBand = ({
             <p className="mt-1 text-sm italic text-center">{original_title}</p>
           ) : undefined}
 
-          <div className="flex flex-row w-max mx-auto mt-2">
+          <div className="flex flex-row items-center w-max mx-auto mt-2">
             {genres && (
               <>
                 <ul className="flex flex-row">
@@ -65,7 +65,7 @@ const HeadBand = ({
                         index === genres.length - 1 ? "truncate" : undefined
                       }`}
                     >
-                      <p>
+                      <p className="text-sm md:text-base">
                         {g.name}
                         {index === genres.length - 1 ? undefined : ", "}
                       </p>
@@ -102,7 +102,7 @@ const HeadBand = ({
           </div>
 
           {tagline ? (
-            <p className="mb-2 text-blue-100 font-medium text-sm italic">
+            <p className="mb-2 text-blue-100 font-medium text-xs md:text-sm italic">
               {tagline}
             </p>
           ) : undefined}
@@ -110,7 +110,7 @@ const HeadBand = ({
           {overview ? (
             <>
               <h2 className="text-xl undefined mb-2 font-medium">Synopsis</h2>
-              <p className="leading-snug font-light text-base text-justify">
+              <p className="leading-snug font-light text-sm lg:text-base text-justify">
                 {overview}
               </p>
             </>
@@ -138,7 +138,7 @@ const HeadBand = ({
             </div>
           ) : undefined}
 
-          <table className="w-1/2 mx-auto mt-6 shadow-inner bg-blue-100 bg-opacity-95 rounded-full">
+          <table className="w-full lg:w-1/2 mx-auto mt-6 shadow-inner bg-blue-100 bg-opacity-95 rounded-full">
             <thead>
               <tr className="text-base text-blue-800">
                 <th>Score</th>

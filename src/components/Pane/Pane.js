@@ -8,9 +8,9 @@ const Pane = ({
     cast,
   },
 }) => (
-  <div className="flex flex-row bg-blue-50 -mt-8 px-6 py-6 shadow-md rounded-t-2xl max-h-screen z-10 relative">
+  <div className="flex flex-row bg-blue-50 -mt-8 px-6 py-6 shadow-md rounded-t-2xl md:max-h-screen z-10 relative">
     {production_companies ? (
-      <div className="flex justify-between items-start w-full text-blue-800">
+      <div className="flex flex-col lg:flex-row justify-between items-start w-full text-blue-800">
         <GoToHome />
 
         <div className="w-full">
@@ -20,7 +20,7 @@ const Pane = ({
               : "Société"}{" "}
             de production
           </h2>
-          <ul className="flex flex-row justify-evenly my-6">
+          <ul className="flex flex-row justify-around lg:justify-evenly my-6">
             {production_companies.filter((p) => p.logo_path).length === 0
               ? production_companies.slice(0, 2).map((p) => (
                   <li key={p.id}>
@@ -51,17 +51,17 @@ const Pane = ({
           <h2 className="text-xl mb-4 text-center font-semibold">
             Distribution
           </h2>
-          <ul className="grid grid-flow-col grid-rows-2 gap-x-14 gap-y-8">
+          <ul className="grid grid-flow-col grid-rows-6 lg:grid-rows-2 gap-x-14 gap-y-8">
             {cast
               .filter((p) => p.profile_path)
               .slice(0, 6)
               .map((c) => (
-                <li key={c.id} className="flex flex-row items-center">
+                <li key={c.id} className="flex flex-row items-center w-4/5 mx-auto">
                   {c.profile_path ? (
                     <img
                       src={`https://image.tmdb.org/t/p/original/${c.profile_path}`}
                       alt={`Profil de : ${c.name}`}
-                      className="w-20 rounded-lg shadow-md"
+                      className="w-14 h-14 md:w-20 md:h-auto object-cover rounded-lg shadow-md"
                     />
                   ) : undefined}
                   <div className="ml-2 px-4 py-2">

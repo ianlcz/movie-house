@@ -90,7 +90,7 @@ const EditMovie = () => {
         } | Movie House`}</title>
       </Helmet>
       <div className="flex flex-col bg-gradient-to-br from-blue-900 to-blue-400 min-h-screen">
-        <div className="w-auto mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
+        <div className="w-4/5 md:w-auto mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
           <h1 className="mb-6 font-semibold text-2xl text-center text-blue-900">
             Voulez-vous modifier ce film ?
           </h1>
@@ -136,7 +136,7 @@ const EditMovie = () => {
                 className={`my-8 w-max m-auto ${
                   suggestion.length === 1
                     ? ""
-                    : "grid grid-flow-col grid-cols-2 grid-rows-2 gap-8"
+                    : "grid grid-flow-col grid-rows-4 md:grid-cols-2 md:grid-rows-2 gap-8"
                 }`}
               >
                 {suggestion
