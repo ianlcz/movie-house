@@ -30,13 +30,13 @@ const Register = () => {
         <title>{`Inscription | Movie House`}</title>
       </Helmet>
       <div className="flex flex-col bg-gradient-to-br from-blue-900 to-blue-400 min-h-screen">
-        <div className="w-max mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
+        <div className="w-5/6 md:w-2/5 mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
           <h1 className="font-semibold text-2xl text-center text-blue-900">
             Inscription
           </h1>
 
           <form onSubmit={handleRegister}>
-            <div className="flex flex-col w-max mx-auto mt-6">
+            <div className="flex flex-col w-auto mx-auto mt-6">
               <input
                 type="email"
                 name="email"
@@ -48,7 +48,7 @@ const Register = () => {
                 className="w-max mx-auto mb-4 px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
               />
 
-              <div className="flex flex-row mb-4">
+              <div className="flex flex-col md:flex-row mb-4">
                 <input
                   type="password"
                   name="password"
@@ -57,7 +57,7 @@ const Register = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-max mx-auto mr-4 px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
+                  className="w-max mx-auto mb-2 md:mr-4 px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
                 />
                 <input
                   type="password"

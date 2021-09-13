@@ -60,12 +60,12 @@ const NewMovie = () => {
         <title>{`Ajout d'un nouveau film | Movie House`}</title>
       </Helmet>
       <div className="flex flex-col bg-gradient-to-br from-blue-900 to-blue-400 min-h-screen">
-        <div className="w-2/3 mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
+        <div className="w-4/5 md:w-2/3 mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
           <h1 className="mb-6 font-semibold text-2xl text-center text-blue-900">
             Quel est votre nouveau film ?
           </h1>
           <form onSubmit={handleMovie}>
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-col md:flex-row justify-between">
               <input
                 type="text"
                 name="ref"
@@ -73,7 +73,7 @@ const NewMovie = () => {
                 value={ref}
                 onChange={(e) => setRef(e.target.value)}
                 required
-                className="w-max mx-auto px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
+                className="w-max mx-auto mb-2 md:mb-0 px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
               />
               <input
                 type="text"
@@ -91,7 +91,7 @@ const NewMovie = () => {
                 className={`my-8 w-max m-auto ${
                   suggestion.length === 1
                     ? ""
-                    : "grid grid-flow-col grid-cols-2 grid-rows-2 gap-8"
+                    : "grid grid-flow-col grid-rows-4 md:grid-cols-2 md:grid-rows-2 gap-8"
                 }`}
               >
                 {suggestion
