@@ -46,7 +46,7 @@ const DeleteMovie = () => {
         } | Movie House`}</title>
       </Helmet>
       <div className="flex flex-col bg-gradient-to-br from-red-900 to-red-400 min-h-screen">
-        <div className="w-5/6 md:w-auto mx-auto my-auto p-8 bg-red-50 rounded-xl shadow-lg">
+        <div className="w-5/6 lg:w-auto mx-auto my-auto p-8 bg-red-50 rounded-xl shadow-lg">
           <h1 className="mb-6 font-semibold text-2xl text-center text-red-900">
             Voulez-vous retirer ce film ?
           </h1>

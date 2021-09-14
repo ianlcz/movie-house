@@ -8,7 +8,7 @@ const Pane = ({
     cast,
   },
 }) => (
-  <div className="flex flex-row bg-blue-50 -mt-8 px-6 py-6 shadow-md rounded-t-2xl md:max-h-screen z-10 relative">
+  <div className="flex flex-row bg-blue-50 -mt-8 px-6 py-6 shadow-md rounded-t-2xl lg:max-h-screen z-10 relative">
     {production_companies ? (
       <div className="flex flex-col lg:flex-row justify-between items-start w-full text-blue-800">
         <GoToHome />
@@ -56,12 +56,15 @@ const Pane = ({
               .filter((p) => p.profile_path)
               .slice(0, 6)
               .map((c) => (
-                <li key={c.id} className="flex flex-row items-center w-4/5 mx-auto">
+                <li
+                  key={c.id}
+                  className="flex flex-row items-center w-4/5 mx-auto"
+                >
                   {c.profile_path ? (
                     <img
                       src={`https://image.tmdb.org/t/p/original/${c.profile_path}`}
                       alt={`Profil de : ${c.name}`}
-                      className="w-14 h-14 md:w-20 md:h-auto object-cover rounded-lg shadow-md"
+                      className="w-14 h-14 lg:w-20 lg:h-auto object-cover rounded-lg shadow-md"
                     />
                   ) : undefined}
                   <div className="ml-2 px-4 py-2">

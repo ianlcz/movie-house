@@ -44,8 +44,10 @@ const HeadBand = ({
             {ref}
           </p>
           <div className="flex flex-row w-max mx-auto items-center">
-            <h1 className="text-2xl md:text-4xl font-semibold truncate">{title}</h1>
-            <span className="ml-2 text-base md:text-2xl font-light truncate">
+            <h1 className="text-2xl lg:text-4xl font-semibold truncate">
+              {title}
+            </h1>
+            <span className="ml-2 text-base lg:text-2xl font-light truncate">
               ({new Date(release_date).getFullYear()})
             </span>
           </div>
@@ -65,7 +67,7 @@ const HeadBand = ({
                         index === genres.length - 1 ? "truncate" : undefined
                       }`}
                     >
-                      <p className="text-sm md:text-base">
+                      <p className="text-sm lg:text-base">
                         {g.name}
                         {index === genres.length - 1 ? undefined : ", "}
                       </p>
@@ -102,7 +104,7 @@ const HeadBand = ({
           </div>
 
           {tagline ? (
-            <p className="mb-2 text-blue-100 font-medium text-xs md:text-sm italic">
+            <p className="mb-2 text-blue-100 font-medium text-xs lg:text-sm italic">
               {tagline}
             </p>
           ) : undefined}
