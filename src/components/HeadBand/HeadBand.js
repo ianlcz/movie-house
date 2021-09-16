@@ -167,14 +167,14 @@ const HeadBand = ({
                             : "text-green-600"
                         }`}
                       >
+                        <p className="mr-0.5 text-xs">
+                          {`x${(revenue / budget).toFixed(2)}`}
+                        </p>
                         {revenue < budget ? (
                           <IoArrowDownCircle />
                         ) : (
                           <IoArrowUpCircle />
                         )}
-                        <p className="ml-0.5 text-xs">
-                          {`${Math.round((revenue / budget - 1) * 100)}%`}
-                        </p>
                       </div>
                     ) : undefined}
                   </td>
