@@ -39,21 +39,20 @@ const HeadBand = ({
           className="w-48 lg:w-72 rounded-xl shadow-xl"
         />
 
-        <div className="flex flex-col lg:w-3/5 mt-6 lg:mt-0">
+        <div className="flex flex-col w-max lg:w-3/5 mt-6 lg:mt-0">
           <p className="w-16 mx-auto mb-2 px-2 py-0.5 text-xs text-center font-semibold rounded-full shadow-inner bg-gradient-to-br from-blue-800 to-blue-500">
             {ref}
           </p>
-          <div className="flex flex-row w-max mx-auto items-center">
-            <h1 className="text-2xl lg:text-4xl font-semibold truncate">
-              {title}
-            </h1>
-            <span className="ml-2 text-base lg:text-2xl font-light truncate">
+
+          <h1 className="flex flex-row w-full items-center justify-center text-center flex-wrap text-2xl lg:text-4xl font-semibold">
+            {title}
+            <span className="ml-4 text-base lg:text-2xl font-light">
               ({new Date(release_date).getFullYear()})
             </span>
-          </div>
+          </h1>
 
           {original_title.toLowerCase() !== title.toLowerCase() ? (
-            <p className="mt-1 text-sm italic text-center">{original_title}</p>
+            <p className="mt-2 text-sm italic text-center">{original_title}</p>
           ) : undefined}
 
           <div className="flex flex-row items-center w-max mx-auto mt-2">
@@ -140,7 +139,7 @@ const HeadBand = ({
             </div>
           ) : undefined}
 
-          <table className="w-full lg:w-1/2 mx-auto mt-6 shadow-inner bg-blue-100 bg-opacity-95 rounded-full">
+          <table className="w-1/5 lg:w-1/2 mx-auto mt-6 shadow-inner bg-blue-100 bg-opacity-95 rounded-full">
             <thead>
               <tr className="text-base text-blue-800">
                 <th>Score</th>
