@@ -19,7 +19,7 @@ const List = ({ movie, codeEquivalent }) =>
               <span className="ml-1 font-medium text-sm">{`(${movie.year})`}</span>
             ) : undefined}
           </p>
-          <p className="w-max mt-1 px-2 rounded-full text-white text-xs bg-gradient-to-r from-blue-700 to-blue-400">
+          <p className="w-max mt-1 px-2 rounded text-white text-xs bg-blue-400">
             {codeEquivalent.filter((c) => c.code === movie.code)[0]
               ? codeEquivalent.filter((c) => c.code === movie.code)[0].label
               : undefined}
