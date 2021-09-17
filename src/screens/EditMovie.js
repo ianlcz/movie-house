@@ -18,6 +18,7 @@ const EditMovie = () => {
   const [movie, setMovie] = useState({});
   const [newMovie, setNewMovie] = useState(undefined);
   const [suggestion, setSuggestion] = useState([]);
+  const [newCode, setNewCode] = useState(undefined);
 
   const API_KEY = "aeeca3eb934c595a32cbd53a16f76f64";
 
@@ -52,7 +53,7 @@ const EditMovie = () => {
     e.preventDefault();
     const today = new Date();
 
-    if (user && (newRef !== "" || newTitle !== "")) {
+    if (user && (newRef !== "" || newTitle !== "" || newCode)) {
       await axios
         .put(`/api/collection/${user.movies}`, {
           movie,
@@ -61,7 +62,7 @@ const EditMovie = () => {
                 ref: newRef === "" ? movie.ref : newRef,
                 title: movie.title.toLowerCase(),
                 genre: movie.genre,
-                code: 1,
+                code: newCode ? Number(newCode) : movie.code,
                 purchaseYear: movie.purchaseYear,
                 year: movie.year,
               }
@@ -69,7 +70,7 @@ const EditMovie = () => {
                 ref: newRef === "" ? movie.ref : newRef,
                 title: newMovie.title.toLowerCase(),
                 genre: newMovie.genre_ids,
-                code: 1,
+                code: newCode ? Number(newCode) : movie.code,
                 purchaseYear: movie.purchaseYear,
                 year: new Date(newMovie.release_date).getFullYear(),
               },
@@ -90,7 +91,7 @@ const EditMovie = () => {
         } | Movie House`}</title>
       </Helmet>
       <div className="flex flex-col bg-gradient-to-br from-blue-900 to-blue-400 min-h-screen">
-        <div className="w-4/5 lg:w-auto mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
+        <div className="w-4/5 lg:w-1/2 mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
           <h1 className="mb-6 font-semibold text-2xl text-center text-blue-900">
             Voulez-vous modifier ce film ?
           </h1>
@@ -110,14 +111,27 @@ const EditMovie = () => {
             </label>
 
             <div className="flex flex-row items-center">
-              <input
-                type="text"
-                name="newRef"
-                placeholder="Nouvelle référence"
-                value={newRef}
-                onChange={(e) => setNewRef(e.target.value)}
-                className="w-full px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
-              />
+              <div className="flex flex-col">
+                <input
+                  type="text"
+                  name="newRef"
+                  placeholder="Nouvelle référence"
+                  value={newRef}
+                  onChange={(e) => setNewRef(e.target.value)}
+                  className="w-full px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
+                />
+
+                <select
+                  value={newCode}
+                  onChange={(e) => setNewCode(e.target.value)}
+                  className="w-max mt-6 px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 appearance-none placeholder-blue-200 font-medium rounded-full shadow-inner"
+                >
+                  <option>--Choisir un code--</option>
+                  <option value={1}>Vu</option>
+                  <option value={3}>Vu au cinéma mais pas revu</option>
+                  <option value={4}>Pas vu</option>
+                </select>
+              </div>
 
               <label className="flex mx-4 text-blue-500 text-sm">et/ou</label>
 
