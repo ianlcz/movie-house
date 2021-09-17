@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Actions from "../Actions";
 
-const List = ({ movie }) =>
+const List = ({ movie, codeEquivalent }) =>
   movie.title ? (
     <li>
       <a
@@ -19,7 +19,11 @@ const List = ({ movie }) =>
               <span className="ml-1 font-medium text-sm">{`(${movie.year})`}</span>
             ) : undefined}
           </p>
-          <p className="text-blue-700 text-xs">{`Code : ${movie.code}`}</p>
+          <p className="w-max mt-1 px-2 rounded text-white text-xs bg-blue-400">
+            {codeEquivalent.filter((c) => c.code === movie.code)[0]
+              ? codeEquivalent.filter((c) => c.code === movie.code)[0].label
+              : undefined}
+          </p>
           <Actions>{{ title: movie.title, ref: movie.ref }}</Actions>
         </div>
       </a>

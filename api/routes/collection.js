@@ -12,7 +12,7 @@ router.post("/:id", async (req, res) => {
       ref,
       title: title.toLowerCase(),
       genre,
-      code: 1,
+      code: 4,
       purchaseYear: `${today.getUTCFullYear()} ${
         today.getUTCMonth() + 1 < 10
           ? "0" + (today.getUTCMonth() + 1)

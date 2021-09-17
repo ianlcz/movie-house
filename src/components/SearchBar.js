@@ -10,37 +10,74 @@ const SearchBar = () => {
   const history = useHistory();
   const [result, setResult] = useState([]);
   const [userInput, setUserInput] = useState("");
+  const [code, setCode] = useState(0);
+
+  const codeEquivalent = [
+    { code: 1, label: "Vu" },
+    { code: 3, label: "Vu au cinéma mais pas revu" },
+    { code: 4, label: "Pas vu" },
+    { code: 5, label: "Souhait" },
+  ];
 
   useEffect(() => {
-    if (userInput !== "") {
-      setResult(
-        movies.filter((m) =>
-          m.ref && m.title
-            ? m.title.toLowerCase().includes(userInput.toLowerCase()) ||
-              m.ref.includes(userInput)
-            : undefined
-        )
-      );
+    if (userInput !== "" || code != 0) {
+      setTimeout(() => {
+        setResult(
+          code != 0 && userInput === ""
+            ? movies.filter((m) => (m.code ? m.code == code : undefined))
+            : userInput !== "" && code != 0
+            ? movies.filter((m) =>
+                m.ref && m.title && m.code
+                  ? (m.title.toLowerCase().includes(userInput.toLowerCase()) ||
+                      m.ref.includes(userInput)) &&
+                    m.code == code
+                  : undefined
+              )
+            : movies.filter((m) =>
+                m.ref && m.title && m.code
+                  ? m.title.toLowerCase().includes(userInput.toLowerCase()) ||
+                    m.ref.includes(userInput)
+                  : undefined
+              )
+        );
+      }, 1000);
     } else {
       setResult(movies);
     }
-  }, [userInput, movies]);
+  }, [userInput, movies, code]);
 
   return (
     <div className="flex flex-col w-full">
-      <input
-        type="text"
-        value={userInput}
-        onChange={(e) => setUserInput(e.target.value)}
-        placeholder="Rechercher un film ou une référence"
-        className="w-5/6 lg:w-1/4 mx-auto my-8 pl-6 h-12 border border-blue-500 text-blue-600 font-medium rounded-full placeholder-blue-400"
-      />
+      <div className="flex flex-row items-baseline w-2/5 mx-auto justify-between">
+        <input
+          type="text"
+          value={userInput}
+          onChange={(e) => setUserInput(e.target.value)}
+          placeholder="Rechercher un film ou une référence"
+          className="w-5/6 lg:w-4/6 mr-10 my-8 pl-6 h-12 border border-blue-500 text-blue-600 font-medium rounded-full placeholder-blue-400"
+        />
+
+        <select
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+          className="w-max mt-6 px-4 py-1 text-sm text-blue-400 appearance-none border border-blue-300"
+        >
+          <option value={0}>Filtrer</option>
+          <option value={1}>Vu</option>
+          <option value={3}>Vu au cinéma mais pas revu</option>
+          <option value={4}>Pas vu</option>
+        </select>
+      </div>
 
       {result.length > 0 ? (
         <>
           <ul className=" w-11/12 mx-auto grid grid-flow-cols grid-cols-1 lg:grid-cols-3 lg:gap-x-12 lg:gap-y-6">
             {result.map((m) => (
-              <List key={m._id} movie={m} />
+              <List
+                key={m.ref + " " + m.title}
+                movie={m}
+                codeEquivalent={codeEquivalent}
+              />
             ))}
           </ul>
         </>
