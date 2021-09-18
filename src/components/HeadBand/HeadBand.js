@@ -2,6 +2,7 @@ import { IoArrowDownCircle, IoArrowUpCircle } from "react-icons/io5";
 import { formatNumber } from "../../utils";
 import Background from "./Background";
 import ReadingTime from "./ReadingTime";
+import { isMobile } from "react-device-detect";
 
 const HeadBand = ({
   children: {
@@ -36,10 +37,10 @@ const HeadBand = ({
         <img
           src={`https://image.tmdb.org/t/p/original/${poster_path}`}
           alt={`Affiche du film : ${title}`}
-          className="w-48 lg:w-72 rounded-xl shadow-xl"
+          className="w-52 lg:w-72 rounded-xl shadow-xl"
         />
 
-        <div className="flex flex-col w-max lg:w-3/5 mt-6 lg:mt-0">
+        <div className="flex flex-col w-full lg:w-3/5 mt-6 lg:mt-0">
           <p className="w-16 mx-auto mb-2 px-2 py-0.5 text-xs text-center font-semibold rounded-full shadow-inner bg-gradient-to-br from-blue-800 to-blue-500">
             {ref}
           </p>
@@ -55,23 +56,39 @@ const HeadBand = ({
             <p className="mt-2 text-sm italic text-center">{original_title}</p>
           ) : undefined}
 
-          <div className="flex flex-row items-center w-max mx-auto mt-2">
+          <div className="flex flex-row items-center lg:w-max mx-auto mt-2 lg:mt-0">
             {genres && (
               <>
                 <ul className="flex flex-row">
-                  {genres.map((g, index) => (
-                    <li
-                      key={g.name}
-                      className={`ml-1 ${
-                        index === genres.length - 1 ? "truncate" : undefined
-                      }`}
-                    >
-                      <p className="text-sm lg:text-base">
-                        {g.name}
-                        {index === genres.length - 1 ? undefined : ", "}
-                      </p>
-                    </li>
-                  ))}
+                  {isMobile
+                    ? genres.slice(0, 2).map((g, index) => (
+                        <li
+                          key={g.name}
+                          className={`ml-1 ${
+                            index === 1 ? "lg:truncate" : undefined
+                          }`}
+                        >
+                          <p className="text-sm lg:text-base">
+                            {g.name}
+                            {index === 1 ? undefined : ", "}
+                          </p>
+                        </li>
+                      ))
+                    : genres.map((g, index) => (
+                        <li
+                          key={g.name}
+                          className={`ml-1 ${
+                            index === genres.length - 1
+                              ? "lg:truncate"
+                              : undefined
+                          }`}
+                        >
+                          <p className="text-sm lg:text-base">
+                            {g.name}
+                            {index === genres.length - 1 ? undefined : ", "}
+                          </p>
+                        </li>
+                      ))}
                 </ul>
 
                 <>
@@ -82,11 +99,11 @@ const HeadBand = ({
             )}
           </div>
 
-          <div className="mt-4 mb-6">
+          <div className="my-4 lg:mt-0 lg:mb-6">
             <p className="font-medium text-blue-100 text-center mb-2">
               Un film de
             </p>
-            <ul className="flex flex-row justify-evenly w-3/5 mx-auto">
+            <ul className="flex flex-row justify-evenly w-full lg:w-3/5 mx-auto">
               {directors.map((d) => (
                 <li key={d.id} className="flex flex-row items-center">
                   {d.profile_path ? (
@@ -110,7 +127,9 @@ const HeadBand = ({
 
           {overview ? (
             <>
-              <h2 className="text-xl undefined mb-2 font-medium">Synopsis</h2>
+              <h2 className="text-center lg:text-left text-xl mb-2 font-medium">
+                Synopsis
+              </h2>
               <p className="leading-snug font-light text-sm lg:text-base text-justify">
                 {overview}
               </p>
@@ -122,7 +141,7 @@ const HeadBand = ({
               <p className="font-medium text-blue-100 text-center mb-2">
                 Bande originale de
               </p>
-              <ul className="flex flex-row justify-evenly w-3/5 mx-auto">
+              <ul className="flex flex-row justify-evenly w-full lg:w-3/5 mx-auto">
                 {compositors.map((c) => (
                   <li key={c.id} className="flex flex-row items-center">
                     {c.profile_path ? (
@@ -132,14 +151,14 @@ const HeadBand = ({
                         className="mr-2 rounded-full w-8 h-8 object-cover shadow"
                       />
                     ) : undefined}
-                    <p className="text-sm">{c.name}</p>
+                    <p className="text-xs lg:text-sm">{c.name}</p>
                   </li>
                 ))}
               </ul>
             </div>
           ) : undefined}
 
-          <table className="w-1/5 lg:w-1/2 mx-auto mt-6 shadow-inner bg-blue-100 bg-opacity-95 rounded-full">
+          <table className="w-full lg:w-1/2 mx-auto mt-6 shadow-inner bg-blue-100 bg-opacity-95 rounded-full">
             <thead>
               <tr className="text-base text-blue-800">
                 <th>Score</th>

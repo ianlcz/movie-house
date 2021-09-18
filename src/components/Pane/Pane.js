@@ -64,7 +64,7 @@ const Pane = ({
                     <img
                       src={`https://image.tmdb.org/t/p/original/${c.profile_path}`}
                       alt={`Profil de : ${c.name}`}
-                      className="w-14 h-14 lg:w-20 lg:h-auto object-cover rounded-lg shadow-md"
+                      className="w-20 h-20 lg:w-20 lg:h-auto object-cover rounded-lg shadow-md"
                     />
                   ) : undefined}
                   <div className="ml-2 px-4 py-2">
@@ -78,7 +78,7 @@ const Pane = ({
           </ul>
 
           {belongs_to_collection ? (
-            <div className="w-1/3 mx-auto mt-10">
+            <div className="w-4/6 lg:w-1/3 mx-auto mt-10">
               <Background
                 data={{
                   cover: `https://image.tmdb.org/t/p/original/${belongs_to_collection.backdrop_path}`,
