@@ -35,10 +35,18 @@ const MovieDetail = () => {
         if (movieFinded) {
           const results = await axios
             .get(
-              `https://api.themoviedb.org/3/search/movie?query=${movieFinded.title}&api_key=${API_KEY}&language=fr-FR&primary_release_year=${movieFinded.year}`
+              `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
+                movieFinded.title
+              )}&api_key=${API_KEY}&language=fr-FR&primary_release_year=${
+                movieFinded.year
+              }`
             )
             .then((res) => res.data.results)
             .catch((err) => console.error(err.message));
+
+          if (results.length > 1) {
+            results.sort((a, b) => b.popularity - a.popularity);
+          }
 
           const moviesTMDB =
             movieFinded.year && results.length > 1
@@ -99,7 +107,7 @@ const MovieDetail = () => {
     <>
       {detail.title ? (
         <Helmet>
-          <title>{`${detail.title} | Movie House`}</title>
+          <title>{`${detail.ref} - ${detail.title} | Movie House`}</title>
         </Helmet>
       ) : undefined}
       <HeadBand>{{ detail, directors, compositors }}</HeadBand>
