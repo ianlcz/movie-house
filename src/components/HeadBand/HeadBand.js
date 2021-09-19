@@ -163,7 +163,7 @@ const HeadBand = ({
               <tr className="text-base text-blue-800">
                 <th>Score</th>
                 {budget ? <th>Budget</th> : undefined}
-                {revenue ? <th>Recette</th> : undefined}
+                {revenue ? <th>Box-office</th> : undefined}
               </tr>
             </thead>
             <tbody>
