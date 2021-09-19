@@ -114,9 +114,11 @@ const HeadBand = ({
                     />
                   ) : undefined}
                   <p className="text-sm">
-                    <span className="font-light">{d.name.split(" ")[0]}</span>
+                    <span className="font-light">
+                      {d.name.split(" ").slice(0, -1).join(" ")}
+                    </span>
                     <span className="ml-1 font-medium">
-                      {`${d.name.split(" ")[1]} ${d.name.split(" ").slice(2)}`}
+                      {d.name.split(" ").slice(-1)}
                     </span>
                   </p>
                 </li>
@@ -161,11 +163,11 @@ const HeadBand = ({
                         compositors.length > 1 ? "text-xs" : "text-sm"
                       } lg:text-sm`}
                     >
-                      <span className="font-light">{c.name.split(" ")[0]}</span>
+                      <span className="font-light">
+                        {c.name.split(" ").slice(0, -1).join(" ")}
+                      </span>
                       <span className="ml-1 font-medium">
-                        {`${c.name.split(" ")[1]} ${c.name
-                          .split(" ")
-                          .slice(2)}`}
+                        {c.name.split(" ").slice(-1)}
                       </span>
                     </p>
                   </li>
