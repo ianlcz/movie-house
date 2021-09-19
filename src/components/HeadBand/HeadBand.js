@@ -47,7 +47,7 @@ const HeadBand = ({
 
           <h1 className="flex flex-row w-full items-center justify-center text-center flex-wrap text-2xl lg:text-4xl font-semibold">
             {title}
-            <span className="ml-4 text-base lg:text-2xl font-light">
+            <span className="ml-2 lg:ml-4 text-base lg:text-2xl font-light">
               ({new Date(release_date).getFullYear()})
             </span>
           </h1>
@@ -113,14 +113,19 @@ const HeadBand = ({
                       className="mr-2 rounded-full w-8 h-8 object-cover shadow"
                     />
                   ) : undefined}
-                  <p className="text-sm">{d.name}</p>
+                  <p className="text-sm">
+                    <span className="font-light">{d.name.split(" ")[0]}</span>
+                    <span className="ml-1 font-medium">
+                      {`${d.name.split(" ")[1]} ${d.name.split(" ").slice(2)}`}
+                    </span>
+                  </p>
                 </li>
               ))}
             </ul>
           </div>
 
           {tagline ? (
-            <p className="mb-2 text-blue-100 font-medium text-xs lg:text-sm italic">
+            <p className="mb-2 text-blue-100 font-medium text-sm italic">
               {tagline}
             </p>
           ) : undefined}
@@ -151,7 +156,18 @@ const HeadBand = ({
                         className="mr-2 rounded-full w-8 h-8 object-cover shadow"
                       />
                     ) : undefined}
-                    <p className="text-xs lg:text-sm">{c.name}</p>
+                    <p
+                      className={`${
+                        compositors.length > 1 ? "text-xs" : "text-sm"
+                      } lg:text-sm`}
+                    >
+                      <span className="font-light">{c.name.split(" ")[0]}</span>
+                      <span className="ml-1 font-medium">
+                        {`${c.name.split(" ")[1]} ${c.name
+                          .split(" ")
+                          .slice(2)}`}
+                      </span>
+                    </p>
                   </li>
                 ))}
               </ul>
