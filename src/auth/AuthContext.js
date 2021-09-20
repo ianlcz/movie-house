@@ -54,7 +54,6 @@ export const AuthProvider = ({ children }) => {
       const token = getCookieFromBrowser("authToken");
       if (token) {
         initUser(token);
-        console.log(process.env);
       }
     };
     loadUserFromCookies();
