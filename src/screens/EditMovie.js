@@ -16,7 +16,7 @@ const EditMovie = () => {
   const [newTitle, setNewTitle] = useState("");
   const [newRef, setNewRef] = useState("");
   const [movie, setMovie] = useState({});
-  const [newMovie, setNewMovie] = useState(undefined);
+  let [newMovie, setNewMovie] = useState({});
   const [suggestion, setSuggestion] = useState([]);
   const [newCode, setNewCode] = useState(undefined);
 
@@ -52,33 +52,38 @@ const EditMovie = () => {
   const HandleEdit = async (e) => {
     e.preventDefault();
     const today = new Date();
+    newMovie = !newMovie
+      ? {
+          ref: newRef === "" ? movie.ref : newRef,
+          title: movie.title.toLowerCase(),
+          genre: movie.genre,
+          code: newCode ? Number(newCode) : movie.code,
+          purchaseYear: movie.purchaseYear,
+          year: movie.year,
+        }
+      : {
+          ref: newRef === "" ? movie.ref : newRef,
+          title: newMovie.title.toLowerCase(),
+          genre: newMovie.genre_ids,
+          code: newCode ? Number(newCode) : movie.code,
+          purchaseYear: movie.purchaseYear,
+          year: new Date(newMovie.release_date).getFullYear(),
+        };
 
     if (user && (newRef !== "" || newTitle !== "" || newCode)) {
       await axios
         .put(`/api/collection/${user.movies}`, {
           movie,
-          newMovie: !newMovie
-            ? {
-                ref: newRef === "" ? movie.ref : newRef,
-                title: movie.title.toLowerCase(),
-                genre: movie.genre,
-                code: newCode ? Number(newCode) : movie.code,
-                purchaseYear: movie.purchaseYear,
-                year: movie.year,
-              }
-            : {
-                ref: newRef === "" ? movie.ref : newRef,
-                title: newMovie.title.toLowerCase(),
-                genre: newMovie.genre_ids,
-                code: newCode ? Number(newCode) : movie.code,
-                purchaseYear: movie.purchaseYear,
-                year: new Date(newMovie.release_date).getFullYear(),
-              },
+          newMovie,
         })
         .then((res) => res.data)
         .catch((err) => console.error(err.message));
 
-      history.push("/");
+      history.push(
+        `/movie/${encodeURIComponent(newMovie.title).toLowerCase()}?year=${
+          newMovie.year
+        }`
+      );
       window.location.reload(false);
     }
   };

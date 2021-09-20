@@ -49,7 +49,9 @@ const NewMovie = () => {
         .then((res) => res.data)
         .catch((err) => console.error(err.message));
 
-      history.push("/");
+      history.push(
+        `/movie/${encodeURIComponent(title.toLowerCase())}?year=${year}`
+      );
       window.location.reload(false);
     }
   };
