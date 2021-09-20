@@ -12,13 +12,6 @@ const SearchBar = () => {
   const [userInput, setUserInput] = useState("");
   const [code, setCode] = useState(0);
 
-  const codeEquivalent = [
-    { code: 1, label: "Vu" },
-    { code: 3, label: "Vu au cinéma mais pas revu" },
-    { code: 4, label: "Pas vu" },
-    { code: 5, label: "Souhait" },
-  ];
-
   useEffect(() => {
     if (userInput !== "" || code != 0) {
       setTimeout(() => {
@@ -73,11 +66,7 @@ const SearchBar = () => {
         <>
           <ul className=" w-11/12 mx-auto grid grid-flow-cols grid-cols-1 lg:grid-cols-3 lg:gap-x-12 lg:gap-y-6">
             {result.map((m) => (
-              <List
-                key={m.ref + " " + m.title}
-                movie={m}
-                codeEquivalent={codeEquivalent}
-              />
+              <List key={m.ref + " " + m.title} movie={m} />
             ))}
           </ul>
         </>

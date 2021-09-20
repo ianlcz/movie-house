@@ -20,8 +20,6 @@ const EditMovie = () => {
   const [suggestion, setSuggestion] = useState([]);
   const [newCode, setNewCode] = useState(undefined);
 
-  const API_KEY = "aeeca3eb934c595a32cbd53a16f76f64";
-
   useEffect(() => {
     const fetchMovie = async () => {
       setMovie(
@@ -37,7 +35,9 @@ const EditMovie = () => {
         setSuggestion(
           await axios
             .get(
-              `https://api.themoviedb.org/3/search/movie?query=${newTitle.trim()}&api_key=${API_KEY}&language=fr-FR`
+              `https://api.themoviedb.org/3/search/movie?query=${newTitle.trim()}&api_key=${
+                process.env.REACT_APP_API_KEY
+              }&language=fr-FR`
             )
             .then((res) => res.data.results)
             .catch((err) => console.error(err.message))

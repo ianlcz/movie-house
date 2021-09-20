@@ -15,14 +15,14 @@ const NewMovie = () => {
   const [genre, setGenre] = useState([]);
   const [year, setYear] = useState(0);
 
-  const API_KEY = "aeeca3eb934c595a32cbd53a16f76f64";
-
   useEffect(() => {
     const fetchMovie = async () => {
       if (title !== "") {
         const data = await axios
           .get(
-            `https://api.themoviedb.org/3/search/movie?query=${title.trim()}&api_key=${API_KEY}&language=fr-FR`
+            `https://api.themoviedb.org/3/search/movie?query=${title.trim()}&api_key=${
+              process.env.REACT_APP_API_KEY
+            }&language=fr-FR`
           )
           .then((res) => res.data.results)
           .catch((err) => console.error(err.message));

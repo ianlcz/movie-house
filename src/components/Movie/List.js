@@ -1,12 +1,19 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import Actions from "../Actions";
 
-const List = ({ movie, codeEquivalent }) =>
-  movie.title ? (
+const List = ({ movie }) => {
+  const codeEquivalent = [
+    { code: 1, label: "Vu" },
+    { code: 3, label: "Vu au cinéma mais pas revu" },
+    { code: 4, label: "Pas vu" },
+    { code: 5, label: "Souhait" },
+  ];
+
+  return movie.title ? (
     <li>
       <a
-        href={`/movie/${encodeURIComponent(movie.title)}?year=${movie.year}`}
+        href={`/movie/${encodeURIComponent(movie.title.toLowerCase())}?year=${
+          movie.year
+        }`}
         className="flex flex-row items-center mb-2"
       >
         <p className="flex items-center justify-center w-16 h-6 mr-4 shadow-inner bg-gradient-to-br from-blue-800 to-blue-500 text-white text-center text-sm font-semibold rounded-xl">
@@ -29,5 +36,6 @@ const List = ({ movie, codeEquivalent }) =>
       </a>
     </li>
   ) : undefined;
+};
 
 export default List;
