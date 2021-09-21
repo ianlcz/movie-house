@@ -134,6 +134,13 @@ export const AuthProvider = ({ children }) => {
           .then((res) => res.data.cast)
           .catch((err) => console.error(err.message));
 
+        const trailers = await axios
+          .get(
+            `https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`
+          )
+          .then((res) => res.data.results)
+          .catch((err) => console.error(err.message));
+
         movie.ref = ref;
 
         return {
@@ -143,6 +150,13 @@ export const AuthProvider = ({ children }) => {
             (c) => c.job === "Original Music Composer" || c.job === "Music"
           ),
           cast,
+          trailers: trailers.filter(
+            (t) =>
+              t.name.toLowerCase().includes("vf") &&
+              t.site === "YouTube" &&
+              t.type === "Trailer" &&
+              t.official === true
+          ),
         };
       } else {
         console.log(movie);

@@ -103,7 +103,11 @@ const HeadBand = ({
             <p className="font-medium text-blue-100 text-center mb-2">
               Un film de
             </p>
-            <ul className="flex flex-row justify-evenly w-full lg:w-3/5 mx-auto">
+            <ul
+              className={`flex flex-row flex-wrap justify-evenly w-full ${
+                directors.length <= 2 ? "lg:w-3/5" : "lg:w-4/5"
+              } mx-auto`}
+            >
               {directors.map((d) => (
                 <li key={d.id} className="flex flex-row items-center">
                   {d.profile_path ? (
@@ -148,7 +152,11 @@ const HeadBand = ({
               <p className="font-medium text-blue-100 text-center mb-2">
                 Bande originale de
               </p>
-              <ul className="flex flex-row justify-evenly w-full lg:w-3/5 mx-auto">
+              <ul
+                className={`flex flex-row flex-wrap justify-evenly w-full ${
+                  compositors.length <= 2 ? "lg:w-3/5" : "lg:w-4/5"
+                } mx-auto`}
+              >
                 {compositors.map((c) => (
                   <li key={c.id} className="flex flex-row items-center">
                     {c.profile_path ? (

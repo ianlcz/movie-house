@@ -16,6 +16,7 @@ const MovieDetail = () => {
   const [directors, setDirectors] = useState([]);
   const [compositors, setCompositors] = useState([]);
   const [cast, setCast] = useState([]);
+  const [trailers, setTrailers] = useState([]);
 
   const token = getCookieFromBrowser("authToken");
   const user = jwtDecode(token);
@@ -31,14 +32,14 @@ const MovieDetail = () => {
         )[0];
 
         if (movieFinded) {
-          const { movie, directors, compositors, cast } = await getMovieInfo(
-            movieFinded
-          );
+          const { movie, directors, compositors, cast, trailers } =
+            await getMovieInfo(movieFinded);
 
           setDetail(movie);
           setDirectors(directors);
           setCompositors(compositors);
           setCast(cast);
+          setTrailers(trailers);
         }
       } catch (err) {
         console.error(err.message);
@@ -57,7 +58,7 @@ const MovieDetail = () => {
         </Helmet>
       ) : undefined}
       <HeadBand>{{ detail, directors, compositors }}</HeadBand>
-      <Pane>{{ detail, cast }}</Pane>
+      <Pane>{{ detail, cast, trailers }}</Pane>
     </>
   );
 };

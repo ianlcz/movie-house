@@ -13,5 +13,5 @@ module.exports = {
       ringWidth: ["responsive", "focus-within", "focus"],
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/aspect-ratio")],
 };
