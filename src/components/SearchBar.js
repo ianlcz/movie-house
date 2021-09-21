@@ -41,19 +41,19 @@ const SearchBar = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <div className="flex flex-row items-baseline w-2/5 mx-auto justify-between">
+      <div className="flex flex-col lg:flex-row items-baseline w-5/6 lg:w-2/5 mx-auto my-8 justify-between">
         <input
           type="text"
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
           placeholder="Rechercher un film ou une référence"
-          className="w-5/6 lg:w-4/6 mr-10 my-8 pl-6 h-12 border border-blue-500 text-blue-600 font-medium rounded-full placeholder-blue-400"
+          className="w-full lg:w-4/6 lg:mr-10 mb-4 lg:mb-0 pl-6 h-12 border border-blue-500 text-blue-600 font-medium rounded-full placeholder-blue-400"
         />
 
         <select
           value={code}
           onChange={(e) => setCode(e.target.value)}
-          className="w-max mt-6 px-4 py-1 text-sm text-blue-400 appearance-none border border-blue-300"
+          className="w-max mx-auto px-4 py-1 text-sm text-blue-400 appearance-none bg-white rounded-md border border-blue-300"
         >
           <option value={0}>Filtrer</option>
           <option value={1}>Vu</option>
