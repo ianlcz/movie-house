@@ -2,14 +2,20 @@ import Actions from "../Actions";
 import Background from "../Background";
 import Footer from "../Footer";
 import GoToHome from "../GoToHome";
+import Trailer from "../Trailer";
 
 const Pane = ({
   children: {
     detail: { ref, production_companies, belongs_to_collection },
     cast,
+    trailers,
   },
 }) => (
-  <div className="flex flex-col bg-blue-50 -mt-8 px-6 pt-6 shadow-md rounded-t-2xl lg:max-h-screen z-10 relative">
+  <div
+    className={`flex flex-col bg-blue-50 -mt-8 px-6 pt-6 shadow-md rounded-t-2xl  ${
+      trailers.length > 0 ? undefined : "lg:max-h-screen"
+    } z-10 relative`}
+  >
     {production_companies ? (
       <>
         <div className="flex flex-col lg:flex-row justify-between items-start w-full text-blue-800">
@@ -78,6 +84,15 @@ const Pane = ({
                   </li>
                 ))}
             </ul>
+
+            {trailers.length > 0 ? (
+              <>
+                <h2 className="text-xl mt-6 mb-4 text-center font-semibold">
+                  Bande-annonce
+                </h2>
+                <Trailer>{trailers}</Trailer>
+              </>
+            ) : undefined}
 
             {belongs_to_collection ? (
               <div className="w-4/6 lg:w-1/3 mx-auto mt-10">
