@@ -63,23 +63,27 @@ const Pane = ({
                 .filter((p) => p.profile_path)
                 .slice(0, 6)
                 .map((c) => (
-                  <li
-                    key={c.id}
-                    className="flex flex-row items-center w-4/5 mx-auto"
-                  >
-                    {c.profile_path ? (
-                      <img
-                        src={`https://image.tmdb.org/t/p/original/${c.profile_path}`}
-                        alt={`Profil de : ${c.name}`}
-                        className="w-16 h-16 lg:w-20 lg:h-auto object-cover rounded-lg shadow-md"
-                      />
-                    ) : undefined}
-                    <div className="lg:ml-2 px-4 py-2">
-                      <p className="w-max mx-auto px-2 shadow-inner font-bold text-white text-xs lg:text-sm bg-gradient-to-br from-blue-800 to-blue-400 rounded-full">
-                        {c.name}
-                      </p>
-                      <p className="mt-1 text-center text-xs lg:text-sm">{c.character}</p>
-                    </div>
+                  <li key={c.id}>
+                    <a
+                      href={`/credit/${c.id}`}
+                      className="flex flex-row items-center w-4/5 mx-auto"
+                    >
+                      {c.profile_path ? (
+                        <img
+                          src={`https://image.tmdb.org/t/p/original/${c.profile_path}`}
+                          alt={`Profil de : ${c.name}`}
+                          className="w-16 h-16 lg:w-20 lg:h-auto object-cover rounded-lg shadow-md"
+                        />
+                      ) : undefined}
+                      <div className="lg:ml-2 px-4 py-2">
+                        <p className="w-max mx-auto px-2 shadow-inner font-bold text-white text-xs lg:text-sm bg-gradient-to-br from-blue-800 to-blue-400 rounded-full">
+                          {c.name}
+                        </p>
+                        <p className="mt-1 text-center text-xs lg:text-sm">
+                          {c.character}
+                        </p>
+                      </div>
+                    </a>
                   </li>
                 ))}
             </ul>

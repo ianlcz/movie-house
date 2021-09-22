@@ -7,6 +7,7 @@ import Read from "./screens/movie/read";
 import Create from "./screens/movie/create";
 import Update from "./screens/movie/update";
 import Delete from "./screens/movie/delete";
+import Credit from "./screens/Credit";
 
 const App = () => (
   <Router>
@@ -25,6 +26,7 @@ const App = () => (
         path="/delete/:reference/:title"
         component={Delete}
       />
+      <ProtectedRoute exact path="/credit/:id" component={Credit} />
     </Switch>
   </Router>
 );

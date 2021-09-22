@@ -8,7 +8,7 @@ const Poster = ({ children: { poster_path, title } }) => (
         ? `Affiche du film : ${title}`
         : `Image de : ${title}`
     }
-    className="w-52 lg:w-72 rounded-xl shadow-xl"
+    className="w-52 lg:w-72 object-cover rounded-xl shadow-xl"
   />
 );
 
