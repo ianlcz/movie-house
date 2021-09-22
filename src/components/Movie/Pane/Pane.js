@@ -1,8 +1,7 @@
-import Actions from "../Actions";
 import Background from "../Background";
-import Footer from "../Footer";
-import GoToHome from "../GoToHome";
-import Trailer from "../Trailer";
+import Footer from "./Footer";
+import GoToHome from "./GoToHome";
+import Trailer from "./Trailer";
 
 const Pane = ({
   children: {
@@ -72,14 +71,14 @@ const Pane = ({
                       <img
                         src={`https://image.tmdb.org/t/p/original/${c.profile_path}`}
                         alt={`Profil de : ${c.name}`}
-                        className="w-20 h-20 lg:w-20 lg:h-auto object-cover rounded-lg shadow-md"
+                        className="w-16 h-16 lg:w-20 lg:h-auto object-cover rounded-lg shadow-md"
                       />
                     ) : undefined}
-                    <div className="ml-2 px-4 py-2">
-                      <p className="w-max mx-auto px-2 shadow-inner font-bold text-white text-sm bg-gradient-to-br from-blue-800 to-blue-400 rounded-full">
+                    <div className="lg:ml-2 px-4 py-2">
+                      <p className="w-max mx-auto px-2 shadow-inner font-bold text-white text-xs lg:text-sm bg-gradient-to-br from-blue-800 to-blue-400 rounded-full">
                         {c.name}
                       </p>
-                      <p className="mt-1 text-center text-sm">{c.character}</p>
+                      <p className="mt-1 text-center text-xs lg:text-sm">{c.character}</p>
                     </div>
                   </li>
                 ))}

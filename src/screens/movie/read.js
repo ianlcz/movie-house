@@ -2,14 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
-import AuthContext from "../auth/AuthContext";
-import HeadBand from "../components/HeadBand/HeadBand";
-import Pane from "../components/Pane/Pane";
-import { getCookieFromBrowser } from "../auth/cookies";
 import jwtDecode from "jwt-decode";
-import LoadingPage from "./LoadingPage";
+import AuthContext from "../../auth/AuthContext";
+import { getCookieFromBrowser } from "../../auth/cookies";
+import HeadBand from "../../components/Movie/HeadBand/HeadBand";
+import Pane from "../../components/Movie/Pane/Pane";
+import LoadingPage from "../LoadingPage";
 
-const MovieDetail = () => {
+const Read = () => {
   const { getMovieInfo, isLoading, movies } = useContext(AuthContext);
   const { title } = useParams();
   const [detail, setDetail] = useState({});
@@ -63,4 +63,4 @@ const MovieDetail = () => {
   );
 };
 
-export default MovieDetail;
+export default Read;

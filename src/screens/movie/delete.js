@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useHistory, useParams } from "react-router";
 import axios from "axios";
-import AuthContext from "../auth/AuthContext";
-import Submit from "../components/Submit";
-import { Helmet } from "react-helmet";
+import AuthContext from "../../auth/AuthContext";
+import Submit from "../../components/Submit";
 
-const DeleteMovie = () => {
+const Delete = () => {
   const { user, movies } = useContext(AuthContext);
   const history = useHistory();
   const { reference, title } = useParams();
@@ -69,4 +69,4 @@ const DeleteMovie = () => {
   );
 };
 
-export default DeleteMovie;
+export default Delete;

@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import AuthContext from "../auth/AuthContext";
+import AuthContext from "../../auth/AuthContext";
 import { useHistory } from "react-router-dom";
-import Card from "../components/Movie/Card";
-import Submit from "../components/Submit";
+import Card from "../../components/Movie/Card";
+import Submit from "../../components/Submit";
 import { Helmet } from "react-helmet";
 
-const NewMovie = () => {
+const Create = () => {
   const { user } = useContext(AuthContext);
   const history = useHistory();
   const [ref, setRef] = useState("");
@@ -122,4 +122,4 @@ const NewMovie = () => {
   );
 };
 
-export default NewMovie;
+export default Create;
