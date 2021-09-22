@@ -20,36 +20,26 @@ const Read = () => {
 
   const token = getCookieFromBrowser("authToken");
   const user = jwtDecode(token);
-  const year = new URLSearchParams(useLocation().search).get("year");
+  const year = Number(new URLSearchParams(useLocation().search).get("year"));
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const movieFinded = movies.filter(
+        const movieFound = movies.filter(
           (m) =>
             m.title.toLowerCase() === decodeURIComponent(title.toLowerCase()) &&
             m.year == year
         )[0];
+        const { movie, directors, compositors, cast, trailers } =
+          await getMovieInfo(
+            movieFound ? movieFound : { ref: "Preview", title, year }
+          );
 
-        if (movieFinded) {
-          const { movie, directors, compositors, cast, trailers } =
-            await getMovieInfo(movieFinded);
-
-          setDetail(movie);
-          setDirectors(directors);
-          setCompositors(compositors);
-          setCast(cast);
-          setTrailers(trailers);
-        } else {
-          const { movie, directors, compositors, cast, trailers } =
-            await getMovieInfo({ title, year });
-
-          setDetail(movie);
-          setDirectors(directors);
-          setCompositors(compositors);
-          setCast(cast);
-          setTrailers(trailers);
-        }
+        setDetail(movie);
+        setDirectors(directors);
+        setCompositors(compositors);
+        setCast(cast);
+        setTrailers(trailers);
       } catch (err) {
         console.error(err.message);
       }
@@ -59,19 +49,17 @@ const Read = () => {
 
   return isLoading ? (
     <LoadingPage />
-  ) : (
+  ) : detail.title ? (
     <>
-      {detail.title ? (
-        <Helmet>
-          <title>{`${detail.ref ? `${detail.ref} -` : ""} ${
-            detail.title
-          } | Movie House`}</title>
-        </Helmet>
-      ) : undefined}
+      <Helmet>
+        <title>{`${detail.ref ? `${detail.ref} -` : ""} ${
+          detail.title
+        } | Movie House`}</title>
+      </Helmet>
       <HeadBand>{{ detail, directors, compositors }}</HeadBand>
       <Pane>{{ detail, cast, trailers }}</Pane>
     </>
-  );
+  ) : null;
 };
 
 export default Read;
