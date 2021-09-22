@@ -38,9 +38,11 @@ const HeadBand = ({
         <Poster>{{ poster_path, title }}</Poster>
 
         <div className="flex flex-col w-full lg:w-3/5 mt-6 lg:mt-0">
-          <p className="w-16 mx-auto mb-2 px-2 py-0.5 text-xs text-center font-semibold rounded-full shadow-inner bg-gradient-to-br from-blue-800 to-blue-500">
-            {ref}
-          </p>
+          {ref ? (
+            <p className="w-16 mx-auto mb-2 px-2 py-0.5 text-xs text-center font-semibold rounded-full shadow-inner bg-gradient-to-br from-blue-800 to-blue-500">
+              {ref}
+            </p>
+          ) : undefined}
 
           <h1 className="flex flex-row w-full items-center justify-center text-center flex-wrap text-2xl lg:text-4xl font-semibold">
             {title}

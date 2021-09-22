@@ -40,6 +40,15 @@ const Read = () => {
           setCompositors(compositors);
           setCast(cast);
           setTrailers(trailers);
+        } else {
+          const { movie, directors, compositors, cast, trailers } =
+            await getMovieInfo({ title, year });
+
+          setDetail(movie);
+          setDirectors(directors);
+          setCompositors(compositors);
+          setCast(cast);
+          setTrailers(trailers);
         }
       } catch (err) {
         console.error(err.message);
@@ -54,7 +63,9 @@ const Read = () => {
     <>
       {detail.title ? (
         <Helmet>
-          <title>{`${detail.ref} - ${detail.title} | Movie House`}</title>
+          <title>{`${detail.ref ? `${detail.ref} -` : ""} ${
+            detail.title
+          } | Movie House`}</title>
         </Helmet>
       ) : undefined}
       <HeadBand>{{ detail, directors, compositors }}</HeadBand>
