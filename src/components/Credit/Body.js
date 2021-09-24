@@ -77,7 +77,11 @@ const Body = ({
         </Section>
       ) : undefined}
 
-      <Filmography movies={filmography} job={known_for_department} />
+      <Filmography
+        movies={filmography}
+        job={known_for_department}
+        gender={gender}
+      />
     </div>
   );
 };

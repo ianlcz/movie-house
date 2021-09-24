@@ -58,7 +58,11 @@ const Pane = ({
             <h2 className="text-xl mb-4 text-center font-semibold">
               Distribution
             </h2>
-            <ul className="grid grid-flow-col grid-rows-6 lg:grid-rows-2 gap-x-14 gap-y-8">
+            <ul
+              className={`grid grid-flow-col grid-rows-${
+                cast.filter((p) => p.profile_path).slice(0, 6).length
+              } lg:grid-rows-2 gap-x-14 gap-y-8`}
+            >
               {cast
                 .filter((p) => p.profile_path)
                 .slice(0, 6)
@@ -97,7 +101,7 @@ const Pane = ({
               </>
             ) : undefined}
 
-            {belongs_to_collection ? (
+            {belongs_to_collection && belongs_to_collection.backdrop_path ? (
               <div className="w-4/6 lg:w-1/3 mx-auto mt-10">
                 <Background
                   data={{

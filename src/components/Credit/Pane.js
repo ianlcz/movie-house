@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const Pane = ({ movies }) => {
+const Pane = ({ movies, gender }) => {
   const [informations, setInformations] = useState([]);
 
   useEffect(() => {
@@ -28,17 +28,72 @@ const Pane = ({ movies }) => {
     );
   }, [movies]);
 
+  const traductions = [
+    {
+      en: "Director",
+      fr: {
+        1: "Réalisatrice",
+        2: "Réalisateur",
+        3: "Réalisatrice / Réalisateur",
+      },
+    },
+    {
+      en: "Executive Producer",
+      fr: {
+        1: "Productrice exécutive",
+        2: "Producteur exécutif",
+        3: "Productrice / Producteur exécutif",
+      },
+    },
+    {
+      en: "Producer",
+      fr: {
+        1: "Productrice",
+        2: "Producteur",
+        3: "Productrice / Producteur",
+      },
+    },
+    {
+      en: "Writer",
+      fr: {
+        1: "Écrivaine",
+        2: "Écrivain",
+        3: "Écrivain/e",
+      },
+    },
+    {
+      en: "Screenplay",
+      fr: "Scénario",
+    },
+    {
+      en: "Characters",
+      fr: "Personnages",
+    },
+    {
+      en: "Original Music Composer",
+      fr: {
+        1: "Compositrice de la musique originale",
+        2: "Compositeur de la musique originale",
+        3: "Compositrice / Compositeur de la musique originale",
+      },
+    },
+    {
+      en: "Music",
+      fr: "Musique",
+    },
+  ];
+
   return (
     <ul>
-      {informations.map((i) => (
-        <li className="flex flex-row mb-6 last:mb-0">
+      {informations.map((i, index) => (
+        <li key={index} className="flex flex-row mb-6 last:mb-0">
           <p className="flex items-center justify-center font-bold w-1/5 rounded-l-xl bg-gradient-to-br from-blue-900 to-blue-400 text-white shadow">
             {i.year}
           </p>
 
           <ul className="w-max px-8 py-4 rounded-r-xl bg-white truncate overflow-ellipsis shadow">
             {i.movies.map((m) => (
-              <li className="mb-3 last:mb-0">
+              <li key={m.id} className="mb-3 last:mb-0">
                 <div className="flex flex-row items-center">
                   <a
                     className="font-semibold min-w-max mr-2"
@@ -71,7 +126,23 @@ const Pane = ({ movies }) => {
                   </div>
                 ) : undefined}
 
-                {m.job ? <p>{m.job}</p> : undefined}
+                {m.job ? (
+                  <p>
+                    {traductions.filter((t) =>
+                      m.job ? t.en === m.job : undefined
+                    )[0]
+                      ? typeof traductions.filter((t) =>
+                          m.job ? t.en === m.job : undefined
+                        )[0].fr === "object"
+                        ? traductions.filter((t) =>
+                            m.job ? t.en === m.job : undefined
+                          )[0].fr[gender]
+                        : traductions.filter((t) =>
+                            m.job ? t.en === m.job : undefined
+                          )[0].fr
+                      : undefined}
+                  </p>
+                ) : undefined}
               </li>
             ))}
           </ul>

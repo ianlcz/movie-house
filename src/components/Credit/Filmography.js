@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Pane from "./Pane";
 import Section from "./Section";
 
-const Filmography = ({ movies: { cast, crew }, job }) => {
+const Filmography = ({ movies: { cast, crew }, job, gender }) => {
   const [filmography, setFilmography] = useState([
     { title: "Interprétation", movies: undefined, order: undefined },
     { title: "Réalisation", movies: undefined, order: undefined },
@@ -85,6 +85,7 @@ const Filmography = ({ movies: { cast, crew }, job }) => {
                       new Date(b.release_date).getTime() -
                       new Date(a.release_date).getTime()
                   )}
+                gender={gender}
               />
             </Section>
           ) : undefined
