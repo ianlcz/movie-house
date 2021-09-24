@@ -1,6 +1,7 @@
 const Background = ({
   data: { cover, title },
   children,
+  isOnPane = false,
   hasCover = !new URL(cover).pathname.includes("/null"),
 }) => (
   <section className={`w-full h-auto mx-auto z-0 relative`}>
@@ -8,14 +9,10 @@ const Background = ({
       <img
         src={cover}
         className={`w-full h-full object-cover ${
-          children._source.fileName.includes("/Pane.js")
-            ? "rounded-2xl"
-            : undefined
+          isOnPane ? "rounded-2xl" : undefined
         } z-0 absolute`}
         alt={`Couverture ${
-          children._source.fileName.includes("/Pane.js")
-            ? "de la collection"
-            : "du film"
+          isOnPane ? "de la collection" : "du film"
         } : ${title}`}
       />
     ) : undefined}
@@ -23,7 +20,7 @@ const Background = ({
     <div
       className={`top-0 left-0 w-full h-full
       ${
-        children._source.fileName.includes("/Pane.js")
+        isOnPane
           ? `py-12 shadow-inner rounded-2xl bg-blue-600 ${
               hasCover ? "bg-opacity-50" : undefined
             }`

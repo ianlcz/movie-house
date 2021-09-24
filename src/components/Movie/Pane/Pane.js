@@ -108,6 +108,7 @@ const Pane = ({
                     cover: `https://image.tmdb.org/t/p/original/${belongs_to_collection.backdrop_path}`,
                     title: belongs_to_collection.name,
                   }}
+                  isOnPane
                 >
                   <div className="flex flex-col">
                     <h3 className="font-bold text-lg text-center text-blue-200">
