@@ -1,3 +1,4 @@
+import Filmography from "./Filmography";
 import Section from "./Section";
 
 const Body = ({
@@ -8,13 +9,15 @@ const Body = ({
     place_of_birth,
     biography,
     gender,
+    known_for_department,
     bestMovies,
+    filmography,
   },
 }) => {
   const today = new Date();
 
   return (
-    <div className="lg:w-3/4 mt-6 lg:mt-0 text-blue-800">
+    <div className="w-full lg:ml-84 mt-6 lg:mt-0 lg:pt-8 text-blue-800">
       <h1 className="w-max mx-auto px-4 text-2xl font-semibold text-white bg-gradient-to-br from-blue-900 to-blue-500 rounded-full shadow-inner">
         {name}
       </h1>
@@ -45,13 +48,13 @@ const Body = ({
         </Section>
       ) : undefined}
 
-      {bestMovies ? (
+      {bestMovies.length > 0 ? (
         <Section
           title={`${
             gender === 1 ? "Connue" : gender === 2 ? "Connu" : "Connu/e"
           } pour`}
         >
-          <ul className="grid grid-flow-col grid-cols-2 grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 gap-x-6 gap-y-4 lg:gap-x-6 mt-4">
+          <ul className="grid grid-flow-col grid-cols-2 grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 gap-x-6 gap-y-4 lg:gap-x-6 mt-4 items-center">
             {bestMovies.map((m) => (
               <li key={m.id} className="w-full">
                 <a
@@ -73,6 +76,8 @@ const Body = ({
           </ul>
         </Section>
       ) : undefined}
+
+      <Filmography movies={filmography} job={known_for_department} />
     </div>
   );
 };

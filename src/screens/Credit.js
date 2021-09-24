@@ -10,6 +10,7 @@ const Credit = () => {
   const { id } = useParams();
   const [people, setPeople] = useState({});
   const [bestMovies, setBestMovies] = useState([]);
+  const [filmography, setFilmography] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,11 +53,10 @@ const Credit = () => {
               )
               .slice(0, 4)
       );
+      setFilmography(movies);
     };
     fetchData();
   }, [id]);
-
-  console.log(bestMovies);
 
   const {
     profile_path,
@@ -65,6 +65,7 @@ const Credit = () => {
     deathday,
     place_of_birth,
     biography,
+    known_for_department,
     gender,
   } = people;
 
@@ -74,8 +75,11 @@ const Credit = () => {
         <title>{`${name} | Movie House`}</title>
       </Helmet>
       <div className="bg-blue-50 min-h-screen">
-        <div className="flex flex-col lg:flex-row items-center justify-between w-full px-8 pt-8">
-          <Poster>{{ poster_path: profile_path, title: name }}</Poster>
+        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between w-full px-8 pt-8 lg:pt-0">
+          <div className="lg:flex lg:items-center lg:h-full lg:fixed">
+            <Poster>{{ poster_path: profile_path, title: name }}</Poster>
+          </div>
+
           <Body>
             {{
               name,
@@ -84,7 +88,9 @@ const Credit = () => {
               place_of_birth,
               biography,
               gender,
+              known_for_department,
               bestMovies,
+              filmography,
             }}
           </Body>
         </div>
