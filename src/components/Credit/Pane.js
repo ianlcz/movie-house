@@ -29,19 +29,19 @@ const Pane = ({ movies }) => {
   }, [movies]);
 
   return (
-    <ul className="w-auto mx-auto mt-6">
+    <ul>
       {informations.map((i) => (
-        <li className="grid grid-flow-col grid-cols-2 mb-10 last:mb-0">
-          <p className="border flex items-center justify-center w-2/4">
+        <li className="flex flex-row mb-6 last:mb-0">
+          <p className="flex items-center justify-center font-bold w-1/4 rounded-l-xl bg-gradient-to-br from-blue-900 to-blue-400 text-white shadow">
             {i.year}
           </p>
 
-          <ul>
+          <ul className="w-max px-8 py-4 rounded-r-xl bg-white truncate overflow-ellipsis shadow">
             {i.movies.map((m) => (
-              <li className="border min-w-max px-6">
+              <li className="mb-3 last:mb-0">
                 <div className="flex flex-row">
                   <a
-                    className="font-semibold"
+                    className="font-semibold min-w-max mr-2"
                     href={`/movie/${m.title.toLowerCase()}?year=${String(
                       new Date(m.release_date).getFullYear()
                     )}`}
@@ -49,17 +49,19 @@ const Pane = ({ movies }) => {
                     {m.title}
                   </a>
 
-                  {m.character ? (
-                    <>
-                      <span className="mx-2">incarnant</span>
-                      <p>{m.character}</p>
-                    </>
+                  {m.vote_average > 0 ? (
+                    <p>{m.vote_average * 10}%</p>
                   ) : undefined}
-
-                  {m.job ? <p>{m.job}</p> : undefined}
                 </div>
 
-                {m.vote_average > 0 ? <p>{m.vote_average * 10}%</p> : undefined}
+                {m.character ? (
+                  <div className="flex flex-row">
+                    <span className="mr-2">incarnant</span>
+                    <p className="min-w-max">{m.character}</p>
+                  </div>
+                ) : undefined}
+
+                {m.job ? <p>{m.job}</p> : undefined}
               </li>
             ))}
           </ul>
