@@ -17,7 +17,11 @@ const Filmography = ({ movies: { cast, crew }, job }) => {
         title: "Interprétation",
         movies:
           cast && job === "Acting"
-            ? cast.filter((c) => !c.character.toLowerCase().includes("self"))
+            ? cast.filter((c) =>
+                c.character
+                  ? !c.character.toLowerCase().includes("self")
+                  : undefined
+              )
             : [],
         order: job === "Acting" ? 0 : job === "Directing" ? 4 : 1,
       },
