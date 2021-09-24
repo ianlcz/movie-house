@@ -29,7 +29,7 @@ const Pane = ({ movies }) => {
   }, [movies]);
 
   return (
-    <ul className="w-full mx-auto mt-6">
+    <ul className="w-auto mx-auto mt-6">
       {informations.map((i) => (
         <li className="grid grid-flow-col grid-cols-2 mb-10 last:mb-0">
           <p className="border flex items-center justify-center w-2/4">
@@ -38,10 +38,10 @@ const Pane = ({ movies }) => {
 
           <ul>
             {i.movies.map((m) => (
-              <li className="border w-full px-6">
+              <li className="border min-w-max px-6">
                 <div className="flex flex-row">
                   <a
-                    className="inline font-semibold"
+                    className="font-semibold"
                     href={`/movie/${m.title.toLowerCase()}?year=${String(
                       new Date(m.release_date).getFullYear()
                     )}`}
@@ -50,10 +50,10 @@ const Pane = ({ movies }) => {
                   </a>
 
                   {m.character ? (
-                    <p>
+                    <>
                       <span className="mx-2">incarnant</span>
-                      {m.character}
-                    </p>
+                      <p>{m.character}</p>
+                    </>
                   ) : undefined}
 
                   {m.job ? <p>{m.job}</p> : undefined}
