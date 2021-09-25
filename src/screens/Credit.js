@@ -89,7 +89,9 @@ const Credit = () => {
               biography,
               gender,
               known_for_department,
-              bestMovies,
+              bestMovies: bestMovies
+                ? bestMovies.filter((m) => m.poster_path)
+                : undefined,
               filmography,
             }}
           </Body>

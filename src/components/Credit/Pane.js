@@ -122,7 +122,9 @@ const Pane = ({ movies, gender }) => {
                 {m.character ? (
                   <div className="flex flex-row">
                     <span className="mr-2 text-blue-500">incarnant</span>
-                    <p className="min-w-max">{m.character}</p>
+                    <p className="min-w-max">
+                      {m.character.split(" / ").slice(0, 6).join(" / ")}
+                    </p>
                   </div>
                 ) : undefined}
 
