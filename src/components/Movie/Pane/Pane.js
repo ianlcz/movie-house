@@ -1,3 +1,4 @@
+import { isMobileOnly } from "react-device-detect";
 import Background from "../Background";
 import Footer from "./Footer";
 import GoToHome from "./GoToHome";
@@ -84,7 +85,7 @@ const Pane = ({
                           {c.name}
                         </p>
                         <p className="mt-1 text-center text-xs lg:text-sm">
-                          {c.character}
+                          {c.character.split(" / ").slice(0, 6).join(" / ")}
                         </p>
                       </div>
                     </a>

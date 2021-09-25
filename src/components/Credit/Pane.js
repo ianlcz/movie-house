@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { isMobileOnly } from "react-device-detect";
 
 const Pane = ({ movies, gender }) => {
   const [informations, setInformations] = useState([]);
@@ -86,17 +87,17 @@ const Pane = ({ movies, gender }) => {
   return (
     <ul>
       {informations.map((i, index) => (
-        <li key={index} className="flex flex-row mb-6 last:mb-0">
-          <p className="flex items-center justify-center font-bold w-1/5 rounded-l-xl bg-gradient-to-br from-blue-900 to-blue-400 text-white shadow">
+        <li key={index} className="flex flex-col lg:flex-row mb-6 last:mb-0">
+          <p className="flex items-center justify-center py-2 lg:py-0 lg:w-1/5 rounded-t-xl lg:rounded-t-none lg:rounded-l-xl font-bold bg-gradient-to-br from-blue-900 to-blue-400 text-white shadow">
             {i.year}
           </p>
 
-          <ul className="w-max px-8 py-4 rounded-r-xl bg-white truncate overflow-ellipsis shadow">
+          <ul className="w-full lg:w-max px-6 py-4 lg:px-8 lg:py-4 rounded-b-xl lg:rounded-bl-none lg:rounded-r-xl bg-white truncate overflow-ellipsis shadow">
             {i.movies.map((m) => (
               <li key={m.id} className="mb-3 last:mb-0">
                 <div className="flex flex-row items-center">
                   <a
-                    className="font-semibold min-w-max mr-2"
+                    className="text-sm lg:text-base font-semibold w-max mr-2 truncate"
                     href={`/movie/${m.title.toLowerCase()}?year=${String(
                       new Date(m.release_date).getFullYear()
                     )}`}
@@ -106,7 +107,7 @@ const Pane = ({ movies, gender }) => {
 
                   {m.vote_average > 0 ? (
                     <p
-                      className={`px-2 rounded-full text-sm font-medium ${
+                      className={`px-2 rounded-full text-xs lg:text-sm font-medium ${
                         m.vote_average < 5
                           ? "text-red-500 bg-red-100"
                           : m.vote_average < 7.5
@@ -120,16 +121,20 @@ const Pane = ({ movies, gender }) => {
                 </div>
 
                 {m.character ? (
-                  <div className="flex flex-row">
-                    <span className="mr-2 text-blue-500">incarnant</span>
-                    <p className="min-w-max">
-                      {m.character.split(" / ").slice(0, 6).join(" / ")}
+                  <div className="flex flex-row text-sm lg:text-base">
+                    <span className="mr-1 lg:mr-2 text-blue-500">
+                      incarnant
+                    </span>
+                    <p className="w-max md:w-max lg:min-w-max truncate">
+                      {isMobileOnly
+                        ? m.character
+                        : m.character.split(" / ").slice(0, 6).join(" / ")}
                     </p>
                   </div>
                 ) : undefined}
 
                 {m.job ? (
-                  <p>
+                  <p className="text-sm">
                     {traductions.filter((t) =>
                       m.job ? t.en === m.job : undefined
                     )[0]

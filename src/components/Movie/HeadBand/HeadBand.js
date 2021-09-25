@@ -1,4 +1,4 @@
-import { isMobile } from "react-device-detect";
+import { isMobileOnly } from "react-device-detect";
 import Background from "../Background";
 import ReadingTime from "./ReadingTime";
 import Section from "./Section";
@@ -59,7 +59,7 @@ const HeadBand = ({
             {genres && (
               <>
                 <ul className="flex flex-row">
-                  {isMobile
+                  {isMobileOnly
                     ? genres.slice(0, 2).map((g, index) => (
                         <li
                           key={g.name}
