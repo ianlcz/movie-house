@@ -1,8 +1,8 @@
-import Actions from "../Actions";
+import { isMobileOnly } from "react-device-detect";
 import Background from "../Background";
-import Footer from "../Footer";
-import GoToHome from "../GoToHome";
-import Trailer from "../Trailer";
+import Footer from "./Footer";
+import GoToHome from "./GoToHome";
+import Trailer from "./Trailer";
 
 const Pane = ({
   children: {
@@ -59,28 +59,36 @@ const Pane = ({
             <h2 className="text-xl mb-4 text-center font-semibold">
               Distribution
             </h2>
-            <ul className="grid grid-flow-col grid-rows-6 lg:grid-rows-2 gap-x-14 gap-y-8">
+            <ul
+              className={`grid grid-flow-col grid-rows-${
+                cast.filter((p) => p.profile_path).slice(0, 6).length
+              } lg:grid-rows-2 gap-x-14 gap-y-8`}
+            >
               {cast
                 .filter((p) => p.profile_path)
                 .slice(0, 6)
                 .map((c) => (
-                  <li
-                    key={c.id}
-                    className="flex flex-row items-center w-4/5 mx-auto"
-                  >
-                    {c.profile_path ? (
-                      <img
-                        src={`https://image.tmdb.org/t/p/original/${c.profile_path}`}
-                        alt={`Profil de : ${c.name}`}
-                        className="w-20 h-20 lg:w-20 lg:h-auto object-cover rounded-lg shadow-md"
-                      />
-                    ) : undefined}
-                    <div className="ml-2 px-4 py-2">
-                      <p className="w-max mx-auto px-2 shadow-inner font-bold text-white text-sm bg-gradient-to-br from-blue-800 to-blue-400 rounded-full">
-                        {c.name}
-                      </p>
-                      <p className="mt-1 text-center text-sm">{c.character}</p>
-                    </div>
+                  <li key={c.id}>
+                    <a
+                      href={`/credit/${c.id}`}
+                      className="flex flex-row items-center w-4/5 mx-auto"
+                    >
+                      {c.profile_path ? (
+                        <img
+                          src={`https://image.tmdb.org/t/p/original/${c.profile_path}`}
+                          alt={`Profil de : ${c.name}`}
+                          className="w-16 h-16 lg:w-20 lg:h-auto object-cover rounded-lg shadow-md"
+                        />
+                      ) : undefined}
+                      <div className="lg:ml-2 px-4 py-2">
+                        <p className="w-max mx-auto px-2 shadow-inner font-bold text-white text-xs lg:text-sm bg-gradient-to-br from-blue-800 to-blue-400 rounded-full">
+                          {c.name}
+                        </p>
+                        <p className="mt-1 text-center text-xs lg:text-sm">
+                          {c.character.split(" / ").slice(0, 6).join(" / ")}
+                        </p>
+                      </div>
+                    </a>
                   </li>
                 ))}
             </ul>
@@ -94,13 +102,14 @@ const Pane = ({
               </>
             ) : undefined}
 
-            {belongs_to_collection ? (
+            {belongs_to_collection && belongs_to_collection.backdrop_path ? (
               <div className="w-4/6 lg:w-1/3 mx-auto mt-10">
                 <Background
                   data={{
                     cover: `https://image.tmdb.org/t/p/original/${belongs_to_collection.backdrop_path}`,
                     title: belongs_to_collection.name,
                   }}
+                  isOnPane
                 >
                   <div className="flex flex-col">
                     <h3 className="font-bold text-lg text-center text-blue-200">

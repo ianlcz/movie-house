@@ -1,14 +1,14 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router";
-import AuthContext from "../auth/AuthContext";
-import { getCookieFromBrowser } from "../auth/cookies";
-import Card from "../components/Movie/Card";
-import Submit from "../components/Submit";
-import jwtDecode from "jwt-decode";
 import { Helmet } from "react-helmet";
+import { useHistory, useParams } from "react-router";
+import axios from "axios";
+import AuthContext from "../../auth/AuthContext";
+import { getCookieFromBrowser } from "../../auth/cookies";
+import Card from "../../components/Movie/Card";
+import Submit from "../../components/Submit";
+import jwtDecode from "jwt-decode";
 
-const EditMovie = () => {
+const Update = () => {
   const user = jwtDecode(getCookieFromBrowser("authToken"));
   const { movies } = useContext(AuthContext);
   const history = useHistory();
@@ -183,4 +183,4 @@ const EditMovie = () => {
   );
 };
 
-export default EditMovie;
+export default Update;

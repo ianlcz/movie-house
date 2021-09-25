@@ -1,5 +1,5 @@
 import { IoTimeOutline } from "react-icons/io5";
-import { formatTime } from "../../utils";
+import { formatTime } from "../../../utils";
 
 const ReadingTime = ({ children }) => (
   <div className={`flex flex-row w-max mx-auto items-center`}>

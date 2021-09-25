@@ -2,14 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
-import AuthContext from "../auth/AuthContext";
-import HeadBand from "../components/HeadBand/HeadBand";
-import Pane from "../components/Pane/Pane";
-import { getCookieFromBrowser } from "../auth/cookies";
 import jwtDecode from "jwt-decode";
-import LoadingPage from "./LoadingPage";
+import AuthContext from "../../auth/AuthContext";
+import { getCookieFromBrowser } from "../../auth/cookies";
+import HeadBand from "../../components/Movie/HeadBand/HeadBand";
+import Pane from "../../components/Movie/Pane/Pane";
+import LoadingPage from "../LoadingPage";
 
-const MovieDetail = () => {
+const Read = () => {
   const { getMovieInfo, isLoading, movies } = useContext(AuthContext);
   const { title } = useParams();
   const [detail, setDetail] = useState({});
@@ -20,27 +20,26 @@ const MovieDetail = () => {
 
   const token = getCookieFromBrowser("authToken");
   const user = jwtDecode(token);
-  const year = new URLSearchParams(useLocation().search).get("year");
+  const year = Number(new URLSearchParams(useLocation().search).get("year"));
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const movieFinded = movies.filter(
+        const movieFound = movies.filter(
           (m) =>
             m.title.toLowerCase() === decodeURIComponent(title.toLowerCase()) &&
             m.year == year
         )[0];
+        const { movie, directors, compositors, cast, trailers } =
+          await getMovieInfo(
+            movieFound ? movieFound : { ref: "Preview", title, year }
+          );
 
-        if (movieFinded) {
-          const { movie, directors, compositors, cast, trailers } =
-            await getMovieInfo(movieFinded);
-
-          setDetail(movie);
-          setDirectors(directors);
-          setCompositors(compositors);
-          setCast(cast);
-          setTrailers(trailers);
-        }
+        setDetail(movie);
+        setDirectors(directors);
+        setCompositors(compositors);
+        setCast(cast);
+        setTrailers(trailers);
       } catch (err) {
         console.error(err.message);
       }
@@ -50,17 +49,17 @@ const MovieDetail = () => {
 
   return isLoading ? (
     <LoadingPage />
-  ) : (
+  ) : detail.title ? (
     <>
-      {detail.title ? (
-        <Helmet>
-          <title>{`${detail.ref} - ${detail.title} | Movie House`}</title>
-        </Helmet>
-      ) : undefined}
+      <Helmet>
+        <title>{`${detail.ref ? `${detail.ref} -` : ""} ${
+          detail.title
+        } | Movie House`}</title>
+      </Helmet>
       <HeadBand>{{ detail, directors, compositors }}</HeadBand>
       <Pane>{{ detail, cast, trailers }}</Pane>
     </>
-  );
+  ) : null;
 };
 
-export default MovieDetail;
+export default Read;

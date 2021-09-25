@@ -158,8 +158,6 @@ export const AuthProvider = ({ children }) => {
               t.official === true
           ),
         };
-      } else {
-        console.log(movie);
       }
     }
   };
