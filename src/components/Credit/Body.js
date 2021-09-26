@@ -1,5 +1,6 @@
 import Filmography from "./Filmography";
 import Section from "./Section";
+import GoToHome from "../Movie/Pane/GoToHome";
 
 const Body = ({
   children: {
@@ -82,6 +83,8 @@ const Body = ({
         job={known_for_department}
         gender={gender}
       />
+
+      <GoToHome isCenter />
     </div>
   );
 };
