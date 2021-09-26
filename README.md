@@ -21,13 +21,19 @@ $ git clone https://github.com/ianlcz/movie-house.git
 
 On linux type this command `openssl rand -hex 32` or go to https://generate-secret.now.sh/32.
 
-### Write the .env
+### Write the .env files
 
 You must create the file `.env` in **api** folder with the following keys:
 
 ```
 MONGO_URI=<YOUR_MONGO_URI>
 JWT_SECRET=<YOUR_JWT_SECRET>
+```
+
+And another `.env` file in the application **root** folder with this following key:
+
+```
+REACT_APP_API_KEY=<YOUR_TMDB_API_KEY>
 ```
 
 ### Install dependencies
