@@ -60,9 +60,7 @@ const Pane = ({
               Distribution
             </h2>
             <ul
-              className={`grid grid-flow-col grid-rows-${
-                cast.filter((p) => p.profile_path).slice(0, 6).length
-              } lg:grid-rows-2 gap-x-14 gap-y-8`}
+              className={`grid grid-flow-col grid-rows-6 lg:grid-rows-2 gap-x-14 gap-y-8`}
             >
               {cast
                 .filter((p) => p.profile_path)
