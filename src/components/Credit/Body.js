@@ -1,6 +1,7 @@
 import Filmography from "./Filmography";
 import Section from "./Section";
 import GoToHome from "../Movie/Pane/GoToHome";
+import ReactMarkdown from "react-markdown";
 
 const Body = ({
   children: {
@@ -44,7 +45,7 @@ const Body = ({
       {biography ? (
         <Section title="Biographie">
           <p className="leading-snug font-light text-sm lg:text-base text-justify">
-            {biography}
+            <ReactMarkdown>{biography}</ReactMarkdown>
           </p>
         </Section>
       ) : undefined}
