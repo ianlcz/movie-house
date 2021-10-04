@@ -52,23 +52,18 @@ const Update = () => {
   const HandleEdit = async (e) => {
     e.preventDefault();
     const today = new Date();
-    newMovie = !newMovie
-      ? {
-          ref: newRef === "" ? movie.ref : newRef,
-          title: movie.title.toLowerCase(),
-          genre: movie.genre,
-          code: newCode ? Number(newCode) : movie.code,
-          purchaseYear: movie.purchaseYear,
-          year: movie.year,
-        }
-      : {
-          ref: newRef === "" ? movie.ref : newRef,
-          title: newMovie.title.toLowerCase(),
-          genre: newMovie.genre_ids,
-          code: newCode ? Number(newCode) : movie.code,
-          purchaseYear: movie.purchaseYear,
-          year: new Date(newMovie.release_date).getFullYear(),
-        };
+    newMovie = {
+      ref: newRef === "" ? movie.ref : newRef,
+      title: newMovie.title
+        ? newMovie.title.toLowerCase()
+        : movie.title.toLowerCase(),
+      genre: newMovie.genre_ids ? newMovie.genre_ids : movie.genre,
+      code: newCode ? Number(newCode) : movie.code,
+      purchaseYear: movie.purchaseYear,
+      year: newMovie.release_date
+        ? new Date(newMovie.release_date).getFullYear()
+        : movie.year,
+    };
 
     if (user && (newRef !== "" || newTitle !== "" || newCode)) {
       await axios
@@ -115,7 +110,7 @@ const Update = () => {
               par
             </label>
 
-            <div className="flex flex-row items-center">
+            <div className="flex flex-col lg:flex-row items-center">
               <div className="flex flex-col">
                 <input
                   type="text"
@@ -138,7 +133,9 @@ const Update = () => {
                 </select>
               </div>
 
-              <label className="flex mx-4 text-blue-500 text-sm">et/ou</label>
+              <label className="my-2 lg:mx-4 text-blue-500 text-sm">
+                et/ou
+              </label>
 
               <input
                 type="text"

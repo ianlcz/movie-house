@@ -1,6 +1,6 @@
 import { isMobileOnly } from "react-device-detect";
+import Footer from "../../Footer";
 import Background from "../Background";
-import Footer from "./Footer";
 import GoToHome from "./GoToHome";
 import Trailer from "./Trailer";
 
@@ -101,7 +101,7 @@ const Pane = ({
             ) : undefined}
 
             {belongs_to_collection && belongs_to_collection.backdrop_path ? (
-              <div className="w-4/6 lg:w-1/3 mx-auto mt-10">
+              <div className="w-full lg:w-1/3 mx-auto mt-10">
                 <Background
                   data={{
                     cover: `https://image.tmdb.org/t/p/original/${belongs_to_collection.backdrop_path}`,
