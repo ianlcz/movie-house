@@ -6,6 +6,9 @@ module.exports = {
       margin: {
         84: "22rem",
       },
+      gridTemplateRows: {
+        8: "repeat(8, minmax(0, 1fr))",
+      },
     },
   },
   variants: {

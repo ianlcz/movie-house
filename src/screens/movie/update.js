@@ -91,7 +91,7 @@ const Update = () => {
         } | Movie House`}</title>
       </Helmet>
       <div className="flex flex-col bg-gradient-to-br from-blue-900 to-blue-400 min-h-screen">
-        <div className="w-4/5 lg:w-1/2 mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
+        <div className="w-4/5 lg:w-3/4 mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
           <h1 className="mb-6 font-semibold text-2xl text-center text-blue-900">
             Voulez-vous modifier ce film ?
           </h1>
@@ -110,41 +110,43 @@ const Update = () => {
               par
             </label>
 
-            <div className="flex flex-col lg:flex-row items-center">
-              <div className="flex flex-col">
+            <div className="flex justify-center">
+              <div className="flex flex-col lg:flex-row items-center">
+                <div className="flex flex-col">
+                  <input
+                    type="text"
+                    name="newRef"
+                    placeholder="Nouvelle référence"
+                    value={newRef}
+                    onChange={(e) => setNewRef(e.target.value)}
+                    className="w-full px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
+                  />
+
+                  <select
+                    value={newCode}
+                    onChange={(e) => setNewCode(e.target.value)}
+                    className="w-max mt-6 px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 appearance-none placeholder-blue-200 font-medium rounded-full shadow-inner"
+                  >
+                    <option>--Choisir un code--</option>
+                    <option value={1}>Vu</option>
+                    <option value={3}>Vu au cinéma mais pas revu</option>
+                    <option value={4}>Pas vu</option>
+                  </select>
+                </div>
+
+                <label className="my-2 lg:mx-4 text-blue-500 text-sm">
+                  et/ou
+                </label>
+
                 <input
                   type="text"
-                  name="newRef"
-                  placeholder="Nouvelle référence"
-                  value={newRef}
-                  onChange={(e) => setNewRef(e.target.value)}
+                  name="newTitle"
+                  placeholder="Nouveau titre"
+                  value={newTitle}
+                  onChange={(e) => setNewTitle(e.target.value)}
                   className="w-full px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
                 />
-
-                <select
-                  value={newCode}
-                  onChange={(e) => setNewCode(e.target.value)}
-                  className="w-max mt-6 px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 appearance-none placeholder-blue-200 font-medium rounded-full shadow-inner"
-                >
-                  <option>--Choisir un code--</option>
-                  <option value={1}>Vu</option>
-                  <option value={3}>Vu au cinéma mais pas revu</option>
-                  <option value={4}>Pas vu</option>
-                </select>
               </div>
-
-              <label className="my-2 lg:mx-4 text-blue-500 text-sm">
-                et/ou
-              </label>
-
-              <input
-                type="text"
-                name="newTitle"
-                placeholder="Nouveau titre"
-                value={newTitle}
-                onChange={(e) => setNewTitle(e.target.value)}
-                className="w-full px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
-              />
             </div>
 
             {suggestion && suggestion.length > 0 ? (
@@ -152,12 +154,12 @@ const Update = () => {
                 className={`my-8 w-max m-auto ${
                   suggestion.length === 1
                     ? ""
-                    : "grid grid-flow-col grid-rows-4 lg:grid-cols-2 lg:grid-rows-2 gap-8"
+                    : "grid grid-flow-col grid-rows-8 lg:grid-cols-2 gap-8"
                 }`}
               >
                 {suggestion
                   .filter((m) => m.poster_path)
-                  .slice(0, 4)
+                  .slice(0, 8)
                   .map((m) => (
                     <Card
                       key={m.id}

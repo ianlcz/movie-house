@@ -29,7 +29,7 @@ const Register = () => {
       <Helmet>
         <title>{`Inscription | Movie House`}</title>
       </Helmet>
-      <div className="flex flex-col bg-gradient-to-br from-blue-900 to-blue-400 min-h-screen">
+      <div className="flex flex-col bg-gradient-to-br from-blue-800 to-blue-400 min-h-screen">
         <div className="w-5/6 lg:w-2/5 mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
           <h1 className="font-semibold text-2xl text-center text-blue-900">
             Inscription
