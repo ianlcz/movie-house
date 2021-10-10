@@ -88,7 +88,7 @@ const Pane = ({ movies, gender }) => {
     <ul>
       {informations.map((i, index) => (
         <li key={index} className="flex flex-col lg:flex-row mb-6 first:mt-4 last:mb-8">
-          <p className="flex items-center justify-center py-2 lg:py-0 lg:w-1/5 rounded-t-xl lg:rounded-t-none lg:rounded-l-xl font-bold bg-gradient-to-br from-blue-900 to-blue-400 text-white shadow">
+          <p className="flex items-center justify-center py-2 lg:py-0 lg:w-1/5 rounded-t-xl lg:rounded-t-none lg:rounded-l-xl font-bold bg-gradient-to-br from-blue-800 to-blue-400 text-white shadow">
             {i.year}
           </p>
 
