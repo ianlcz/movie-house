@@ -38,6 +38,7 @@ const Credit = () => {
                 (a, b) =>
                   b.popularity + b.vote_count - (a.popularity + a.vote_count)
               )
+              .filter((m) => !m.character.includes("(uncredited)"))
               .slice(0, 4)
           : peopleData.known_for_department === "Directing" ||
             peopleData.known_for_department === "Production"
