@@ -19,7 +19,7 @@ const Body = ({
 }) => (
   <div className="w-full lg:ml-84 mt-6 lg:mt-0 lg:pt-8 text-blue-800">
     {biography ? (
-      <Section title="Biographie">
+      <Section title="Biographie" isBiography>
         <p className="leading-snug font-light text-sm lg:text-base text-justify">
           <ReactMarkdown>{biography}</ReactMarkdown>
         </p>
@@ -34,7 +34,10 @@ const Body = ({
       >
         <ul className="grid grid-flow-col grid-cols-2 grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 gap-x-6 gap-y-4 lg:gap-x-6 mt-4 items-center">
           {bestMovies.map((m) => (
-            <li key={m.id} className="w-full">
+            <li
+              key={m.id}
+              className="w-full transform hover:scale-110 transition duration-300 ease-in-out"
+            >
               <a
                 href={`/movie/${m.title.toLowerCase()}?year=${String(
                   new Date(m.release_date).getFullYear()
