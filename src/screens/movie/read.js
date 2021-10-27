@@ -7,7 +7,6 @@ import AuthContext from "../../auth/AuthContext";
 import { getCookieFromBrowser } from "../../auth/cookies";
 import HeadBand from "../../components/Movie/HeadBand/HeadBand";
 import Pane from "../../components/Movie/Pane/Pane";
-import LoadingPage from "../LoadingPage";
 
 const Read = () => {
   const { getMovieInfo, isLoading, movies } = useContext(AuthContext);
@@ -47,9 +46,7 @@ const Read = () => {
     fetchData();
   }, [movies]);
 
-  return isLoading ? (
-    <LoadingPage />
-  ) : detail.title ? (
+  return !isLoading && detail.title ? (
     <>
       <Helmet>
         <title>{`${detail.ref ? `${detail.ref} -` : ""} ${
