@@ -9,7 +9,7 @@ import HeadBand from "../../components/Movie/HeadBand/HeadBand";
 import Pane from "../../components/Movie/Pane/Pane";
 
 const Read = () => {
-  const { getMovieInfo, isLoading, movies } = useContext(AuthContext);
+  const { getMovieInfo, movies } = useContext(AuthContext);
   const { title } = useParams();
   const [detail, setDetail] = useState({});
   const [directors, setDirectors] = useState([]);
@@ -46,7 +46,7 @@ const Read = () => {
     fetchData();
   }, [movies]);
 
-  return !isLoading && detail.title ? (
+  return detail.title ? (
     <>
       <Helmet>
         <title>{`${detail.ref ? `${detail.ref} -` : ""} ${
