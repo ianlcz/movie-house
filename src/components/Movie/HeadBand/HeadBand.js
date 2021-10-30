@@ -38,7 +38,7 @@ const HeadBand = ({
         <Poster>{{ poster_path, title }}</Poster>
 
         <div className="flex flex-col w-full lg:w-3/5 mt-6 lg:mt-0">
-          {ref ? (
+          {ref && new Date(release_date).getTime() < new Date().getTime() ? (
             <p className="w-16 mx-auto mb-2 px-2 py-0.5 text-xs text-center font-semibold rounded-full shadow-inner bg-gradient-to-br from-blue-800 to-blue-500">
               {ref}
             </p>
@@ -46,13 +46,28 @@ const HeadBand = ({
 
           <h1 className="flex flex-row w-full items-center justify-center text-center flex-wrap text-2xl lg:text-4xl font-semibold">
             {title}
-            <span className="ml-2 lg:ml-4 text-base lg:text-2xl font-light">
-              ({new Date(release_date).getFullYear()})
-            </span>
+
+            {new Date(release_date).getTime() < new Date().getTime() ? (
+              <span className="ml-2 lg:ml-4 text-base lg:text-2xl font-light">
+                ({new Date(release_date).getFullYear()})
+              </span>
+            ) : undefined}
           </h1>
 
           {original_title.toLowerCase() !== title.toLowerCase() ? (
             <p className="mt-2 text-sm italic text-center">{original_title}</p>
+          ) : undefined}
+
+          {new Date(release_date).getTime() > new Date().getTime() ? (
+            <span className="w-max mx-auto mt-3 lg:mt-4 text-xs lg:text-xs font-bold uppercase">
+              Le{" "}
+              {new Date(release_date).toLocaleDateString("fr-FR", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}{" "}
+              au cinéma
+            </span>
           ) : undefined}
 
           <div className="flex flex-row items-center lg:w-max mx-auto mt-2 lg:mt-0">

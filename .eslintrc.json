@@ -1,5 +1,6 @@
 {
   "rules": {
     "eslint-disable-next-line": "off"
-  }
+  },
+  "parser": "babel-eslint"
 }
