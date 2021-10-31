@@ -12,7 +12,7 @@ This project allows you to manage your movies collection.
 You can install the project by cloning this repository:
 
 ```sh
-$ git clone https://github.com/ianlcz/movie-house.git
+git clone https://github.com/ianlcz/movie-house.git
 ```
 
 ## Before you start
