@@ -1,13 +1,17 @@
 import { isMobileOnly } from "react-device-detect";
+import { SiPrimevideo, SiNetflix, SiAppletv, SiDiscord } from "react-icons/si";
 import Background from "../Background";
 import ReadingTime from "./ReadingTime";
 import Section from "./Section";
 import Score from "./Score";
 import Poster from "../../Poster";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const HeadBand = ({
   children: {
     detail: {
+      id,
       ref,
       backdrop_path,
       original_title,
@@ -26,8 +30,32 @@ const HeadBand = ({
     directors,
     compositors,
   },
-}) =>
-  directors.length !== 0 ? (
+}) => {
+  const [streamPlatfom, setStreamPlatform] = useState(undefined);
+  const streamConfig = {
+    "Amazon Prime Video": {
+      icon: <SiPrimevideo size={50} />,
+      color: "bg-blue-500",
+    },
+    "Apple TV Plus": { icon: <SiAppletv size={40} />, color: "bg-gray-900" },
+    Netflix: { icon: <SiNetflix size={28} />, color: "bg-red-600" },
+  };
+
+  useEffect(() => {
+    const fetchStream = async () => {
+      setStreamPlatform(
+        await axios
+          .get(
+            `https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${process.env.REACT_APP_API_KEY}`,
+          )
+          .then((res) => res.data.results.FR.flatrate[0])
+          .catch((err) => console.error(err.message)),
+      );
+    };
+    fetchStream();
+  }, []);
+
+  return directors.length !== 0 ? (
     <Background
       data={{
         cover: `https://image.tmdb.org/t/p/original/${backdrop_path}`,
@@ -35,7 +63,29 @@ const HeadBand = ({
       }}
     >
       <div className="flex flex-col lg:flex-row mt-4 mb-14 items-center justify-evenly">
-        <Poster>{{ poster_path, title }}</Poster>
+        <div className="flex flex-col">
+          <Poster>{{ poster_path, title }}</Poster>
+
+          {streamPlatfom && streamConfig[streamPlatfom.provider_name] ? (
+            <div
+              className={`hidden lg:flex flex-row justify-evenly items-center rounded-full w-11/12 mx-auto shadow-md cursor-default mt-4 ${
+                streamPlatfom.provider_name === "Netflix"
+                  ? "py-2"
+                  : streamPlatfom.provider_name === "Apple TV Plus"
+                  ? "py-1"
+                  : "py-0"
+              } ${
+                streamConfig[streamPlatfom.provider_name].color
+              }`}
+            >
+              {streamConfig[streamPlatfom.provider_name].icon}
+              <div className="flex flex-col text-sm leading-tight">
+                <h4 className="font-light">Disponible en streaming</h4>
+                <h3 className="font-semibold">Regardez maintenant</h3>
+              </div>
+            </div>
+          ) : undefined}
+        </div>
 
         <div className="flex flex-col w-full lg:w-3/5 mt-6 lg:mt-0">
           {ref && new Date(release_date).getTime() < new Date().getTime() ? (
@@ -139,5 +189,6 @@ const HeadBand = ({
       </div>
     </Background>
   ) : null;
+};
 
 export default HeadBand;

@@ -27,11 +27,11 @@ const Read = () => {
         const movieFound = movies.filter(
           (m) =>
             m.title.toLowerCase() === decodeURIComponent(title.toLowerCase()) &&
-            m.year == year
+            m.year == year,
         )[0];
         const { movie, directors, compositors, cast, trailers } =
           await getMovieInfo(
-            movieFound ? movieFound : { ref: "Preview", title, year }
+            movieFound ? movieFound : { ref: "Preview", title, year },
           );
 
         setDetail(movie);
