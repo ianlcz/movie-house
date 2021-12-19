@@ -17,7 +17,7 @@ const Body = ({
     filmography,
   },
 }) => (
-  <div className="w-full lg:ml-84 mt-6 lg:mt-0 lg:pt-8 text-blue-800">
+  <div className="w-full lg:ml-84 mt-6 lg:mt-0 lg:pt-8 text-green-800">
     {biography ? (
       <Section title="Biographie" isBiography>
         <p className="leading-snug font-light text-sm lg:text-base text-justify">
@@ -40,7 +40,7 @@ const Body = ({
             >
               <a
                 href={`/movie/${m.title.toLowerCase()}?year=${String(
-                  new Date(m.release_date).getFullYear()
+                  new Date(m.release_date).getFullYear(),
                 )}`}
               >
                 <img
@@ -48,7 +48,7 @@ const Body = ({
                   alt={`Affiche du film : ${m.title}`}
                   className="w-full object-cover rounded-xl shadow-xl"
                 />
-                <p className="w-full mx-auto mt-2 px-4 truncate text-center text-sm font-medium text-white bg-gradient-to-br from-blue-800 to-blue-400 rounded-full">
+                <p className="w-full mx-auto mt-2 px-4 truncate text-center text-sm font-medium text-white bg-gradient-to-br from-green-800 to-green-400 rounded-full">
                   {m.character}
                 </p>
               </a>

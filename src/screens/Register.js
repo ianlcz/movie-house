@@ -29,9 +29,9 @@ const Register = () => {
       <Helmet>
         <title>{`Inscription | Movie House`}</title>
       </Helmet>
-      <div className="flex flex-col bg-gradient-to-br from-blue-800 to-blue-400 min-h-screen">
-        <div className="w-5/6 lg:w-2/5 mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
-          <h1 className="font-semibold text-2xl text-center text-blue-900">
+      <div className="flex flex-col bg-gradient-to-br from-green-800 to-green-400 min-h-screen">
+        <div className="w-5/6 lg:w-2/5 mx-auto my-auto p-8 bg-green-50 rounded-xl shadow-lg">
+          <h1 className="font-semibold text-2xl text-center text-green-900">
             Inscription
           </h1>
 
@@ -45,7 +45,7 @@ const Register = () => {
                 value={emailAddress}
                 onChange={(e) => setEmailAddress(e.target.value)}
                 required
-                className="w-max mx-auto mb-4 px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
+                className="w-max mx-auto mb-4 px-4 py-1 text-sm text-green-400 border-2 border-green-200 placeholder-green-200 rounded-full font-semibold shadow-inner"
               />
 
               <div className="flex flex-col lg:flex-row mb-4">
@@ -57,7 +57,7 @@ const Register = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-max mx-auto mb-2 lg:mr-4 px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
+                  className="w-max mx-auto mb-2 lg:mr-4 px-4 py-1 text-sm text-green-400 border-2 border-green-200 placeholder-green-200 rounded-full font-semibold shadow-inner"
                 />
                 <input
                   type="password"
@@ -66,7 +66,7 @@ const Register = () => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
-                  className="w-max mx-auto px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
+                  className="w-max mx-auto px-4 py-1 text-sm text-green-400 border-2 border-green-200 placeholder-green-200 rounded-full font-semibold shadow-inner"
                 />
               </div>
             </div>
@@ -74,7 +74,7 @@ const Register = () => {
             <div className="w-max mx-auto">
               <button
                 type="submit"
-                className="mt-4 px-4 text-sm py-1 bg-gradient-to-tr from-blue-800 to-blue-400 hover:from-blue-400 hover:to-blue-800 font-medium text-blue-50 rounded-full"
+                className="mt-4 px-4 text-sm py-1 bg-gradient-to-tr from-green-800 to-green-400 hover:from-green-400 hover:to-green-800 font-medium text-green-50 rounded-full"
               >
                 Créer mon compte
               </button>

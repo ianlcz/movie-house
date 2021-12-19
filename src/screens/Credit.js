@@ -19,13 +19,13 @@ const Credit = () => {
     const fetchData = async () => {
       const peopleData = await axios
         .get(
-          `https://api.themoviedb.org/3/person/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`
+          `https://api.themoviedb.org/3/person/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`,
         )
         .then((res) => res.data)
         .catch((err) => console.error(err.message));
       const movies = await axios
         .get(
-          `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`
+          `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`,
         )
         .then((res) => res.data)
         .catch((err) => console.error(err.message));
@@ -36,10 +36,10 @@ const Credit = () => {
           ? movies.cast
               .sort(
                 (a, b) =>
-                  b.popularity + b.vote_count - (a.popularity + a.vote_count)
+                  b.popularity + b.vote_count - (a.popularity + a.vote_count),
               )
               .filter((m) =>
-                m.character ? !m.character.includes("(uncredited)") : undefined
+                m.character ? !m.character.includes("(uncredited)") : undefined,
               )
               .slice(0, 4)
           : peopleData.known_for_department === "Directing" ||
@@ -48,16 +48,16 @@ const Credit = () => {
               .filter((m) => m.job === "Director")
               .sort(
                 (a, b) =>
-                  b.popularity + b.vote_count - (a.popularity + a.vote_count)
+                  b.popularity + b.vote_count - (a.popularity + a.vote_count),
               )
               .slice(0, 4)
           : movies.crew
               .filter((m) => m.job === "Original Music Composer")
               .sort(
                 (a, b) =>
-                  b.popularity + b.vote_count - (a.popularity + a.vote_count)
+                  b.popularity + b.vote_count - (a.popularity + a.vote_count),
               )
-              .slice(0, 4)
+              .slice(0, 4),
       );
       setFilmography(movies);
     };
@@ -80,7 +80,7 @@ const Credit = () => {
       <Helmet>
         <title>{`${name} | Movie House`}</title>
       </Helmet>
-      <div className="bg-blue-50 min-h-screen">
+      <div className="bg-green-50 min-h-screen">
         <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between w-full px-8 pt-8 lg:pt-0">
           <div className="lg:flex lg:items-center lg:h-full lg:fixed">
             <div>
@@ -89,14 +89,14 @@ const Credit = () => {
               </Poster>
 
               <div className="flex flex-col w-full">
-                <h1 className="w-max mx-auto mt-6 px-4 text-center text-2xl font-semibold text-white bg-gradient-to-br from-blue-900 to-blue-500 rounded-full shadow-inner">
+                <h1 className="w-max mx-auto mt-6 px-4 text-center text-2xl font-semibold text-white bg-gradient-to-br from-green-900 to-green-500 rounded-full shadow-inner">
                   {name}
                 </h1>
 
-                <p className="w-max mx-auto mt-2 text-base text-blue-500">
+                <p className="w-max mx-auto mt-2 text-base text-green-500">
                   {deathday
                     ? `(${new Date(birthday).getFullYear()} - ${new Date(
-                        deathday
+                        deathday,
                       ).getFullYear()})`
                     : `(${
                         today.getMonth() < new Date(birthday).getMonth() ||
@@ -111,7 +111,7 @@ const Credit = () => {
                 </p>
 
                 {place_of_birth ? (
-                  <p className="w-full truncate mx-auto mt-2 text-sm text-center font-semibold text-blue-800">
+                  <p className="w-full truncate mx-auto mt-2 text-sm text-center font-semibold text-green-800">
                     {place_of_birth
                       .replace(/s*\[.*?]s*/g, "")
                       .replace(" ,", ",")}

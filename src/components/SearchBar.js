@@ -27,14 +27,14 @@ const SearchBar = () => {
                   ? (m.title.toLowerCase().includes(userInput.toLowerCase()) ||
                       m.ref.includes(userInput)) &&
                     m.code == code
-                  : undefined
+                  : undefined,
               )
             : movies.filter((m) =>
                 m.ref && m.title && m.code
                   ? m.title.toLowerCase().includes(userInput.toLowerCase()) ||
                     m.ref.includes(userInput)
-                  : undefined
-              )
+                  : undefined,
+              ),
         );
       }, 1000);
     } else {
@@ -45,7 +45,7 @@ const SearchBar = () => {
   return (
     <>
       <div className="flex justify-center">
-        <div className="flex flex-col w-11/12 lg:w-1/2 items-center mt-6 py-6 bg-blue-800 bg-opacity-60 shadow-md backdrop-filter backdrop-blur-xl rounded-2xl z-30 fixed">
+        <div className="flex flex-col w-11/12 lg:w-1/2 items-center mt-6 py-6 bg-green-800 bg-opacity-60 shadow-md backdrop-filter backdrop-blur-xl rounded-2xl z-30 fixed">
           <TitlePage />
           <Actions />
 
@@ -55,13 +55,13 @@ const SearchBar = () => {
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
               placeholder="Rechercher un film ou une référence"
-              className="w-full lg:w-5/6 lg:mr-10 mb-4 lg:mb-0 pl-6 h-12 border border-blue-500 text-blue-600 font-medium text-sm lg:text-base rounded-full shadow-inner placeholder-blue-400"
+              className="w-full lg:w-5/6 lg:mr-10 mb-4 lg:mb-0 pl-6 h-12 border border-green-500 text-green-600 font-medium text-sm lg:text-base rounded-full shadow-inner placeholder-green-400"
             />
 
             <select
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              className="w-max mx-auto px-4 py-1 text-sm text-blue-400 appearance-none bg-white rounded-md border border-blue-300"
+              className="w-max mx-auto px-4 py-1 text-sm text-green-400 appearance-none bg-white rounded-md border border-green-300"
             >
               <option value={0}>Filtrer</option>
               <option value={1}>Vu</option>

@@ -12,7 +12,7 @@ const Pane = ({ movies, gender }) => {
         .map((m) =>
           today.getTime() > new Date(m.release_date).getTime()
             ? new Date(m.release_date).getFullYear()
-            : "Prochainement"
+            : "Prochainement",
         )
         .filter((value, index, self) => self.indexOf(value) === index)
         .map((y) =>
@@ -22,10 +22,10 @@ const Pane = ({ movies, gender }) => {
               y === "Prochainement"
                 ? today.getTime() < new Date(m.release_date).getTime()
                 : new Date(m.release_date).getFullYear() === y &&
-                  today.getTime() > new Date(m.release_date).getTime()
+                  today.getTime() > new Date(m.release_date).getTime(),
             ),
-          })
-        )
+          }),
+        ),
     );
   }, [movies]);
 
@@ -87,8 +87,11 @@ const Pane = ({ movies, gender }) => {
   return (
     <ul>
       {informations.map((i, index) => (
-        <li key={index} className="flex flex-col lg:flex-row mb-6 first:mt-4 last:mb-8">
-          <p className="flex items-center justify-center py-2 lg:py-0 lg:w-1/5 rounded-t-xl lg:rounded-t-none lg:rounded-l-xl font-bold bg-gradient-to-br from-blue-800 to-blue-400 text-white shadow">
+        <li
+          key={index}
+          className="flex flex-col lg:flex-row mb-6 first:mt-4 last:mb-8"
+        >
+          <p className="flex items-center justify-center py-2 lg:py-0 lg:w-1/5 rounded-t-xl lg:rounded-t-none lg:rounded-l-xl font-bold bg-gradient-to-br from-green-800 to-green-400 text-white shadow">
             {i.year}
           </p>
 
@@ -99,7 +102,7 @@ const Pane = ({ movies, gender }) => {
                   <a
                     className="text-sm lg:text-base font-semibold w-max mr-2 truncate"
                     href={`/movie/${m.title.toLowerCase()}?year=${String(
-                      new Date(m.release_date).getFullYear()
+                      new Date(m.release_date).getFullYear(),
                     )}`}
                   >
                     {m.title}
@@ -122,7 +125,7 @@ const Pane = ({ movies, gender }) => {
 
                 {m.character ? (
                   <div className="flex flex-row text-sm lg:text-base">
-                    <span className="mr-1 lg:mr-2 text-blue-500">
+                    <span className="mr-1 lg:mr-2 text-green-500">
                       incarnant
                     </span>
                     <p className="w-max md:w-max lg:min-w-max truncate">
@@ -136,16 +139,16 @@ const Pane = ({ movies, gender }) => {
                 {m.job ? (
                   <p className="text-sm">
                     {traductions.filter((t) =>
-                      m.job ? t.en === m.job : undefined
+                      m.job ? t.en === m.job : undefined,
                     )[0]
                       ? typeof traductions.filter((t) =>
-                          m.job ? t.en === m.job : undefined
+                          m.job ? t.en === m.job : undefined,
                         )[0].fr === "object"
                         ? traductions.filter((t) =>
-                            m.job ? t.en === m.job : undefined
+                            m.job ? t.en === m.job : undefined,
                           )[0].fr[gender]
                         : traductions.filter((t) =>
-                            m.job ? t.en === m.job : undefined
+                            m.job ? t.en === m.job : undefined,
                           )[0].fr
                       : undefined}
                   </p>

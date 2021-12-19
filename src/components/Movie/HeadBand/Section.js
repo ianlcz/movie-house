@@ -1,7 +1,7 @@
 const Section = ({ title, content }) =>
   content.length > 0 ? (
     <div className={title === "Un film de" ? "my-4 lg:mt-0 lg:mb-6" : "mt-6"}>
-      <p className="font-medium text-blue-100 text-center mb-2">{title}</p>
+      <p className="font-medium text-green-100 text-center mb-2">{title}</p>
       <ul
         className={`flex flex-row flex-wrap items-center justify-evenly w-full ${
           content.length <= 2 ? "lg:w-3/5" : "lg:w-4/5"
