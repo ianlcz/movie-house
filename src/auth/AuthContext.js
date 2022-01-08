@@ -29,18 +29,6 @@ export const AuthProvider = ({ children }) => {
         setUser(owner);
         const moviesUser = owner.movies.movies;
 
-        /* 
-          GET movie informations from API
-      
-          const movies = [];
-          for (let i = 0; i < moviesUser.length; i++) {
-            movies.push({
-              ...moviesUser[i],
-              ...(await getMovieInfo(moviesUser[i])),
-            });
-          }
-        */
-
         setMovies(moviesUser);
       }
       setIsLoading(false);
@@ -89,10 +77,10 @@ export const AuthProvider = ({ children }) => {
       const results = await axios
         .get(
           `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
-            title
+            title,
           )}&api_key=${
             process.env.REACT_APP_API_KEY
-          }&language=fr-FR&primary_release_year=${year}`
+          }&language=fr-FR&primary_release_year=${year}`,
         )
         .then((res) => res.data.results)
         .catch((err) => console.error(err.message));
@@ -106,7 +94,7 @@ export const AuthProvider = ({ children }) => {
           ? results.filter((m) =>
               m.title
                 ? m.title.trim().toLowerCase() === title.trim().toLowerCase()
-                : undefined
+                : undefined,
             )
           : results;
 
@@ -115,28 +103,28 @@ export const AuthProvider = ({ children }) => {
 
         const movie = await axios
           .get(
-            `https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`
+            `https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`,
           )
           .then((res) => res.data)
           .catch((err) => console.error(err.message));
 
         const crew = await axios
           .get(
-            `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`
+            `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`,
           )
           .then((res) => res.data.crew)
           .catch((err) => console.error(err.message));
 
         const cast = await axios
           .get(
-            `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`
+            `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`,
           )
           .then((res) => res.data.cast)
           .catch((err) => console.error(err.message));
 
         const trailers = await axios
           .get(
-            `https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`
+            `https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`,
           )
           .then((res) => res.data.results)
           .catch((err) => console.error(err.message));
@@ -147,16 +135,31 @@ export const AuthProvider = ({ children }) => {
           movie,
           directors: crew.filter((c) => c.job === "Director"),
           compositors: crew.filter(
-            (c) => c.job === "Original Music Composer" || c.job === "Music"
+            (c) => c.job === "Original Music Composer" || c.job === "Music",
           ),
           cast,
-          trailers: trailers.filter(
-            (t) =>
-              t.name.toLowerCase().includes("vf") &&
-              t.site === "YouTube" &&
-              t.type === "Trailer" &&
-              t.official === true
-          ),
+          trailers:
+            trailers.filter(
+              (t) =>
+                t.name.toLowerCase().includes("vf") &&
+                t.site === "YouTube" &&
+                t.type === "Trailer" &&
+                t.official === true,
+            ).length === 0
+              ? trailers.filter(
+                  (t) =>
+                    t.name.toLowerCase().includes("vf") &&
+                    t.site === "YouTube" &&
+                    t.type === "Teaser" &&
+                    t.official === true,
+                )
+              : trailers.filter(
+                  (t) =>
+                    t.name.toLowerCase().includes("vf") &&
+                    t.site === "YouTube" &&
+                    t.type === "Trailer" &&
+                    t.official === true,
+                ),
         };
       }
     }
