@@ -60,7 +60,7 @@ const Pane = ({
               Distribution
             </h2>
             <ul
-              className={`grid grid-flow-col grid-rows-6 lg:grid-rows-2 gap-x-4 gap-y-8 lg:gap-x-14`}
+              className={`grid grid-flow-col grid-rows-3 lg:grid-rows-2 gap-x-4 gap-y-8 lg:gap-x-14`}
             >
               {cast
                 .filter((p) => p.profile_path)
@@ -78,7 +78,7 @@ const Pane = ({
                           className="w-16 h-16 md:w-20 md:h-auto object-cover rounded-lg shadow-md"
                         />
                       ) : undefined}
-                      <div className="lg:ml-2 px-4 py-2">
+                      <div className="lg:ml-2 px-2 lg:px-4 py-2">
                         <p className="w-max mx-auto px-2 shadow-inner font-bold text-white text-xs lg:text-sm bg-gradient-to-br from-green-800 to-green-400 rounded-full">
                           {c.name}
                         </p>
