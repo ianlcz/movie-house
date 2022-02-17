@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { useHistory, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 import AuthContext from "../../auth/AuthContext";
 import { getCookieFromBrowser } from "../../auth/cookies";
@@ -90,15 +90,15 @@ const Update = () => {
           movie ? "de " + movie.title : "d'un film"
         } | Movie House`}</title>
       </Helmet>
-      <div className="flex flex-col bg-gradient-to-br from-green-900 to-green-400 min-h-screen">
-        <div className="w-4/5 lg:w-3/4 mx-auto my-auto p-8 bg-green-50 rounded-xl shadow-lg">
-          <h1 className="mb-6 font-semibold text-2xl text-center text-green-900">
+      <div className="flex flex-col bg-gradient-to-br from-blue-900 to-blue-400 min-h-screen">
+        <div className="w-4/5 lg:w-3/4 mx-auto my-auto p-8 bg-blue-50 rounded-xl shadow-lg">
+          <h1 className="mb-6 font-semibold text-2xl text-center text-blue-900">
             Voulez-vous modifier ce film ?
           </h1>
           <form onSubmit={HandleEdit}>
             {movie ? (
               <ul className="my-4">
-                <li className="flex flex-row items-center w-max mx-auto px-2 rounded-full text-white bg-gradient-to-br from-green-800 to-green-400 truncate">
+                <li className="flex flex-row items-center w-max mx-auto px-2 rounded-full text-white bg-gradient-to-br from-blue-600 to-blue-400 truncate">
                   <p className="text-sm font-bold mr-1">{`${movie.ref} -`}</p>
                   <p className="mr-2 text-sm font-semibold">{movie.title}</p>
                   <p className="text-sm">{`(${movie.year})`}</p>
@@ -106,7 +106,7 @@ const Update = () => {
               </ul>
             ) : undefined}
 
-            <label className="flex justify-center my-3 text-green-800 font-medium">
+            <label className="flex justify-center my-3 text-blue-600 font-medium">
               par
             </label>
 
@@ -119,13 +119,13 @@ const Update = () => {
                     placeholder="Nouvelle référence"
                     value={newRef}
                     onChange={(e) => setNewRef(e.target.value)}
-                    className="w-full px-4 py-1 text-sm text-green-400 border-2 border-green-200 placeholder-green-200 rounded-full font-semibold shadow-inner"
+                    className="w-full px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
                   />
 
                   <select
                     value={newCode}
                     onChange={(e) => setNewCode(e.target.value)}
-                    className="w-max mt-6 px-4 py-1 text-sm text-green-400 border-2 border-green-200 appearance-none placeholder-green-200 font-medium rounded-full shadow-inner"
+                    className="w-max mt-6 px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 appearance-none placeholder-blue-200 font-medium rounded-full shadow-inner"
                   >
                     <option>--Choisir un code--</option>
                     <option value={1}>Vu</option>
@@ -134,7 +134,7 @@ const Update = () => {
                   </select>
                 </div>
 
-                <label className="my-2 lg:mx-4 text-green-500 text-sm">
+                <label className="my-2 lg:mx-4 text-blue-500 text-sm">
                   et/ou
                 </label>
 
@@ -144,7 +144,7 @@ const Update = () => {
                   placeholder="Nouveau titre"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
-                  className="w-full px-4 py-1 text-sm text-green-400 border-2 border-green-200 placeholder-green-200 rounded-full font-semibold shadow-inner"
+                  className="w-full px-4 py-1 text-sm text-blue-400 border-2 border-blue-200 placeholder-blue-200 rounded-full font-semibold shadow-inner"
                 />
               </div>
             </div>

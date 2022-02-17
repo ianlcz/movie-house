@@ -91,7 +91,7 @@ const Pane = ({ movies, gender }) => {
           key={index}
           className="flex flex-col lg:flex-row mb-6 first:mt-4 last:mb-8"
         >
-          <p className="flex items-center justify-center py-2 lg:py-0 lg:w-1/5 rounded-t-xl lg:rounded-t-none lg:rounded-l-xl font-bold bg-gradient-to-br from-green-800 to-green-400 text-white shadow">
+          <p className="flex items-center justify-center py-2 lg:py-0 lg:w-1/5 rounded-t-xl lg:rounded-t-none lg:rounded-l-xl font-bold bg-gradient-to-br from-blue-600 to-blue-400 text-white shadow">
             {i.year}
           </p>
 
@@ -125,7 +125,7 @@ const Pane = ({ movies, gender }) => {
 
                 {m.character ? (
                   <div className="flex flex-row text-sm lg:text-base">
-                    <span className="mr-1 lg:mr-2 text-green-500">
+                    <span className="mr-1 lg:mr-2 text-blue-500">
                       incarnant
                     </span>
                     <p className="w-max md:w-max lg:min-w-max truncate">

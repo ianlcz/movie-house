@@ -3,16 +3,16 @@ import { formatNumber } from "../../../utils";
 
 const Score = ({ children: { vote_average, budget, revenue } }) =>
   vote_average > 0 || budget || revenue ? (
-    <table className="w-full lg:w-1/2 mx-auto mt-6 shadow-inner bg-green-100 bg-opacity-95 rounded-full">
+    <table className="w-full lg:w-1/2 mx-auto mt-6 shadow-inner bg-blue-100 bg-opacity-95 rounded-full">
       <thead>
-        <tr className="text-base text-green-800">
-          {vote_average > 0 ? <th>Score</th> : undefined}
-          {budget ? <th>Budget</th> : undefined}
-          {revenue ? <th>Box-office</th> : undefined}
+        <tr className="text-base text-blue-600">
+          {vote_average > 0 ? <th className="font-semibold">Score</th> : undefined}
+          {budget ? <th className="font-semibold">Budget</th> : undefined}
+          {revenue ? <th className="font-semibold">Box-office</th> : undefined}
         </tr>
       </thead>
       <tbody>
-        <tr className="text-sm text-green-600">
+        <tr className="text-sm text-blue-600">
           {vote_average > 0 ? (
             <td className="text-center">{`${vote_average * 10}%`}</td>
           ) : undefined}

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { useHistory, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 import AuthContext from "../../auth/AuthContext";
 import Submit from "../../components/Submit";

@@ -12,17 +12,17 @@ const Pane = ({
   },
 }) => (
   <div
-    className={`flex flex-col h-full bg-green-50 -mt-8 px-6 pt-6 rounded-t-2xl  ${
+    className={`flex flex-col h-full bg-blue-50 -mt-8 px-6 pt-6 rounded-t-2xl  ${
       trailers.length > 0 ? undefined : "lg:max-h-screen"
     } z-10 relative`}
   >
     {production_companies ? (
       <>
-        <div className="flex flex-col lg:flex-row justify-between items-start w-full text-green-800">
+        <div className="flex flex-col lg:flex-row justify-between items-start w-full text-blue-600">
           <GoToHome />
 
           <div className="w-full">
-            <h2 className="text-xl text-green-800 text-center font-semibold">
+            <h2 className="text-xl text-blue-600 text-center font-medium">
               {production_companies.filter((p) => p.logo_path).length > 1
                 ? "Sociétés"
                 : "Société"}{" "}
@@ -32,7 +32,7 @@ const Pane = ({
               {production_companies.filter((p) => p.logo_path).length === 0
                 ? production_companies.slice(0, 2).map((p) => (
                     <li key={p.id}>
-                      <p className="w-max mx-auto text-green-800 text-center text-xs font-medium">
+                      <p className="w-max mx-auto text-blue-600 text-center text-xs font-medium">
                         {p.name}
                       </p>
                     </li>
@@ -49,14 +49,14 @@ const Pane = ({
                             className="h-8 mx-auto"
                           />
                         ) : undefined}
-                        <p className="w-max mx-auto mt-2 text-green-800 text-center text-xs font-medium">
+                        <p className="w-max mx-auto mt-2 text-blue-600 text-center text-xs font-medium">
                           {p.name}
                         </p>
                       </li>
                     ))}
             </ul>
 
-            <h2 className="text-xl mb-4 text-center font-semibold">
+            <h2 className="text-xl mb-4 text-center font-medium">
               Distribution
             </h2>
             <ul
@@ -79,7 +79,7 @@ const Pane = ({
                         />
                       ) : undefined}
                       <div className="lg:ml-2 px-2 lg:px-4 py-2">
-                        <p className="w-max mx-auto px-2 shadow-inner font-bold text-white text-xs lg:text-sm bg-gradient-to-br from-green-800 to-green-400 rounded-full">
+                        <p className="w-max mx-auto px-2 shadow-inner font-semibold text-white text-xs lg:text-sm bg-gradient-to-br from-blue-600 to-blue-400 rounded-full">
                           {c.name}
                         </p>
                         <p className="mt-1 text-center text-xs lg:text-sm">
@@ -110,10 +110,10 @@ const Pane = ({
                   isOnPane
                 >
                   <div className="flex flex-col">
-                    <h3 className="font-bold text-lg text-center text-green-200">
+                    <h3 className="font-bold text-lg text-center text-blue-200">
                       Collection
                     </h3>
-                    <p className="ml-2 font-medium text-center text-green-200">
+                    <p className="ml-2 font-medium text-center text-blue-200">
                       {belongs_to_collection.name.split(" - ")[0]}
                     </p>
                   </div>
