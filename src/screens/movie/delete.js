@@ -7,7 +7,7 @@ import Submit from "../../components/Submit";
 
 const Delete = () => {
   const { user, movies } = useContext(AuthContext);
-  const history = useHistory();
+  const navigate = useNavigate();
   const { reference, title } = useParams();
   const [movie, setMovie] = useState({});
 
@@ -17,8 +17,8 @@ const Delete = () => {
         m.ref && m.title
           ? m.ref === reference &&
             m.title.toLowerCase() === decodeURIComponent(title.toLowerCase())
-          : undefined
-      )[0]
+          : undefined,
+      )[0],
     );
   }, [movies, title, reference]);
 
@@ -28,13 +28,13 @@ const Delete = () => {
     await axios
       .delete(
         `/api/collection/${user.movies._id}/${reference}/${encodeURIComponent(
-          title.toLowerCase()
-        )}`
+          title.toLowerCase(),
+        )}`,
       )
       .then((res) => res.data)
       .catch((err) => console.error(err.message));
 
-    history.push("/");
+    navigate.push("/");
     window.location.reload(false);
   };
 

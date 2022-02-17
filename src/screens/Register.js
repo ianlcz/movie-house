@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
-import { useHistory } from "react-router-dom";
+import { useHistory, useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -21,7 +21,7 @@ const Register = () => {
       .then((res) => console.log(res.data))
       .catch((err) => console.error(err.message));
 
-    history.push("/");
+    navigate.push("/");
   };
 
   return (

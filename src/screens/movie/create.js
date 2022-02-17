@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import AuthContext from "../../auth/AuthContext";
-import { useHistory } from "react-router-dom";
+import { useHistory, useNavigate } from "react-router-dom";
 import Card from "../../components/Movie/Card";
 import Submit from "../../components/Submit";
 import { Helmet } from "react-helmet";
 
 const Create = () => {
   const { user } = useContext(AuthContext);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [ref, setRef] = useState("");
   const [title, setTitle] = useState("");
   const [suggestion, setSuggestion] = useState([]);
@@ -49,7 +49,7 @@ const Create = () => {
         .then((res) => res.data)
         .catch((err) => console.error(err.message));
 
-      history.push(
+      navigate.push(
         `/movie/${encodeURIComponent(title.toLowerCase())}?year=${year}`,
       );
       window.location.reload(false);

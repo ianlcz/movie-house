@@ -20,9 +20,9 @@ const Body = ({
   <div className="w-full lg:ml-84 mt-6 lg:mt-0 lg:pt-8 text-green-800">
     {biography ? (
       <Section title="Biographie" isBiography>
-        <p className="leading-snug font-light text-sm lg:text-base text-justify">
+        <span className="leading-snug font-light text-sm lg:text-base text-justify">
           <ReactMarkdown>{biography}</ReactMarkdown>
-        </p>
+        </span>
       </Section>
     ) : undefined}
 

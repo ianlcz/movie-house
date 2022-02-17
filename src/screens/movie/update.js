@@ -11,7 +11,7 @@ import jwtDecode from "jwt-decode";
 const Update = () => {
   const user = jwtDecode(getCookieFromBrowser("authToken"));
   const { movies } = useContext(AuthContext);
-  const history = useHistory();
+  const navigate = useNavigate();
   const { reference, title } = useParams();
   const [newTitle, setNewTitle] = useState("");
   const [newRef, setNewRef] = useState("");
@@ -74,7 +74,7 @@ const Update = () => {
         .then((res) => res.data)
         .catch((err) => console.error(err.message));
 
-      history.push(
+      navigate.push(
         `/movie/${encodeURIComponent(newMovie.title).toLowerCase()}?year=${
           newMovie.year
         }`,

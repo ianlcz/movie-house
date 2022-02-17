@@ -10,15 +10,19 @@ import Register from "./screens/Register";
 const routes = [
   {
     path: "/",
-    component: localStorage.getItem("authToken") ? Home : Login,
+    component: localStorage.getItem("authToken") ? <Home/> : <Login/>,
     isProtected: false,
   },
-  { path: "/register", component: Register, isProtected: false },
-  { path: "/new", component: Create, isProtected: true },
-  { path: "/movie/:title", component: Read, isProtected: true },
-  { path: "/edit/:reference/:title", component: Update, isProtected: true },
-  { path: "/delete/:reference/:title", component: Delete, isProtected: true },
-  { path: "/credit/:title", component: Credit, isProtected: true },
+  { path: "/register", component: <Register />, isProtected: false },
+  { path: "/new", component: <Create />, isProtected: true },
+  { path: "/movie/:title", component: <Read />, isProtected: true },
+  { path: "/edit/:reference/:title", component: <Update />, isProtected: true },
+  {
+    path: "/delete/:reference/:title",
+    component: <Delete />,
+    isProtected: true,
+  },
+  { path: "/credit/:title", component: <Credit />, isProtected: true },
 ];
 
 export default routes;

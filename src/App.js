@@ -1,17 +1,19 @@
-import { Switch, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import routes from "./routes";
 
 const App = () => (
-  <Switch>
+  <Routes>
     {routes.map((r) =>
       r.isProtected ? (
-        <ProtectedRoute exact path={r.path} component={r.component} />
+        <Route exact element={<ProtectedRoute />} key={r.path}>
+          <Route exact path={r.path} element={r.component} />
+        </Route>
       ) : (
-        <Route exact path={r.path} component={r.component} />
+        <Route exact path={r.path} element={r.component} key={r.path} />
       ),
     )}
-  </Switch>
+  </Routes>
 );
 
 export default App;

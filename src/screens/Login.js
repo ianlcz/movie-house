@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import axios from "axios";
 import AuthContext from "../auth/AuthContext";
 import { Helmet } from "react-helmet";
 

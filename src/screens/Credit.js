@@ -9,7 +9,7 @@ import GoToHome from "../components/Movie/Pane/GoToHome";
 import Footer from "../components/Footer";
 
 const Credit = () => {
-  const { id } = useParams();
+  const { title } = useParams();
   const [people, setPeople] = useState({});
   const [bestMovies, setBestMovies] = useState([]);
   const [filmography, setFilmography] = useState({});
@@ -19,13 +19,13 @@ const Credit = () => {
     const fetchData = async () => {
       const peopleData = await axios
         .get(
-          `https://api.themoviedb.org/3/person/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`,
+          `https://api.themoviedb.org/3/person/${title}?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`,
         )
         .then((res) => res.data)
         .catch((err) => console.error(err.message));
       const movies = await axios
         .get(
-          `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`,
+          `https://api.themoviedb.org/3/person/${title}/movie_credits?api_key=${process.env.REACT_APP_API_KEY}&language=fr-FR`,
         )
         .then((res) => res.data)
         .catch((err) => console.error(err.message));
@@ -62,7 +62,7 @@ const Credit = () => {
       setFilmography(movies);
     };
     fetchData();
-  }, [id]);
+  }, [title]);
 
   const {
     profile_path,

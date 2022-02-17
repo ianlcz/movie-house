@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useNavigate } from "react-router-dom";
 import { IoInformationCircle, IoSyncCircle } from "react-icons/io5";
-import axios from "axios";
 import AuthContext from "../auth/AuthContext";
 import List from "./Movie/List";
 import TitlePage from "./TitlePage";
@@ -10,7 +9,7 @@ import Suggestions from "./Suggestions";
 
 const SearchBar = () => {
   const { user, movies } = useContext(AuthContext);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [result, setResult] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [code, setCode] = useState(0);
