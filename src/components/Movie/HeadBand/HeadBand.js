@@ -87,7 +87,7 @@ const HeadBand = ({
 
         <div className="flex flex-col w-full lg:w-3/5 mt-6 lg:mt-0">
           {ref && new Date(release_date).getTime() < new Date().getTime() ? (
-            <p className="w-16 mx-auto mb-2 px-2 py-0.5 text-xs text-center font-semibold rounded-full shadow-inner bg-gradient-to-br from-blue-600 to-blue-400">
+            <p className="w-16 mx-auto mb-2 px-2 py-0.5 text-xs text-center font-medium rounded-full shadow bg-gradient-to-tr from-blue-600 to-blue-400">
               {ref}
             </p>
           ) : undefined}
@@ -118,7 +118,7 @@ const HeadBand = ({
             </span>
           ) : undefined}
 
-          <div className="flex flex-row items-center lg:w-max mx-auto mt-2 lg:mt-0">
+          <div className="flex flex-row items-center lg:w-max mx-auto mt-2 lg:my-4">
             {genres && (
               <>
                 <ul className="flex flex-row">
@@ -153,10 +153,12 @@ const HeadBand = ({
                       ))}
                 </ul>
 
-                <>
-                  <p className="mx-2">&bull;</p>
-                  <ReadingTime>{runtime}</ReadingTime>
-                </>
+                {runtime > 0 ? (
+                  <>
+                    <p className="mx-2">&bull;</p>
+                    <ReadingTime>{runtime}</ReadingTime>
+                  </>
+                ) : undefined}
               </>
             )}
           </div>
@@ -164,9 +166,7 @@ const HeadBand = ({
           <Section title="Un film de" content={directors} />
 
           {tagline ? (
-            <p className="mb-2 text-blue-100 font-medium text-sm italic">
-              {tagline}
-            </p>
+            <p className="mb-2 text-blue-100 font-light text-sm">{tagline}</p>
           ) : undefined}
 
           {overview ? (
