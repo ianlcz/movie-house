@@ -95,64 +95,64 @@ const Pane = ({ movies, gender }) => {
             {i.year}
           </p>
 
-          <ul className="w-full lg:w-max px-6 py-4 lg:px-8 lg:py-4 rounded-b-xl lg:rounded-bl-none lg:rounded-r-xl bg-white truncate overflow-ellipsis shadow">
+          <ul className="w-full lg:w-max rounded-b-xl lg:rounded-bl-none lg:rounded-r-xl bg-white truncate overflow-ellipsis shadow">
             {i.movies.map((m) => (
-              <li key={m.id} className="mb-3 last:mb-0">
-                <div className="flex flex-row items-center">
-                  <a
-                    className="text-sm lg:text-base font-semibold w-max mr-2 truncate"
-                    href={`/movie/${m.title.toLowerCase()}?year=${String(
-                      new Date(m.release_date).getFullYear(),
-                    )}`}
-                  >
-                    {m.title}
-                  </a>
+              <li
+                key={m.id}
+                className="px-6 py-4 lg:px-8 lg:py-4 hover:bg-blue-100 hover:shadow-inner cursor-pointer"
+              >
+                <a
+                  href={`/movie/${m.title.toLowerCase()}?year=${String(
+                    new Date(m.release_date).getFullYear(),
+                  )}`}
+                >
+                  <div className="flex flex-row items-center w-full text-sm lg:text-base font-medium truncate">
+                    <span className="mr-4">{m.title}</span>
 
-                  {m.vote_average > 0 ? (
-                    <p
-                      className={`px-2 rounded-full text-xs lg:text-sm font-medium ${
-                        m.vote_average < 5
-                          ? "text-red-500 bg-red-100"
-                          : m.vote_average < 7.5
-                          ? "text-yellow-500 bg-yellow-100"
-                          : "text-green-500 bg-green-100"
-                      }`}
-                    >
-                      {m.vote_average * 10}%
+                    {m.vote_average > 0 ? (
+                      <p
+                        className={`ml-auto px-2 rounded-full text-xs lg:text-sm font-medium ${
+                          m.vote_average < 5
+                            ? "text-red-500 bg-red-100"
+                            : m.vote_average < 7.5
+                            ? "text-yellow-500 bg-yellow-100"
+                            : "text-green-500 bg-green-100"
+                        }`}
+                      >
+                        {m.vote_average * 10}%
+                      </p>
+                    ) : undefined}
+                  </div>
+                  {m.character ? (
+                    <div className="flex flex-row text-sm lg:text-base">
+                      <span className="mr-1 lg:mr-2 text-blue-500">
+                        incarnant
+                      </span>
+                      <p className="w-max md:w-max lg:min-w-max truncate">
+                        {isMobileOnly
+                          ? m.character
+                          : m.character.split(" / ").slice(0, 6).join(" / ")}
+                      </p>
+                    </div>
+                  ) : undefined}
+                  {m.job ? (
+                    <p className="text-sm">
+                      {traductions.filter((t) =>
+                        m.job ? t.en === m.job : undefined,
+                      )[0]
+                        ? typeof traductions.filter((t) =>
+                            m.job ? t.en === m.job : undefined,
+                          )[0].fr === "object"
+                          ? traductions.filter((t) =>
+                              m.job ? t.en === m.job : undefined,
+                            )[0].fr[gender]
+                          : traductions.filter((t) =>
+                              m.job ? t.en === m.job : undefined,
+                            )[0].fr
+                        : undefined}
                     </p>
                   ) : undefined}
-                </div>
-
-                {m.character ? (
-                  <div className="flex flex-row text-sm lg:text-base">
-                    <span className="mr-1 lg:mr-2 text-blue-500">
-                      incarnant
-                    </span>
-                    <p className="w-max md:w-max lg:min-w-max truncate">
-                      {isMobileOnly
-                        ? m.character
-                        : m.character.split(" / ").slice(0, 6).join(" / ")}
-                    </p>
-                  </div>
-                ) : undefined}
-
-                {m.job ? (
-                  <p className="text-sm">
-                    {traductions.filter((t) =>
-                      m.job ? t.en === m.job : undefined,
-                    )[0]
-                      ? typeof traductions.filter((t) =>
-                          m.job ? t.en === m.job : undefined,
-                        )[0].fr === "object"
-                        ? traductions.filter((t) =>
-                            m.job ? t.en === m.job : undefined,
-                          )[0].fr[gender]
-                        : traductions.filter((t) =>
-                            m.job ? t.en === m.job : undefined,
-                          )[0].fr
-                      : undefined}
-                  </p>
-                ) : undefined}
+                </a>
               </li>
             ))}
           </ul>
