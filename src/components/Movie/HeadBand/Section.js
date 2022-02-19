@@ -13,27 +13,33 @@ const Section = ({ title, content }) =>
               {c.profile_path ? (
                 <img
                   src={`https://image.tmdb.org/t/p/original/${c.profile_path}`}
-                  alt={`Profil de : ${c.name}`}
-                  className="mr-2 rounded-full w-8 h-8 object-cover shadow"
+                  alt={`Profil de ${c.name}`}
+                  className="mr-2 rounded-full w-7 h-7 object-cover shadow-md"
                 />
               ) : undefined}
               <p className="text-sm">
-                <span className="font-light">
-                  {c.name.split(" ").slice(0, -1).join(" ")}
-                </span>
-                <span className="ml-1 font-medium">
-                  {c.name.split(" ").slice(-1)}
+                <span className="font-light">{`${c.name.split(" ")[0]} `}</span>
+                <span className="font-medium">
+                  {c.name.split(" ").slice(1).join(" ")}
                 </span>
               </p>
             </>
           );
 
           return (
-            <li key={c.id}>
+            <li
+              key={c.id}
+              className={
+                c.profile_path
+                  ? "pr-2 hover:bg-blue-50 hover:bg-opacity-20 backdrop-filter hover:backdrop-blur-md rounded-full hover:shadow transition duration-1000 cursor-pointer"
+                  : ""
+              }
+            >
               {c.profile_path ? (
                 <a
                   href={`/credit/${c.id}`}
                   className="flex flex-row items-center"
+                  title="Voir le profil"
                 >
                   {body}
                 </a>

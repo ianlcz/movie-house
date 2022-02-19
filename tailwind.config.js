@@ -19,6 +19,7 @@ module.exports = {
       ringOpacity: ["responsive", "dark", "focus-within", "focus"],
       ringWidth: ["responsive", "focus-within", "focus"],
       margin: ["first", "last"],
+      backdropBlur: ["hover", "focus"],
     },
   },
   plugins: [require("@tailwindcss/aspect-ratio")],

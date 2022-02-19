@@ -99,7 +99,7 @@ const Pane = ({ movies, gender }) => {
             {i.movies.map((m) => (
               <li
                 key={m.id}
-                className="px-6 py-4 lg:px-8 lg:py-4 hover:bg-blue-100 hover:shadow-inner cursor-pointer"
+                className="px-6 py-4 lg:px-8 lg:py-4 hover:bg-blue-100 cursor-pointer"
               >
                 <a
                   href={`/movie/${m.title.toLowerCase()}?year=${String(
