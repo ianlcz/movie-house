@@ -74,7 +74,7 @@ const Update = () => {
         .then((res) => res.data)
         .catch((err) => console.error(err.message));
 
-      navigate.push(
+      navigate(
         `/movie/${encodeURIComponent(newMovie.title).toLowerCase()}?year=${
           newMovie.year
         }`,

@@ -49,7 +49,7 @@ const Create = () => {
         .then((res) => res.data)
         .catch((err) => console.error(err.message));
 
-      navigate.push(
+      navigate(
         `/movie/${encodeURIComponent(title.toLowerCase())}?year=${year}`,
       );
       window.location.reload(false);
