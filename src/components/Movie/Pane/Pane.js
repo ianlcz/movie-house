@@ -60,27 +60,36 @@ const Pane = ({
               Distribution
             </h2>
             <ul
-              className={`grid grid-flow-col grid-rows-3 lg:grid-rows-2 gap-x-4 gap-y-8 lg:gap-x-14`}
+              className={`grid grid-flow-col grid-cols-2 grid-rows-3 lg:grid-cols-3 gap-x-4 gap-y-8 lg:gap-x-6`}
             >
               {cast
                 .filter((p) => p.profile_path)
-                .slice(0, 6)
+                .slice(0, isMobileOnly ? 6 : 9)
                 .map((c) => (
-                  <li key={c.id}>
+                  <li
+                    key={c.id}
+                    className="w-fit lg:w-max pr-2 lg:pr-0 hover:bg-blue-100 rounded-xl transition duration-500 ease-in"
+                  >
                     <a
                       href={`/credit/${c.id}`}
-                      className="flex flex-row items-center w-4/5 mx-auto"
+                      className="flex flex-row items-center"
+                      title="Voir le profil"
                     >
                       {c.profile_path ? (
                         <img
                           src={`https://image.tmdb.org/t/p/original/${c.profile_path}`}
-                          alt={`Profil de : ${c.name}`}
-                          className="w-16 h-16 md:w-20 md:h-auto object-cover rounded-lg shadow-md"
+                          alt={`Profil de ${c.name}`}
+                          className="w-16 h-16 md:w-20 md:h-auto object-cover rounded-xl shadow-md"
                         />
                       ) : undefined}
                       <div className="lg:ml-2 px-2 lg:px-4 py-2">
-                        <p className="w-max mx-auto px-2 shadow-inner font-semibold text-white text-xs lg:text-sm bg-gradient-to-br from-blue-600 to-blue-400 rounded-full">
-                          {c.name}
+                        <p className="w-max mx-auto px-2 shadow-inner text-white text-xs lg:text-sm bg-gradient-to-br from-blue-600 to-blue-400 rounded-full">
+                          <span className="font-light">{`${
+                            c.name.split(" ")[0]
+                          } `}</span>
+                          <span className="font-medium">
+                            {c.name.split(" ").slice(1).join(" ")}
+                          </span>
                         </p>
                         <p className="mt-1 text-center text-xs lg:text-sm">
                           {c.character.split(" / ").slice(0, 6).join(" / ")}
