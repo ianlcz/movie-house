@@ -43,14 +43,16 @@ const HeadBand = ({
 
   useEffect(() => {
     const fetchStream = async () => {
-      setStreamPlatform(
-        await axios
-          .get(
-            `https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${process.env.REACT_APP_API_KEY}`,
-          )
-          .then((res) => res.data.results.FR.flatrate[0])
-          .catch((err) => console.error(err.message)),
-      );
+      const {
+        FR: { flatrate },
+      } = await axios
+        .get(
+          `https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${process.env.REACT_APP_API_KEY}`,
+        )
+        .then((res) => res.data.results)
+        .catch((err) => console.error(err.message));
+
+      setStreamPlatform(flatrate[0] ? flatrate[0] : undefined);
     };
     fetchStream();
   }, []);
