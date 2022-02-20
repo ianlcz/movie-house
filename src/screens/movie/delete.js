@@ -34,7 +34,7 @@ const Delete = () => {
       .then((res) => res.data)
       .catch((err) => console.error(err.message));
 
-    navigate.push("/");
+    navigate("/");
     window.location.reload(false);
   };
 

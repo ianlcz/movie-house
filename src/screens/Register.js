@@ -21,7 +21,7 @@ const Register = () => {
       .then((res) => console.log(res.data))
       .catch((err) => console.error(err.message));
 
-    navigate.push("/");
+    navigate("/");
   };
 
   return (
