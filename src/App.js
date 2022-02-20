@@ -2,7 +2,6 @@ import { Provider } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import routes from "./routes";
-import { fetchMovies } from "./store/effects/movies.effects";
 import { store } from "./store/store";
 
 const App = () => (

@@ -1,18 +1,26 @@
 import { useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useNavigate } from "react-router-dom";
 import { IoInformationCircle, IoSyncCircle } from "react-icons/io5";
 import AuthContext from "../auth/AuthContext";
+import { getAllMovies } from "../store/effects/movies.effect";
 import List from "./Movie/List";
 import TitlePage from "./TitlePage";
 import Actions from "./Actions";
 import Suggestions from "./Suggestions";
 
 const SearchBar = () => {
-  const { user, movies } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const movies = useSelector((state) => state.movies.data);
   const navigate = useNavigate();
   const [result, setResult] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [code, setCode] = useState(0);
+
+  useEffect(() => {
+    dispatch(getAllMovies());
+  }, [dispatch]);
 
   useEffect(() => {
     if (userInput !== "" || code != 0) {

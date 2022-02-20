@@ -1,8 +1,8 @@
-import { moviesActions } from "../actions/movies.actions";
+import { moviesActions } from "../actions/movies.action";
 
 const initialState = {
-  data: [],
   isLoading: false,
+  data: [],
 };
 
 export const moviesReducer = (state = initialState, action) => {
@@ -13,10 +13,10 @@ export const moviesReducer = (state = initialState, action) => {
     case moviesActions.ADD_NEW_MOVIE:
       return { ...state, data: state.data.concat(action.movies) };
 
-    case moviesActions.MOVIES_ARE_LOADING:
+    case moviesActions.IS_LOADING:
       return { ...state, isLoading: true };
 
     default:
-      return state
+      return state;
   }
 };

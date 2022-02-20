@@ -6,9 +6,11 @@ import AuthContext from "../../auth/AuthContext";
 import { getCookieFromBrowser } from "../../auth/cookies";
 import HeadBand from "../../components/Movie/HeadBand/HeadBand";
 import Pane from "../../components/Movie/Pane/Pane";
+import { useSelector } from "react-redux";
 
 const Read = () => {
-  const { getMovieInfo, movies } = useContext(AuthContext);
+  const { getMovieInfo } = useContext(AuthContext);
+  const movies = useSelector((state) => state.movies.data);
   const { title } = useParams();
   const [detail, setDetail] = useState({});
   const [directors, setDirectors] = useState([]);

@@ -1,6 +1,12 @@
-import { combineReducers, createStore } from "redux";
-import { moviesReducer } from "./reducers/movies.reducers";
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
+import ReduxThunk from "redux-thunk";
+import { moviesReducer } from "./reducers/movies.reducer";
 
 const reducers = combineReducers({ movies: moviesReducer });
 
-export const store = createStore(reducers);
+const composeEnhancer = compose;
+
+export const store = createStore(
+  reducers,
+  composeEnhancer(applyMiddleware(ReduxThunk)),
+);
