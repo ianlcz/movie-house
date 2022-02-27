@@ -52,7 +52,7 @@ const HeadBand = ({
         .then((res) => res.data.results)
         .catch((err) => console.error(err.message));
 
-      setStreamPlatform(flatrate[0] ? flatrate[0] : undefined);
+      setStreamPlatform(flatrate ? flatrate[0] : undefined);
     };
     fetchStream();
   }, []);

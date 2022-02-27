@@ -9,6 +9,9 @@ module.exports = {
       gridTemplateRows: {
         8: "repeat(8, minmax(0, 1fr))",
       },
+      aspectRatio: {
+        9.4: "9.4",
+      },
     },
   },
   variants: {
