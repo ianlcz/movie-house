@@ -13,7 +13,11 @@ const Pane = ({
 }) => (
   <div
     className={`flex flex-col bg-blue-50 -mt-8 px-6 pt-6 rounded-t-2xl ${
-      trailers.length > 0 ? "lg:min-h-screen" : "lg:min-h-screen"
+      trailers.length > 0
+        ? undefined
+        : belongs_to_collection
+        ? "lg:min-h-screen"
+        : "lg:max-h-screen"
     } z-10 relative`}
   >
     {production_companies ? (
