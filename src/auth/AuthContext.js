@@ -129,6 +129,17 @@ export const AuthProvider = ({ children }) => {
           .then((res) => res.data.results)
           .catch((err) => console.error(err.message));
 
+        movie.release_date = await axios
+          .get(
+            `https://api.themoviedb.org/3/movie/${movieID}/release_dates?api_key=${process.env.REACT_APP_API_KEY}`,
+          )
+          .then(
+            (res) =>
+              res.data.results.find((r) => r.iso_3166_1 === "FR")
+                .release_dates[0].release_date,
+          )
+          .catch((err) => console.error(err.message));
+
         movie.ref = ref;
 
         return {

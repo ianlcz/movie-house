@@ -45,6 +45,8 @@ const Read = () => {
     fetchData();
   }, [movies]);
 
+  console.log(detail);
+
   return detail.title ? (
     <>
       <Helmet>
