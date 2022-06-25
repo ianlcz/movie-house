@@ -113,7 +113,9 @@ const Pane = ({
               </>
             ) : undefined}
 
-            {belongs_to_collection && belongs_to_collection.backdrop_path ? (
+            {belongs_to_collection &&
+            belongs_to_collection.name &&
+            belongs_to_collection.backdrop_path ? (
               <div className="w-full lg:w-1/3 mx-auto mt-10">
                 <Background
                   data={{
