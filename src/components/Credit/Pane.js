@@ -119,7 +119,7 @@ const Pane = ({ movies, gender }) => {
                             : "text-green-500 bg-green-100"
                         }`}
                       >
-                        {m.vote_average * 10}%
+                        {Math.round(m.vote_average * 10)}%
                       </p>
                     ) : undefined}
                   </div>

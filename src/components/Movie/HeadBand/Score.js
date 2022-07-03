@@ -6,7 +6,9 @@ const Score = ({ children: { vote_average, budget, revenue } }) =>
     <table className="w-full lg:w-1/2 mx-auto mt-6 shadow-inner bg-blue-100 bg-opacity-95 rounded-full">
       <thead>
         <tr className="text-base text-blue-600">
-          {vote_average > 0 ? <th className="font-semibold">Score</th> : undefined}
+          {vote_average > 0 ? (
+            <th className="font-semibold">Score</th>
+          ) : undefined}
           {budget ? <th className="font-semibold">Budget</th> : undefined}
           {revenue ? <th className="font-semibold">Box-office</th> : undefined}
         </tr>
@@ -14,7 +16,9 @@ const Score = ({ children: { vote_average, budget, revenue } }) =>
       <tbody>
         <tr className="text-sm text-blue-600">
           {vote_average > 0 ? (
-            <td className="text-center">{`${vote_average * 10}%`}</td>
+            <td className="text-center">{`${Math.round(
+              vote_average * 10,
+            )}%`}</td>
           ) : undefined}
           {budget ? (
             <td className="text-center">{formatNumber(budget)}</td>
