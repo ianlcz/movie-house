@@ -13,8 +13,8 @@ const Poster = ({ children: { poster_path, title }, isCenter }) =>
             ? `Affiche du film : ${title}`
             : `Image de : ${title}`
         }
-        className={`w-52 lg:w-72 ${
-          isCenter ? "mx-auto" : ""
+        className={`w-52 ${
+          isCenter ? "mx-auto lg:w-72" : "lg:w-80"
         } object-cover rounded-xl shadow-xl`}
       />
     </a>
